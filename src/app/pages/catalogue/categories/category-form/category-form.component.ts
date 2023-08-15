@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { CategoryService } from '../services/category.service';
@@ -21,7 +21,7 @@ declare var $: any;
 })
 export class CategoryFormComponent implements OnInit {
   @Input() category: any;
-  form: FormGroup;
+  form: UntypedFormGroup;
   //category
   roots = [];
 
@@ -76,7 +76,7 @@ export class CategoryFormComponent implements OnInit {
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private categoryService: CategoryService,
     private configService: ConfigService,
     private storeService: StoreService,
@@ -163,7 +163,7 @@ export class CategoryFormComponent implements OnInit {
   }
 
   addFormArray() {
-    const control = <FormArray>this.form.controls.descriptions;
+    const control = <UntypedFormArray>this.form.controls.descriptions;
     this.languages.forEach(lang => {
       control.push(
         this.fb.group({
@@ -209,7 +209,7 @@ export class CategoryFormComponent implements OnInit {
         this.category.descriptions.forEach((description) => {
           if (desc.language === description.language) {
             //6 fields + language
-            (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
               language: description.language,
               name: description.name,
               highlights: description.highlights,
@@ -232,16 +232,16 @@ export class CategoryFormComponent implements OnInit {
     return this.form.get('selectedLanguage');
   }
 
-  get descriptions(): FormArray {
-    return <FormArray>this.form.get('descriptions');
+  get descriptions(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('descriptions');
   }
 
-  get titles(): FormArray {
-    return <FormArray>this.form.get('titles');
+  get titles(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('titles');
   }
 
-  get names(): FormArray {
-    return <FormArray>this.form.get('names');
+  get names(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('names');
   }
 
   selectLanguage(lang) {
@@ -252,7 +252,7 @@ export class CategoryFormComponent implements OnInit {
 
   changeName(event, index) {
     
-    (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+    (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
       friendlyUrl: slugify(event)
     });
 
@@ -367,13 +367,13 @@ export class CategoryFormComponent implements OnInit {
 
   public findInvalidControls(): string[] {
     var invalidControls: string[] = [];
-    let recursiveFunc = (form: FormGroup | FormArray) => {
+    let recursiveFunc = (form: UntypedFormGroup | UntypedFormArray) => {
       Object.keys(form.controls).forEach(field => {
         const control = form.get(field);
         if (control.invalid) invalidControls.push(field);
-        if (control instanceof FormGroup) {
+        if (control instanceof UntypedFormGroup) {
           recursiveFunc(control);
-        } else if (control instanceof FormArray) {
+        } else if (control instanceof UntypedFormArray) {
           recursiveFunc(control);
         }
       });

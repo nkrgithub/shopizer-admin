@@ -20,7 +20,7 @@
           <label class="col-sm-10 col-form-label inputLabel">{{ 'PROPERTY.PROPERTY' | translate}} *</label>
           <div class="col-sm-12">
             <p-dropdown [options]="options" placeholder="{{ 'PROPERTY.SELECT_PROPERTY' | translate}}"
-              formControlName='option' filter="true" (onChange)="onChangePropertyOption($event)">
+              formControlName='option' [filter]="true" (onChange)="onChangePropertyOption($event)">
               <ng-template let-item pTemplate="selectedItem">{{item.label}}</ng-template>
               <ng-template let-el pTemplate="item">{{el.label}}</ng-template>
             </p-dropdown>
@@ -54,7 +54,7 @@
           <label class="col-sm-10 col-form-label inputLabel">{{ 'PROPERTY.VALUE' | translate}} *</label>
           <div class="col-sm-12">
             <p-dropdown [options]="optionValues" placeholder="{{ 'PROPERTY.SELECT_VALUE' | translate}}"
-              formControlName='optionValue' filter="true">
+              formControlName='optionValue' [filter]="true">
               <ng-template let-item pTemplate="selectedItem">{{item.label}}</ng-template>
               <ng-template let-el pTemplate="item">{{el.label}}</ng-template>
             </p-dropdown>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { validators } from '../../../shared/validation/validators';
 import { CatalogService } from '../services/catalog.service';
@@ -17,7 +17,7 @@ import { Description } from '../../../shared/models/description';
 })
 export class CatalogueFormComponent implements OnInit {
   @ViewChild('tree', { static: false }) tree;
-  form: FormGroup;
+  form: UntypedFormGroup;
   loader: boolean = false;
   isCodeUnique = true;
   nodes = [];
@@ -37,7 +37,7 @@ export class CatalogueFormComponent implements OnInit {
   constructor(
     //https://github.com/khan4019/tree-grid-directive
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private catalogService: CatalogService,
     private dialogService: NbDialogService,
     private toastr: ToastrService,

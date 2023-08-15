@@ -33,7 +33,7 @@
                 attr.aria-selected={{item.value.selected}} attr.data-code={{item.key}}
                 id="{{cid}}_list_item_{{item.key}}"
                 *ngFor= "let item of itemsMap| keyvalue|keywordsearch:'label':search" >
-                <i *ngIf="item.value.selected==true" class="fa fa-check" attr.aria-hidden="true"></i>
+                <i *ngIf="item.value.selected==true" class="fa fa-check" aria-hidden="true"></i>
 
                 {{item.value.label}}
 

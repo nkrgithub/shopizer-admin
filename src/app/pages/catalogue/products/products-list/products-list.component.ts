@@ -1,4 +1,5 @@
-import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
+//import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { AvailableButtonComponent } from './available-button.component';

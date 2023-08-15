@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfigService } from '../../shared/services/config.service';
 import { StoreService } from '../services/store.service';
@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./store-landing-page.component.scss']
 })
 export class StoreLandingPageComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   store;
   languages = [];
   selectedItem = '1';
@@ -59,7 +59,7 @@ export class StoreLandingPageComponent implements OnInit {
   page;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private configService: ConfigService,
     private storeService: StoreService,
     private toastrService: ToastrService,
@@ -104,7 +104,7 @@ export class StoreLandingPageComponent implements OnInit {
   }
 
   addFormArray() {
-    const control = <FormArray>this.form.controls.descriptions;
+    const control = <UntypedFormArray>this.form.controls.descriptions;
     this.languages.forEach(lang => {
       control.push(
         this.fb.group({
@@ -136,7 +136,7 @@ export class StoreLandingPageComponent implements OnInit {
     this.form.value.descriptions.forEach((desc, index) => {
       this.page.descriptions.forEach((description) => {
         if (desc.language === description.language) {
-          (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+          (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
             language: description.language,
             name: description.name,
             metaDescription: description.metaDescription,
@@ -152,8 +152,8 @@ export class StoreLandingPageComponent implements OnInit {
     return this.form.get('selectedLanguage');
   }
 
-  get descriptions(): FormArray {
-    return <FormArray>this.form.get('descriptions');
+  get descriptions(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('descriptions');
   }
 
   save() {

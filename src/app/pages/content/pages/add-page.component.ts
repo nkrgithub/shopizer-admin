@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CrudService } from '../../shared/services/crud.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -22,7 +22,7 @@ export class AddPageComponent implements OnInit {
 
   loader = false;
   uniqueCode: string;//identifier fromroute
-  form: FormGroup;
+  form: UntypedFormGroup;
   content: any;
 
   loadingList = false;
@@ -72,7 +72,7 @@ export class AddPageComponent implements OnInit {
     private configService: ConfigService,
     private dialogService: NbDialogService,
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private translate: TranslateService
   ) {
 
@@ -127,7 +127,7 @@ export class AddPageComponent implements OnInit {
   }
 
   addFormArray() {
-    const control = <FormArray>this.form.controls.descriptions;
+    const control = <UntypedFormArray>this.form.controls.descriptions;
     this.languages.forEach(lang => {
       control.push(
         this.fb.group({
@@ -161,7 +161,7 @@ export class AddPageComponent implements OnInit {
       if (this.content != null && this.content.descriptions) {
         this.content.descriptions.forEach((description) => {
           if (desc.language === description.language) {
-            (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
               language: description.language,
               name: description.name,
               friendlyUrl: description.friendlyUrl,
@@ -204,8 +204,8 @@ export class AddPageComponent implements OnInit {
     return this.form.get('code');
   }
 
-  get descriptions(): FormArray {
-    return <FormArray>this.form.get('descriptions');
+  get descriptions(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('descriptions');
   }
 
   get selectedLanguage() {
@@ -221,7 +221,7 @@ export class AddPageComponent implements OnInit {
       });
   }
   urlTitle(event, index) {
-    (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+    (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
       friendlyUrl: slugify(event)
     });
   }

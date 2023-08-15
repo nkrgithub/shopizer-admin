@@ -11,28 +11,27 @@ import { CategoryFormComponent } from './category-form/category-form.component';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
 import { NgxSummernoteModule } from 'ngx-summernote';
 import { NbDialogModule } from '@nebular/theme';
-import { TreeModule, TreeDraggedElement } from 'angular-tree-component';
+import { TreeModule, TreeDraggedElement } from '@circlon/angular-tree-component';
 
 
 @NgModule({
-  declarations: [
-    CategoriesComponent,
-    CategoryCreationComponent,
-    CategoriesListComponent,
-    CategoriesHierarchyComponent,
-    ButtonRenderComponent,
-    CategoryFormComponent,
-    CategoryDetailComponent,
-  ],
-  imports: [
-    CategoriesRoutingModule,
-    SharedModule,
-    NgxSummernoteModule,
-    NbDialogModule.forChild(),
-    TreeModule
-  ],
-  entryComponents: [ButtonRenderComponent],
-  providers: [TreeDraggedElement]
+    declarations: [
+        CategoriesComponent,
+        CategoryCreationComponent,
+        CategoriesListComponent,
+        CategoriesHierarchyComponent,
+        ButtonRenderComponent,
+        CategoryFormComponent,
+        CategoryDetailComponent,
+    ],
+    imports: [
+        CategoriesRoutingModule,
+        SharedModule,
+        NgxSummernoteModule,
+        NbDialogModule.forChild(),
+        TreeModule
+    ],
+    providers: [TreeDraggedElement]
 })
 
 export class CategoriesModule {

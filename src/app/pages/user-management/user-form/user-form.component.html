@@ -146,10 +146,15 @@
           </div>
         </div>
 
+        <!-- Modified NKR -->
         <div class="form-group">
           <label class="col-sm-3 col-form-label inputLabel">{{ 'USER_FORM.GROUPS' | translate }} *</label>
           <div class="col-sm-12 group-block">
-            <nb-checkbox *ngFor="let group of groups" [value]="group.checked" (change)="group.checked = !group.checked"
+            <!-- <nb-checkbox *ngFor="let group of groups" [value]="group.checked" (change)="group.checked = !group.checked"
+            [disabled]="group.disabled">
+            {{ group.name }}
+          </nb-checkbox> -->
+            <nb-checkbox *ngFor="let group of groups" [checked]="group.checked" (change)="group.checked = !group.checked"
               [disabled]="group.disabled">
               {{ group.name }}
             </nb-checkbox>

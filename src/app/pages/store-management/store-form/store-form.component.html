@@ -178,7 +178,12 @@
           <label class="col-sm-10 col-form-label inputLabel">{{ 'STORE_FORM.SUPPORTED_LANGUAGES' | translate }}
             *</label>
           <div class="col-sm-12 group-block">
-            <nb-checkbox *ngFor="let language of supportedLanguages" [value]="userHasSupportedLanguage(language)"
+            <!-- Modified by NKR -->
+            <!-- <nb-checkbox *ngFor="let language of supportedLanguages" [value]="userHasSupportedLanguage(language)"
+              (change)="addSupportedLanguage(language.code)">
+              {{ ('LANG.'+language.code) | translate }}
+            </nb-checkbox> -->
+            <nb-checkbox *ngFor="let language of supportedLanguages" [checked]="userHasSupportedLanguage(language)"
               (change)="addSupportedLanguage(language.code)">
               {{ ('LANG.'+language.code) | translate }}
             </nb-checkbox>

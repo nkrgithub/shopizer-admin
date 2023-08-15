@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router, UrlTree, UrlSegment, UrlSegmentGroup, PRIMARY_OUTLET } from '@angular/router';
 
 import { ConfigService } from '../../shared/services/config.service';
@@ -18,7 +18,7 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   @Input() title: string;
   private _user: User;
 
@@ -93,7 +93,7 @@ export class UserFormComponent implements OnInit {
   loader = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private configService: ConfigService,
     private userService: UserService,
     private storeService: StoreService,
@@ -236,7 +236,7 @@ export class UserFormComponent implements OnInit {
       this.loader = false;
     });
   }
-  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+  checkPasswords(group: UntypedFormGroup) { // here we have the 'passwords' group
     const password = group.get('password').value;
     const confirmPassword = group.get('repeatPassword').value;
     return password === confirmPassword ? null : { notSame: true }

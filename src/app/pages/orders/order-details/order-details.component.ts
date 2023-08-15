@@ -27,7 +27,9 @@ export class OrderDetailsComponent implements OnInit {
   historyListData: Array<any> = [];
   transactionListData: Array<any> = [];
   statusList: Array<any> = [{ 'name': 'ORDERED', 'id': 'ORDERED' }, { 'name': 'PROCESSED', 'id': 'PROCESSED' }, { 'name': 'DELIVERED', 'id': 'DELIVERED' }, { 'name': 'REFUNDED', 'id': 'REFUNDED' }, { 'name': 'CANCELED', 'id': 'CANCELED' }]
-  public scrollbarOptions = { axis: 'y', theme: 'minimal-dark' };
+  //public scrollbarOptions = { axis: 'y', theme: 'minimal-dark' };
+  // Modified by NKR
+  public scrollbarOptions:MCustomScrollbar.CustomScrollbarOptions = { axis: 'y', theme: 'minimal-dark' };
   info = {
     userName: '',
     language: '',

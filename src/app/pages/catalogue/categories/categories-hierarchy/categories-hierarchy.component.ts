@@ -3,6 +3,7 @@ import { CategoryService } from '../services/category.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from '../../../shared/services/storage.service';
+import { ITreeOptions} from "@circlon/angular-tree-component";
 
 @Component({
   selector: 'ngx-categories-hierarchy',
@@ -12,6 +13,9 @@ import { StorageService } from '../../../shared/services/storage.service';
 export class CategoriesHierarchyComponent implements OnInit {
   @ViewChild('tree', { static: false }) tree;
   nodes = [];
+  public treeOptions: ITreeOptions = {
+    allowDrag: true
+  };
   options = {
     allowDrag: true
   }

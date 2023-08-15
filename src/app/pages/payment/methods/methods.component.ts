@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { TranslateService } from '@ngx-translate/core';
-import { error } from '@angular/compiler/src/util';
+//import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'ngx-payment-methods',

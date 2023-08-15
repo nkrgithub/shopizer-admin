@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class UploadComponent {
 
   files: File[] = [];
-  validDrag: Boolean;
+  validDrag: boolean;
   @Input() multi: string
 
   @Input() onUpload = (files: File[]) => { };

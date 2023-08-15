@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { OptionService } from '../services/option.service';
 import { OptionValuesService } from '../services/option-values.service';
 import { ToastrService } from 'ngx-toastr';
@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { validators } from '../../../shared/validation/validators';
 import { StorageService } from '../../../shared/services/storage.service';
 import { TypesService } from '../../types/services/types.service';
-import { error } from '@angular/compiler/src/util';
+//import { error } from '@angular/compiler/src/util';
 @Component({
   selector: 'ngx-option-set',
   templateUrl: './option-set.component.html',
@@ -33,12 +33,12 @@ export class OptionSetComponent implements OnInit {
     readOnly: false
   }
   loading: boolean = false;
-  form: FormGroup;
+  form: UntypedFormGroup;
   productOption: Array<any> = [];
   productOptionValue: Array<any> = [];
   productTypes: Array<any> = [];
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private optionService: OptionService,
     private optionValuesService: OptionValuesService,

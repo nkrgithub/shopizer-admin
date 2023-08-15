@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { StorageService } from '../services/storage.service';
@@ -9,7 +9,7 @@ import { SecurityService } from '../../shared/services/security.service';
 @Injectable({
   providedIn: 'root'
 })
-export class MarketplaceGuard implements CanActivate {
+export class MarketplaceGuard  {
 
   mode = environment.mode;
 

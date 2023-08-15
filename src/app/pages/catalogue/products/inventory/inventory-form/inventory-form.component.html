@@ -55,7 +55,7 @@
                 <div class="form-group">
                   <label class="col-form-label inputLabel">{{ 'INVENTORY.INVENTORY_STORE' | translate}}</label>
                   <div>
-                    <p-dropdown *ngIf="stores.length" [options]="stores" formControlName='store' filter="true">
+                    <p-dropdown *ngIf="stores.length" [options]="stores" formControlName='store' [filter]="true">
                       <ng-template let-item pTemplate="selectedItem">{{item.label}}</ng-template>
                       <ng-template let-car pTemplate="item">{{car.label}}</ng-template>
                     </p-dropdown>
@@ -197,7 +197,7 @@
                 <div class="form-group">
                   <label class="col-form-label inputLabel">{{ 'Variation' | translate}}</label>
 
-                  <p-dropdown [options]="stores" formControlName='store' filter="true">
+                  <p-dropdown [options]="stores" formControlName='store' [filter]="true">
                     <ng-template let-item pTemplate="selectedItem">{{item.label}}</ng-template>
                     <ng-template let-car pTemplate="item">{{car.label}}</ng-template>
                   </p-dropdown>
@@ -248,7 +248,6 @@
                 </div>
               </div>
             </div>
-
 
           </nb-card-body>
         </nb-card>

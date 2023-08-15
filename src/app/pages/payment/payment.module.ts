@@ -10,21 +10,18 @@ import { NgxSummernoteModule } from 'ngx-summernote';
 import { PaymentMethodsComponent } from './methods/methods.component';
 import { ConfigureComponent } from './configure-form/configure.component';
 @NgModule({
-  declarations: [
-    PaymentComponent,
-    PaymentMethodsComponent,
-    ConfigureComponent
-  ],
-  entryComponents: [
-
-  ],
-  imports: [
-    PaymentRoutingModule,
-    SharedModule,
-    CustomModule,
-    NbDialogModule.forChild(),
-    MalihuScrollbarModule.forRoot(),
-    NgxSummernoteModule
-  ]
+    declarations: [
+        PaymentComponent,
+        PaymentMethodsComponent,
+        ConfigureComponent
+    ],
+    imports: [
+        PaymentRoutingModule,
+        SharedModule,
+        CustomModule,
+        NbDialogModule.forChild(),
+        MalihuScrollbarModule.forRoot(),
+        NgxSummernoteModule
+    ]
 })
 export class PaymentModule { }

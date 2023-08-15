@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 
 import { ProductGroupsService } from '../services/product-groups.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ import { ProductService } from '../../products/services/product.service';
   styleUrls: ['./product-group-form.component.scss']
 })
 export class ProductGroupFormComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   isCodeUnique = true;
   uniqueCode: string;
   loading: boolean = false;
@@ -27,7 +27,7 @@ export class ProductGroupFormComponent implements OnInit {
   itemsParams = this.loadItemsParams();
   products: Array<any> = [];
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private productGroupsService: ProductGroupsService,
     private router: Router,
     private activatedRoute: ActivatedRoute,

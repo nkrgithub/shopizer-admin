@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service';
@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   errorMessage = '';
   showPass = 0;
   isSubmitted = false;
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
   isRemember: Boolean = false;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private router: Router,
     private tokenService: TokenService,

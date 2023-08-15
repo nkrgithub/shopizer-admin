@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Location, PlatformLocation } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
+import { UntypedFormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 // import { TokenService } from '../services/token.service';
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
   countries: Array<any> = [];
   provinces: Array<any> = [];
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private router: Router,
     // private tokenService: TokenService,

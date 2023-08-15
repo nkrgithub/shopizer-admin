@@ -12,26 +12,20 @@ import { NbDialogModule } from '@nebular/theme';
 import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
 import { CustomModule } from '../custom-component/custom.module';
 @NgModule({
-  declarations: [
-    OrdersComponent,
-    OrderListComponent,
-    OrderDetailsComponent,
-    OrderInvoiceComponent,
-    OrderHistoryComponent,
-    OrderTransactionComponent
-  ],
-  entryComponents: [
-    OrderInvoiceComponent,
-    OrderHistoryComponent,
-    OrderTransactionComponent
-  ],
-  imports: [
-    OrdersRoutingModule,
-
-    SharedModule,
-    NbDialogModule.forChild(),
-    MalihuScrollbarModule.forRoot(),
-    CustomModule
-  ]
+    declarations: [
+        OrdersComponent,
+        OrderListComponent,
+        OrderDetailsComponent,
+        OrderInvoiceComponent,
+        OrderHistoryComponent,
+        OrderTransactionComponent
+    ],
+    imports: [
+        OrdersRoutingModule,
+        SharedModule,
+        NbDialogModule.forChild(),
+        MalihuScrollbarModule.forRoot(),
+        CustomModule
+    ]
 })
 export class OrdersModule { }

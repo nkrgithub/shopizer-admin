@@ -17,7 +17,7 @@
       </nb-card-header>
     </div>
     <p-pickList sourceHeader="{{ 'COMMON.AVAILABLE' | translate}}" targetHeader="{{ 'COMMON.SELECTED' | translate}}"
-      dragdrop="true" [responsive]="true" [source]="availableList" [target]="selectedList" sourceFilterPlaceholder="{{ 'COMMON.SEARCH' | translate}}"
+      [dragdrop]="true" [responsive]="true" [source]="availableList" [target]="selectedList" sourceFilterPlaceholder="{{ 'COMMON.SEARCH' | translate}}"
       targetFilterPlaceholder="{{ 'COMMON.SEARCH' | translate}}" [showSourceControls]="false" [showTargetControls]="false"
       [disabled]="!selectedGroup" (onMoveToTarget)="moveEvent($event, 'toTarget')" (onMoveToSource)="moveEvent($event, 'toSource')"
       (onMoveAllToTarget)="moveEvent($event, 'allToTarget')" (onMoveAllToSource)="moveEvent($event, 'allToSource')"

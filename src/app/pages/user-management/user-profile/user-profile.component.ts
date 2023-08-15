@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/models/user';
 
@@ -9,7 +9,7 @@ import { User } from '../../shared/models/user';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   user: User;
   loading = false;
 

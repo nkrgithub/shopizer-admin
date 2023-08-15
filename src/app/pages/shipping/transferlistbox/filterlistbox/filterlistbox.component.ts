@@ -396,4 +396,9 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
       item.selected = selected;
     });
   }
+  // Modified by NKR
+  onDelete(event) {
+    // todo: nkr need to implement
+    console.log("need to implement");
+  }
 }

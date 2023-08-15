@@ -7,7 +7,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { Router } from '@angular/router';
 // import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 import { TranslateService } from '@ngx-translate/core';
-import { error } from '@angular/compiler/src/util';
+//import { error } from '@angular/compiler/src/util';
 @Component({
   selector: 'ngx-order-list',
   templateUrl: './order-list.component.html',

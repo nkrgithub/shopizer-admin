@@ -250,7 +250,7 @@
               <div class="form-group">
                 <label class="col-sm-3 col-form-label inputLabel">{{ 'CUSTOMERS.GROUPS' | translate }} *</label>
                 <div class="col-sm-12 group-block">
-                  <nb-checkbox *ngFor="let group of groups" (change)="addRole(group)" [value]="group.checked"
+                  <nb-checkbox *ngFor="let group of groups" (change)="addRole(group)" [checked]="group.checked"
                     [disabled]="group.disabled">
                     {{ group.name }}
                   </nb-checkbox>

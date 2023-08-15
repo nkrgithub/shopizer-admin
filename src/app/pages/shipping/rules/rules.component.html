@@ -76,7 +76,7 @@
                   </div> -->
                   <label class="label inputLabel">{{ 'STORE.MERCHANT_STORE' | translate }}</label>
                   <p-dropdown [options]="stores" placeholder="{{ 'STORE.MERCHANT_STORE' | translate}}" [(ngModel)]="rules.store"
-                    dataKey="rules.store" name="store" filter="true">
+                    dataKey="rules.store" name="store" [filter]="true">
                     <ng-template let-item pTemplate="selectedItem">{{item.label}}</ng-template>
                     <ng-template let-el pTemplate="item">{{el.label}}</ng-template>
                   </p-dropdown>

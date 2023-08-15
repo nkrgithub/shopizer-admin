@@ -56,6 +56,7 @@ import {
 import { SampleLayoutComponent } from "./layouts";
 import { DEFAULT_THEME } from "./styles/theme.default";
 import { CORPORATE_THEME } from "./styles/theme.corporate";
+import { COSMIC_THEME } from "./styles/theme.cosmic";
 import { TranslateModule } from "@ngx-translate/core";
 import { ErrorComponent } from "./components/error/error.component";
 
@@ -119,7 +120,7 @@ const NB_THEME_PROVIDERS = [
     {
       name: "corporate",
     },
-    [DEFAULT_THEME, CORPORATE_THEME]
+    [DEFAULT_THEME, CORPORATE_THEME,COSMIC_THEME]
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,

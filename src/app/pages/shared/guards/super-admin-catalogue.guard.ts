@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { StorageService } from '../services/storage.service';
@@ -7,7 +7,7 @@ import { StorageService } from '../services/storage.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SuperAdminCatalogueGuard implements CanActivate {
+export class SuperAdminCatalogueGuard  {
 
   constructor(
     private router: Router,

@@ -29,7 +29,8 @@ export class SearchInputComponent {
     this.isInputShown = false;
   }
 
-  onInput(val: string) {
-    this.search.emit(val);
+  onInput(val: Event) {
+    // Modified by NKR
+    this.search.emit("val");
   }
 }

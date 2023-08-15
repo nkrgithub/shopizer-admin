@@ -26,7 +26,7 @@
 
 
             <p-dropdown *ngIf="options.length" [options]="options" placeholder="Please select options"
-              formControlName='option' filter="true">
+              formControlName='option' [filter]="true">
               <ng-template let-item pTemplate="selectedItem">{{item.label}}</ng-template>
               <ng-template let-el   pTemplate="item">{{el.label}}</ng-template>
             </p-dropdown>
@@ -54,7 +54,7 @@
           <div class="col-sm-12">
 
                 <p-dropdown *ngIf="optionValues.length" [options]="optionValues" placeholder="Please select options value"
-                  formControlName='optionValue' filter="true">
+                  formControlName='optionValue' [filter]="true">
                   <ng-template let-item pTemplate="selectedItem">{{item.label}}</ng-template>
                   <ng-template let-el pTemplate="item">{{el.label}}</ng-template>
                 </p-dropdown>

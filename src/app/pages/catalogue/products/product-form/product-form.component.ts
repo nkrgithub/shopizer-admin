@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { ManufactureService } from '../../../shared/services/manufacture.service';
@@ -36,7 +36,7 @@ export class ProductFormComponent implements OnInit {
   @Input() product: any;
   @Input() _title: string;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   loaded = false;
   tabLoader = false;
   loading = false;
@@ -107,7 +107,7 @@ export class ProductFormComponent implements OnInit {
   uploadData = new FormData();
   removedImagesArray = [];
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private manufactureService: ManufactureService,
     private configService: ConfigService,
     private toastr: ToastrService,
@@ -202,7 +202,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   addFormArray() {
-    const control = <FormArray>this.form.controls.descriptions;
+    const control = <UntypedFormArray>this.form.controls.descriptions;
     this.languages.forEach(lang => {
       control.push(
         this.fb.group({
@@ -261,7 +261,7 @@ export class ProductFormComponent implements OnInit {
       if (this.product != null && this.product.descriptions) {
         this.product.descriptions.forEach((description) => {
           if (desc.language === description.language) {
-            (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
               language: description.language,
               name: description.name,
               highlights: description.highlights,
@@ -308,8 +308,8 @@ export class ProductFormComponent implements OnInit {
     return this.form.get('selectedLanguage');
   }
 
-  get descriptions(): FormArray {
-    return <FormArray>this.form.get('descriptions');
+  get descriptions(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('descriptions');
   }
 
   selectLanguage(lang) {
@@ -320,7 +320,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   changeName(event, index) {
-    (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+    (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
       friendlyUrl: slugify(event)
     });
   }

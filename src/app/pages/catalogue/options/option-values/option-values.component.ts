@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ConfigService } from '../../../shared/services/config.service';
@@ -16,7 +16,7 @@ import { OptionValueImageService } from '../services/option-value-image.service'
   styleUrls: ['./option-values.component.scss']
 })
 export class OptionValuesComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   loader = false;
   loadingInfo: boolean = false;
   optionValue = new OptionValue();
@@ -29,7 +29,7 @@ export class OptionValuesComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private configService: ConfigService,
     private optionValuesService: OptionValuesService,
     private toastr: ToastrService,
@@ -57,8 +57,8 @@ export class OptionValuesComponent implements OnInit {
     return this.form.get('selectedLanguage');
   }
 
-  get descriptions(): FormArray {
-    return <FormArray>this.form.get('descriptions');
+  get descriptions(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('descriptions');
   }
 
   get code() {
@@ -75,7 +75,7 @@ export class OptionValuesComponent implements OnInit {
   }
 
   addFormArray() {
-    const control = <FormArray>this.form.controls.descriptions;
+    const control = <UntypedFormArray>this.form.controls.descriptions;
     this.languages.forEach(lang => {
       control.push(
         this.fb.group({
@@ -98,7 +98,7 @@ export class OptionValuesComponent implements OnInit {
     this.form.value.descriptions.forEach((desc, index) => {
       this.optionValue.descriptions.forEach((description) => {
         if (desc.language === description.language) {
-          (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+          (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
             language: description.language,
             name: description.name,
           });

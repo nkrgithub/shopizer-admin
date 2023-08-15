@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { StoreService } from '../../../../store-management/services/store.service';
@@ -19,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export class InventoryFormComponent implements OnInit {
   @Input() inventory;
   @Input() _title;
-  form: FormGroup;
+  form: UntypedFormGroup;
   stores = [];
   loader = false;
   languages = [];
@@ -27,7 +27,7 @@ export class InventoryFormComponent implements OnInit {
   prices = [];
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private toastr: ToastrService,
     // private router: Router,
     private translate: TranslateService,
@@ -116,6 +116,45 @@ export class InventoryFormComponent implements OnInit {
         this.inventory = res;
       });
     }
+  }
+  // Modified by NKR
+  checkSku(event) {
+    // todo: nkr need to implment
+    console.log("need to implment");
+    // this.loading = true;
+    // this.productService.checkProductSku(event.target.value)
+    //   .subscribe(res => {
+    //     this.isCodeUnique = !(res.exists && (this.product.sku !== event.target.value));
+    //     this.loading = false;
+    //   });
+  }
+
+  transformTotal() {
+    // todo: nkr need to implment
+    console.log("need to implment");
+    // const value = '' + this.form.controls.productAttributePrice.value;
+    // if (value !== '') {
+    //   this.form.controls.productAttributePrice.setValue(
+    //     formatMoney(value.replace(/,/g, '')),
+    //     { emitEvent: false }
+    //   );
+    // }
+  }
+
+  onImageChanged(event) {
+    // todo: nkr need to implment
+    console.log("need to implment");    
+    // switch (event.type) {
+    //   case 'add': {
+    //     this.uploadImage = new FormData();
+    //     this.uploadImage.append('file', event.data, event.data.name);
+    //     break;
+    //   }
+    //   case 'remove': {
+    //     this.uploadImage.delete('file');
+    //     break;
+    //   }
+    // }
   }
 
 }

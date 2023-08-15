@@ -77,7 +77,7 @@
                         class="mandatory">*</span></label>
                     <div>
                       <p-dropdown [options]="manufacturers" placeholder="{{ 'PRODUCT.MANUFACTURER' | translate}}"
-                        formControlName='manufacturer' filter="true" required>
+                        formControlName='manufacturer' [filter]="true" [required]="true">
                         <ng-template let-item pTemplate="selectedItem">{{item.label}}</ng-template>
                         <ng-template let-el pTemplate="item">{{el.label}}</ng-template>
                       </p-dropdown>
@@ -98,7 +98,7 @@
                     <label class=" col-form-label inputLabel">{{ 'PRODUCT.PRODUCT_TYPE' | translate}}</label>
                     <div>
                       <p-dropdown [options]="productTypes" placeholder="{{ 'PRODUCT.PRODUCT_TYPE' | translate}}"
-                        formControlName='type' filter="true">
+                        formControlName='type' [filter]="true">
                         <ng-template let-item pTemplate="selectedItem">{{item.label}}</ng-template>
                         <ng-template let-el pTemplate="item">{{el.label}}</ng-template>
                       </p-dropdown>

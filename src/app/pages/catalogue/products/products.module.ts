@@ -35,47 +35,40 @@ import { ProductOrderingComponent } from './product-ordering/product-ordering.co
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
-
-  declarations: [
-    ProductsComponent,
-    ProductsListComponent,
-    ProductCreationComponent,
-    ProductFormComponent,
-    ProductDetailsComponent,
-    ProductToCategoryComponent,
-
-    AvailableButtonComponent,
-
-    ManageInventoryComponent,
-    InventoryDetailsComponent,
-    InventoryCreationComponent,
-    InventoryFormComponent,
-
-    PricesListComponent,
-    PriceFormComponent,
-
-    ProductAttributesComponent,
-    AttributeFormComponent,
-    ProductsImagesComponent,
-    ProductProperties,
-    ProductPropertyForm,
-    ProductDiscountComponent,
-    ProductOrderingComponent,
-  ],
-  entryComponents: [AvailableButtonComponent, AttributeFormComponent, ProductPropertyForm],
-  imports: [
-    ProductsRoutingModule,
-    InventoryRoutingModule,
-    PriceRoutingModule,
-    AttributeRoutingModule,
-    SharedModule,
-    CustomModule,
-    NgxSummernoteModule,
-    NbDialogModule.forChild(),
-    NgMultiSelectDropDownModule.forRoot(),
-    DragDropModule
-
-  ],
+    declarations: [
+        ProductsComponent,
+        ProductsListComponent,
+        ProductCreationComponent,
+        ProductFormComponent,
+        ProductDetailsComponent,
+        ProductToCategoryComponent,
+        AvailableButtonComponent,
+        ManageInventoryComponent,
+        InventoryDetailsComponent,
+        InventoryCreationComponent,
+        InventoryFormComponent,
+        PricesListComponent,
+        PriceFormComponent,
+        ProductAttributesComponent,
+        AttributeFormComponent,
+        ProductsImagesComponent,
+        ProductProperties,
+        ProductPropertyForm,
+        ProductDiscountComponent,
+        ProductOrderingComponent,
+    ],
+    imports: [
+        ProductsRoutingModule,
+        InventoryRoutingModule,
+        PriceRoutingModule,
+        AttributeRoutingModule,
+        SharedModule,
+        CustomModule,
+        NgxSummernoteModule,
+        NbDialogModule.forChild(),
+        NgMultiSelectDropDownModule.forRoot(),
+        DragDropModule
+    ]
 })
 
 export class ProductsModule {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
 import { PropertiesService } from '../../services/product-properties';
 import { ConfigService } from '../../../../shared/services/config.service';
@@ -19,7 +19,7 @@ export class ProductPropertyForm implements OnInit {
     attributeId: any;
     attribute: any = {};
 
-    form: FormGroup;
+    form: UntypedFormGroup;
     perPage: number = 15;
     loader: boolean = false;
     languages: Array<any> = [];
@@ -32,7 +32,7 @@ export class ProductPropertyForm implements OnInit {
         private productAttributesService: ProductAttributesService,
         private toastr: ToastrService,
         private translate: TranslateService,
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private cdr: ChangeDetectorRef,
         protected ref: NbDialogRef<ProductPropertyForm>
     ) {
@@ -97,7 +97,7 @@ export class ProductPropertyForm implements OnInit {
 
 
     addFormArray() {
-        const control = <FormArray>this.form.controls.descriptions;
+        const control = <UntypedFormArray>this.form.controls.descriptions;
         this.languages.forEach(lang => {
             control.push(
                 this.fb.group({
@@ -154,7 +154,7 @@ export class ProductPropertyForm implements OnInit {
                 // console.log(description)
                 if (desc.language === description.language) {
 
-                    (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+                    (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
                         language: description.language,
                         name: description.name
                     });
@@ -169,8 +169,8 @@ export class ProductPropertyForm implements OnInit {
     get optionValue() {
         return this.form.get('optionValue');
     }
-    get descriptions(): FormArray {
-        return <FormArray>this.form.get('descriptions');
+    get descriptions(): UntypedFormArray {
+        return <UntypedFormArray>this.form.get('descriptions');
     }
 
     save() {

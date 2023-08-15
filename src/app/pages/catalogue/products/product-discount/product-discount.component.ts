@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { validators } from '../../../shared/validation/validators';
 import { Location } from '@angular/common';
@@ -13,12 +13,12 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./product-discount.component.scss']
 })
 export class ProductDiscountComponent implements OnInit {
-  discountForm: FormGroup;
+  discountForm: UntypedFormGroup;
   id : any;
   loading: false;
 
   constructor(
-    private dfb: FormBuilder,
+    private dfb: UntypedFormBuilder,
     private location: Location,   
     private productService: ProductService,
     private router: Router,

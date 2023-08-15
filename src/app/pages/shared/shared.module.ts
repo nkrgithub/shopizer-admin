@@ -25,54 +25,52 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 
 
 @NgModule({
-  declarations: [
-    RightSidemenuComponent,
-    NotFoundComponent,
-    FiveHundredComponent,
-    ImageUploadingComponent,
-    ShowcaseDialogComponent,
-    PasswordPromptComponent,
-    PaginatorComponent,
-    BackButtonComponent,
-    ValidateNumberDirective,
-
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    NbTreeGridModule,
-    Ng2SmartTableModule,
-    ThemeModule,
-    NbSpinnerModule,
-    TranslateModule,
-    TreeTableModule,
-    FilePickerModule,
-    DragDropModule
-  ],
-  exports: [
-    Ng2SmartTableModule,
-    ThemeModule,
-    NbSpinnerModule,
-    TranslateModule,
-    TreeTableModule,
-    RightSidemenuComponent,
-    NotFoundComponent,
-    FiveHundredComponent,
-    ImageUploadingComponent,
-    ShowcaseDialogComponent,
-    PaginatorComponent,
-    BackButtonComponent,
-    NbTreeGridModule,
-    NbTreeGridComponent,
-    PickListModule,
-    DropdownModule,
-    AutoCompleteModule,
-    MultiSelectModule,
-    ValidateNumberDirective
-    // EqualValidator
-  ],
-  providers: [CurrencyPipe],
-  entryComponents: [ShowcaseDialogComponent],
+    declarations: [
+        RightSidemenuComponent,
+        NotFoundComponent,
+        FiveHundredComponent,
+        ImageUploadingComponent,
+        ShowcaseDialogComponent,
+        PasswordPromptComponent,
+        PaginatorComponent,
+        BackButtonComponent,
+        ValidateNumberDirective,
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        NbTreeGridModule,
+        Ng2SmartTableModule,
+        ThemeModule,
+        NbSpinnerModule,
+        TranslateModule,
+        TreeTableModule,
+        FilePickerModule,
+        DragDropModule
+    ],
+    exports: [
+        Ng2SmartTableModule,
+        ThemeModule,
+        NbSpinnerModule,
+        TranslateModule,
+        TreeTableModule,
+        RightSidemenuComponent,
+        NotFoundComponent,
+        FiveHundredComponent,
+        ImageUploadingComponent,
+        ShowcaseDialogComponent,
+        PaginatorComponent,
+        BackButtonComponent,
+        NbTreeGridModule,
+        NbTreeGridComponent,
+        PickListModule,
+        DropdownModule,
+        AutoCompleteModule,
+        MultiSelectModule,
+        ValidateNumberDirective
+        // EqualValidator
+    ],
+    providers: [CurrencyPipe]
 })
 export class SharedModule {
 }
