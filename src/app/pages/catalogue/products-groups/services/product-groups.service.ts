@@ -28,11 +28,11 @@ export class ProductGroupsService {
   // }
 
   createProductGroup(group): Observable<any> {
-    return this.crudService.post(`/v1/private/product/group`, group);
+    return this.crudService.post(`/v1/private/products/group`, group);
   }
 
   updateGroupActiveValue(group): Observable<any> {
-    return this.crudService.patch(`/v1/private/product/group/${group.code}`, group);
+    return this.crudService.patch(`/v1/private/products/group/${group.code}`, group);
   }
 
   addProductToGroup(productId, groupCode): Observable<any> {
