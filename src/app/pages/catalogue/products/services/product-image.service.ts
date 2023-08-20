@@ -14,7 +14,9 @@ export class ProductImageService {
   }
 
   addImageUrl(id) {//post
-    return this.crudService.getBaseUrl() + `/v1/private/product/${id}/images`;
+    //return this.crudService.getBaseUrl() + `/v1/private/product/${id}/images`;
+    // modified by NKR
+    return this.crudService.getBaseUrl() + `/v1/private/product/${id}/image`;
   }
 
   removeImageUrl(id) {//delete
