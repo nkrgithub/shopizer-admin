@@ -88,8 +88,7 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
-            },
-            "defaultConfiguration": "development"
+            }
           }
         },
         "serve": {
@@ -100,6 +99,9 @@
           "configurations": {
             "production": {
               "browserTarget": "shopizer-admin:build:production"
+            },
+            "development": {
+              "browserTarget": "shopizer-admin:build:development"
             }
           }
         },

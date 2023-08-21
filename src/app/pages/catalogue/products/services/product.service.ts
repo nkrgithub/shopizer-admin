@@ -81,13 +81,11 @@ export class ProductService {
   }
 
   addProductToCategory(productId, categoryId): Observable<any> {
-    //return this.crudService.post(`/v1/private/product/${productId}/category/${categoryId}`, {});
-    return this.crudService.post(`/v1/private/products/${productId}/category/${categoryId}`, {});
+    return this.crudService.post(`/v1/private/product/${productId}/category/${categoryId}`, {});
   }
 
   removeProductFromCategory(productId, categoryId): Observable<any> {
-    //return this.crudService.delete(`/v1/private/product/${productId}/category/${categoryId}`);
-    return this.crudService.delete(`/v1/private/products/${productId}/category/${categoryId}`);
+    return this.crudService.delete(`/v1/private/product/${productId}/category/${categoryId}`);
   }
   getProductByOrder(): Observable<any> {
     //return this.crudService.get(`/v1/product?count=200&lang=en&page=0`)
