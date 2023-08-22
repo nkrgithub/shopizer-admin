@@ -90,14 +90,15 @@ export class VariationsListComponent implements OnInit {
             return value.name;
           }
         },
-        values: {
+        optionValue: {
           title: this.translate.instant('COMPONENTS.OPTIONS_VALUE'),
           type: 'string',
           filter: false,
           valuePrepareFunction: (data) => {
             if (data != null) {
-              let value = data.map(a => a.name).join(", ");
-              return value;
+              // let value = data.map(a => a.name).join(", ");
+              // return value;
+              return data.name;
             }
           }
         },

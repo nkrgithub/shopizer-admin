@@ -232,7 +232,7 @@ export class AddVariationsComponent implements OnInit {
     }
   }
   goToback() {
-    this.router.navigate(['pages/catalogue/options/varations/list']);
+    this.router.navigate(['pages/catalogue/options/variations/list']);
   }
   // setSelected(e) {
   //   //console.log(e)
