@@ -12,8 +12,21 @@ import { Country } from '../models/country';
 export class CrudService {
   url = environment.apiUrl;
   shippingUrl = environment.shippingApi;
+  myUrl = "http://localhost:8081/";
 
   constructor(private http: HttpClient) { }
+
+  getRemoteProductsBySkus(skus: any): Observable<any> {
+    return this.http.get(this.myUrl + "drzData/getProductsBySkus/" + skus);
+  }
+
+  getRemoteProductBySku(sku: any): Observable<any> {
+    return this.http.get(this.myUrl + "drzData/getProductBySku/" + sku);
+  }
+
+  getRemoteProducts(numberOfProduct: number): Observable<any>{
+    return this.http.get(this.myUrl + "drzData/getProducts/" + numberOfProduct);
+  }
 
   getShipping(path, params?: { [param: string]: string | string[]; }): Observable<any> {
     return this.http.get(`${this.shippingUrl}${path}`, { responseType: 'json', params });

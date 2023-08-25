@@ -10,6 +10,7 @@
   "paypal-express-checkout": "PayPal Express Checkout",
   "beanstream": "Beanstream",
   "stripe": "Stripe",
+  "codi": "Codi",
   "paytm": "Paytm",
   "braintree": "Braintree",
   "COMPONENTS": {

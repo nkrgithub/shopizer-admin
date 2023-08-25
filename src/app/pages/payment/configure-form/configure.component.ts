@@ -7,6 +7,7 @@ let moneyorder = require('../services/moneyorder.json');
 let paypalData = require('../services/paypal.json');
 let beanStreamData = require('../services/beanstream.json');
 let stripeData = require('../services/stripe.json');
+let codiData = require('../services/codi.json');
 let paytmData = require('../services/paytm.json');
 
 let braintreeData = require('../services/braintree.json');
@@ -73,7 +74,10 @@ export class ConfigureComponent implements OnInit {
     } else if (paymenttype == 'stripe') {
       this.formData = stripeData;
       this.paymentType = "Stripe";
-    } else if (paymenttype == 'paytm') {
+    } else if (paymenttype == 'codi') {
+      this.formData = codiData;
+      this.paymentType = "Codi";
+    }else if (paymenttype == 'paytm') {
       this.formData = paytmData;
       this.paymentType = "Paytm";
     }else if (paymenttype == 'braintree') {
@@ -135,6 +139,8 @@ export class ConfigureComponent implements OnInit {
     // console.log(param)
     let body: any = {};
     if (paymenttype == "stripe") {
+      body = { 'code': paymenttype, 'active': param.active, 'defaultSelected': param.defaultSelected, 'integrationKeys': { 'publishableKey': param.publishableKey, 'secretKey': param.secretKey, 'transaction': param.transaction }, 'integrationOptions': null }
+    } else if (paymenttype == 'codi') {
       body = { 'code': paymenttype, 'active': param.active, 'defaultSelected': param.defaultSelected, 'integrationKeys': { 'publishableKey': param.publishableKey, 'secretKey': param.secretKey, 'transaction': param.transaction }, 'integrationOptions': null }
     } else if (paymenttype == 'moneyorder') {
       body = { 'code': paymenttype, 'active': param.active, 'defaultSelected': param.defaultSelected, 'integrationKeys': { 'address': param.address }, 'integrationOptions': null }

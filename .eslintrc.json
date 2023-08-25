@@ -33,7 +33,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "ngx",
+            "prefix": "app",
             "style": "camelCase"
           }
         ],
@@ -72,6 +72,8 @@
         "*.html"
       ],
       "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/template/recommended"
       ],
       "rules": {}

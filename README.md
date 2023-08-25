@@ -32,3 +32,5 @@ docker run \
 Username: admin@shopizer.com
 
 Password: password
+
+https://github.com/wpcfan/shopizer-admin

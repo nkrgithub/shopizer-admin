@@ -1,0 +1,20 @@
+FROM nginx
+
+RUN chmod 777 /var/cache/nginx
+RUN chmod 777 /var/run/
+
+RUN groupadd --gid 5000 newuser \
+  && useradd --home-dir /home/newuser --create-home --uid 5000 \
+    --gid 5000 --shell /bin/sh --skel /dev/null newuser
+
+RUN ls -al
+
+COPY dist /usr/share/nginx/html
+
+# Copy Nginx Files
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+# EXPOSE Port 80
+# EXPOSE 80
+USER newuser
+CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
