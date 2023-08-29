@@ -83,14 +83,15 @@ export class VariationsListComponent implements OnInit {
           filter: true,
           valuePrepareFunction: (value) => value.name,
         },
-        values: {
+        optionValue: {
           title: this.translate.instant('COMPONENTS.OPTIONS_VALUE'),
           type: 'string',
           filter: false,
           valuePrepareFunction: (data) => {
             if (data != null) {
-              const value = data.map((a) => a.name).join(', ');
-              return value;
+              //const value = data.map((a) => a.name).join(', ');
+              //return value;
+              return data.name;
             }
           },
         },

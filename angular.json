@@ -16,7 +16,12 @@
               "fine-uploader",
               "primeng",
               "ngx-lightbox",
-              "xhook"
+              "xhook",
+              "eva-icons",
+              "moment",
+              "mobx",
+              "@tweenjs/tween.js",
+              "file-saver"
             ],
             "preserveSymlinks": true,
             "outputPath": "dist",
@@ -86,9 +91,17 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -98,7 +111,9 @@
           "configurations": {
             "production": {
               "browserTarget": "shopizer-admin:build:production"
-            }
+            },
+            "development": {
+              "browserTarget": "shopizer-admin:build:development"
           }
         },
         "extract-i18n": {

@@ -25,7 +25,8 @@ export class BrandService {
     const params = {
       lang: '_all',
     };
-    return this.crudService.get(`/v1/manufacturers/${id}`, params);
+    //return this.crudService.get(`/v1/manufacturers/${id}`, params);
+    return this.crudService.get(`/v1/manufacturer/${id}`, params);
   }
 
   createBrand(brand): Observable<any> {

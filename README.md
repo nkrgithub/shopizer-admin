@@ -1,8 +1,8 @@
 # Shopizer Administration (shopizer-admin) Angular web app
 
-## Tested with node v12.22.7
+## Tested with node v16.14.0
 
-Requires Angular cli installed (npm install -g @angular/cli@13.3.x)
+Requires Angular cli installed (npm install -g @angular/cli@14.2.x)
 
 # Set backend api
 
