@@ -1,10 +1,14 @@
 <nb-card class="page-card inner_pages">
-  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary" class="rulesList">
+  <nb-card-body
+    [nbSpinner]="loadingList"
+    nbSpinnerSize="large"
+    nbSpinnerStatus="primary"
+    class="rulesList"
+  >
     <div class="inner_pages_legacy">
       <nb-card-header class="main_header">
-        <h1 class="page_title">{{'COMPONENTS.RULES' | translate}}</h1>
+        <h1 class="page_title">{{ "COMPONENTS.RULES" | translate }}</h1>
         <div class="content_spacing_empty"></div>
-
       </nb-card-header>
 
       <form class="form-inline filter_section">
@@ -15,28 +19,41 @@
             (click)="onSearch(search.value)" class="sda">
           <img class="pointer" src="../../../../assets/img/reload.png" title="{{ 'COMMON.RESET' | translate}}" alt=""
             (click)="resetSearch()" class="sda"> -->
-
         </div>
         <div class="filter_right_section">
-          <ngx-store-autocomplete (onStore)="onSelectStore($event)"></ngx-store-autocomplete>
+          <ngx-store-autocomplete
+            (onStore)="onSelectStore($event)"
+          ></ngx-store-autocomplete>
           <!-- <p-dropdown *ngIf="stores.length> 0" [options]="stores" filter="true" (onChange)="onSelectStore($event)">
             <ng-template let-item pTemplate="selectedItem">{{item.label}}</ng-template>
             <ng-template let-car pTemplate="item">{{car.label}}</ng-template>
           </p-dropdown> -->
           <a class="createBtn" (click)="createRules()">
-            <img class="pointer sda" src="../../../../assets/img/plus.png" title="create_customer">
-            <label>{{'RULES.CREATE_RULES' | translate}}</label>
+            <img
+              class="pointer sda"
+              src="../../../../assets/img/plus.png"
+              title="create_customer"
+            />
+            <label>{{ "RULES.CREATE_RULES" | translate }}</label>
           </a>
         </div>
-
       </form>
 
+      <angular2-smart-table
+        [settings]="settings"
+        [source]="source"
+        (custom)="onClickAction($event)"
+        class="home-table"
+      >
+      </angular2-smart-table>
 
-      <ng2-smart-table [settings]="settings" [source]="source" (custom)="onClickAction($event)" class="home-table">
-      </ng2-smart-table>
-
-      <ngx-paginator (changePage)="changePage($event)" [pagesToShow]="5" [currentPage]="currentPage" [perPage]="perPage"
-        [count]="totalCount">
+      <ngx-paginator
+        (changePage)="changePage($event)"
+        [pagesToShow]="5"
+        [currentPage]="currentPage"
+        [perPage]="perPage"
+        [count]="totalCount"
+      >
       </ngx-paginator>
     </div>
   </nb-card-body>

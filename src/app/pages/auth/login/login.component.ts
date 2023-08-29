@@ -1,54 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { TokenService } from '../services/token.service';
-import { UserService } from '../../shared/services/user.service';
-import { delay } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
+import { delay } from 'rxjs/operators';
+import { UserService } from '../../shared/services/user.service';
+import { AuthService } from '../services/auth.service';
+import { TokenService } from '../services/token.service';
 
 @Component({
   selector: 'ngx-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   errorMessage = '';
   showPass = 0;
   isSubmitted = false;
   loading = false;
   user = {
     email: '',
-    password: ''
-  }
-  isRemember: Boolean = false;
+    password: '',
+  };
+  isRemember = false;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private router: Router,
     private tokenService: TokenService,
     private userService: UserService,
     private toastr: ToastrService,
     private translate: TranslateService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
-
     document.getElementsByTagName('body')[0].className += ' nb-theme-corporate';
     this.form = this.fb.group({
       username: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
     if (localStorage.getItem('isRemember') === 'true') {
       this.isRemember = true;
-      let loginEmail = localStorage.getItem('loginEmail')
+      const loginEmail = localStorage.getItem('loginEmail');
       this.form.patchValue({
-        username: loginEmail
+        username: loginEmail,
       });
-
     }
   }
 
@@ -59,8 +61,7 @@ export class LoginComponent implements OnInit {
   showPassword() {
     if (this.showPass == 0) {
       this.showPass = 1;
-    }
-    else {
+    } else {
       this.showPass = 0;
     }
   }
@@ -78,57 +79,67 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-
     this.errorMessage = '';
     const formData = this.form.value;
 
-    this.authService.login(formData.username, formData.password)
-      .subscribe(res => {
+    this.authService.login(formData.username, formData.password).subscribe(
+      (res) => {
         this.tokenService.saveToken(res.token);
         this.userService.saveUserId(res.id);
-        this.userService.getUserProfile()
-          .subscribe(user => {
+        this.userService.getUserProfile().subscribe(
+          (user) => {
             this.userService.checkForAccess(user.groups);
-            localStorage.setItem('roles', JSON.stringify(this.userService.roles));
+            localStorage.setItem(
+              'roles',
+              JSON.stringify(this.userService.roles)
+            );
             localStorage.setItem('merchant', user.merchant);
             delay(1000);
             if (this.isRemember) {
-              localStorage.setItem('loginEmail', formData.username)
+              localStorage.setItem('loginEmail', formData.username);
             } else {
-              localStorage.setItem('loginEmail', '')
+              localStorage.setItem('loginEmail', '');
             }
             this.router.navigate(['pages']);
             this.loading = false;
-          }, err => {
+          },
+          (err) => {
             this.toastr.error(err.error.message);
             this.loading = false;
-          });
-      }, err => {
+          }
+        );
+      },
+      (err) => {
         if (err.status === 0) {
-          this.errorMessage = this.translate.instant('COMMON.INTERNAL_SERVER_ERROR');
+          this.errorMessage = this.translate.instant(
+            'COMMON.INTERNAL_SERVER_ERROR'
+          );
         } else {
           this.errorMessage = this.translate.instant('LOGIN.INVALID_DATA');
         }
         this.loading = false;
-      });
+      }
+    );
   }
   onCheckRemember(e) {
     //console.log(e.target.checked)
     this.isRemember = e.target.checked;
     if (e.target.checked) {
-      localStorage.setItem('isRemember', 'true')
+      localStorage.setItem('isRemember', 'true');
     } else {
-      localStorage.setItem('isRemember', 'false')
+      localStorage.setItem('isRemember', 'false');
     }
   }
 
   getFormValidationErrors() {
-    Object.keys(this.form.controls).forEach(key => {
-
+    Object.keys(this.form.controls).forEach((key) => {
       const controlErrors: ValidationErrors = this.form.get(key).errors;
       if (controlErrors != null) {
-        Object.keys(controlErrors).forEach(keyError => {
-          console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+        Object.keys(controlErrors).forEach((keyError) => {
+          console.log(
+            'Key control: ' + key + ', keyError: ' + keyError + ', err value: ',
+            controlErrors[keyError]
+          );
         });
       }
     });
@@ -141,5 +152,4 @@ export class LoginComponent implements OnInit {
   onClickRegister() {
     this.router.navigate(['auth/register']);
   }
-
 }

@@ -1,23 +1,17 @@
 import { Injectable } from '@angular/core';
 
-import { CrudService } from '../../shared/services/crud.service';
 import { Observable } from 'rxjs';
+import { CrudService } from '../../shared/services/crud.service';
 import { StorageService } from '../../shared/services/storage.service';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Store } from '../models/store';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StoreService {
-
-
   constructor(
     private crudService: CrudService,
     private storageService: StorageService
-  ) {
-  }
-
+  ) {}
 
   getStore(code): Observable<any> {
     return this.crudService.get(`/v1/store/${code}`);
@@ -33,7 +27,7 @@ export class StoreService {
 
   checkIfStoreExist(code): Observable<any> {
     const params = {
-      'code': code,
+      code,
     };
     return this.crudService.get(`/v1/private/store/unique`, params);
   }
@@ -43,11 +37,11 @@ export class StoreService {
   }
 
   deleteStore(storeCode: any): Observable<any> {
-    return this.crudService.delete(`/v1/private/store/${ storeCode }`);
+    return this.crudService.delete(`/v1/private/store/${storeCode}`);
   }
 
   updateStore(store: any): Observable<any> {
-    return this.crudService.put(`/v1/private/store/${ store.code }`, store);
+    return this.crudService.put(`/v1/private/store/${store.code}`, store);
   }
 
   // PAGE CONTENT
@@ -55,18 +49,24 @@ export class StoreService {
   getPageContent(pageCode: string, storeCode: string): Observable<any> {
     const params = {
       lang: '_all',
-      store: storeCode
+      store: storeCode,
     };
-    return this.crudService.getWithEmpty(`/v1/private/content/any/${pageCode}`, params);
+    return this.crudService.getWithEmpty(
+      `/v1/private/content/any/${pageCode}`,
+      params
+    );
   }
 
   updatePageContent(id, content: any): Observable<any> {
     return this.crudService.put(`/v1/private/content/${id}`, content);
   }
 
-  createPageContent(content: any, storeCode: string) : Observable<any> {
-
-    return this.crudService.postWithStoreParam(`/v1/private/content`, content, storeCode);
+  createPageContent(content: any, storeCode: string): Observable<any> {
+    return this.crudService.postWithStoreParam(
+      `/v1/private/content`,
+      content,
+      storeCode
+    );
   }
 
   // end PAGE CONTENT
@@ -86,7 +86,10 @@ export class StoreService {
     const code = this.storageService.getMerchant();
     const uploadData = new FormData();
     uploadData.append('file', file, file.name);
-    return this.crudService.post(`/v1/private/store/${code}/marketing/logo`, uploadData);
+    return this.crudService.post(
+      `/v1/private/store/${code}/marketing/logo`,
+      uploadData
+    );
   }
 
   removeStoreLogo(code: string): Observable<any> {
@@ -94,5 +97,4 @@ export class StoreService {
   }
 
   // end BRANDING
-
 }

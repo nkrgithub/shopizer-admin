@@ -1,21 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { CrudService } from '../../shared/services/crud.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NbDialogService } from '@nebular/theme';
-import { Lightbox } from 'ngx-lightbox';
-import { environment } from '../../../../environments/environment';
+import { ConfigInterface, DownloadModeEnum, TreeModel } from 'ng6-file-man';
 import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
-import { TokenService } from '../../auth/services/token.service';
-import { TreeModel, DownloadModeEnum, ConfigInterface } from 'ng6-file-man';
 import xhook from 'xhook';
+import { environment } from '../../../../environments/environment';
+import { TokenService } from '../../auth/services/token.service';
 
 @Component({
   selector: 'images-table',
   templateUrl: './images.component.html',
   styleUrls: ['./images.component.scss'],
 })
-
 export class ImagesComponent implements OnInit {
   url = environment.apiUrl;
   uploadedFiles: any[] = [];
@@ -31,7 +26,7 @@ export class ImagesComponent implements OnInit {
     // private sanitization: DomSanitizer,
     // private dialogService: NbDialogService,
     //private _lightbox: Lightbox,
-    private mScrollbarService: MalihuScrollbarService,
+    private mScrollbarService: MalihuScrollbarService
   ) {
     const treeConfig: ConfigInterface = {
       baseURL: this.url,
@@ -40,20 +35,17 @@ export class ImagesComponent implements OnInit {
         uploadFile: '/v1/private/content/images/add',
         downloadFile: '/v1/content/images/download',
         deleteFile: '/v1/private/content/images/remove',
-        createFolder: 'api/directory',//not supported
+        createFolder: 'api/directory', //not supported
         renameFile: '/v1/private/content/images/rename',
-        searchFiles: 'api/search'//not supported
+        searchFiles: 'api/search', //not supported
       },
       options: {
         allowFolderDownload: DownloadModeEnum.DOWNLOAD_DISABLED,
-        showFilesInsideTree: true
-      }
+        showFilesInsideTree: true,
+      },
     };
-    this.tree = new TreeModel(treeConfig)
-
-
+    this.tree = new TreeModel(treeConfig);
   }
-
 
   ngOnInit() {
     console.log('ngOnInit');
@@ -67,9 +59,10 @@ export class ImagesComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.mScrollbarService.initScrollbar('.gallery_listing_main', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
-
+    this.mScrollbarService.initScrollbar('.gallery_listing_main', {
+      axis: 'y',
+      theme: 'minimal-dark',
+      scrollButtons: { enable: true },
+    });
   }
-
-
 }

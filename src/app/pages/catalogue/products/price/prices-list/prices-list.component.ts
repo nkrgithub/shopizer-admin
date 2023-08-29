@@ -1,18 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { LocalDataSource } from 'ng2-smart-table';
-import { ProductService } from '../../services/product.service';
 import { NbDialogService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
-import { InventoryService } from '../../services/inventory.service';
+import { LocalDataSource } from 'angular2-smart-table';
 import { ShowcaseDialogComponent } from '../../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { InventoryService } from '../../services/inventory.service';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'ngx-prices-list',
   templateUrl: './prices-list.component.html',
-  styleUrls: ['./prices-list.component.scss']
+  styleUrls: ['./prices-list.component.scss'],
 })
 export class PricesListComponent implements OnInit {
   @Input() prices;
@@ -28,7 +28,7 @@ export class PricesListComponent implements OnInit {
 
   params = {
     productId: '',
-    inventoryId: ''
+    inventoryId: '',
   };
 
   constructor(
@@ -38,10 +38,12 @@ export class PricesListComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private inventoryService: InventoryService,
     private _sanitizer: DomSanitizer,
-    private router: Router,
+    private router: Router
   ) {
-    this.params.productId = this.activatedRoute.snapshot.paramMap.get('productId');
-    this.params.inventoryId = this.activatedRoute.snapshot.paramMap.get('inventoryId');
+    this.params.productId =
+      this.activatedRoute.snapshot.paramMap.get('productId');
+    this.params.inventoryId =
+      this.activatedRoute.snapshot.paramMap.get('inventoryId');
   }
 
   ngOnInit() {
@@ -49,7 +51,7 @@ export class PricesListComponent implements OnInit {
   }
 
   getList() {
-    this.prices = (this.prices && this.prices.length) ? this.prices : [];
+    this.prices = this.prices && this.prices.length ? this.prices : [];
     this.source.load(this.prices);
     this.setSettings();
     this.translate.onLangChange.subscribe((event) => {
@@ -68,7 +70,7 @@ export class PricesListComponent implements OnInit {
         sort: true,
         custom: [
           { name: 'details', title: '<i class="nb-edit"></i>' },
-          { name: 'remove', title: '<i class="nb-trash"></i>' }
+          { name: 'remove', title: '<i class="nb-trash"></i>' },
         ],
       },
       pager: { display: false },
@@ -77,35 +79,32 @@ export class PricesListComponent implements OnInit {
           title: this.translate.instant('INVENTORY.INVENTORY_STORE'),
           type: 'string',
           editable: false,
-          valuePrepareFunction: (store) => {
-            return store.code;
-          }
+          valuePrepareFunction: (store) => store.code,
         },
         owner: {
           title: this.translate.instant('INVENTORY.INVENTORY_OWNER'),
           type: 'string',
           editable: false,
-          valuePrepareFunction: (owner) => {
-            return owner ? owner : 'null';
-          }
+          valuePrepareFunction: (owner) => (owner ? owner : 'null'),
         },
         quantity: {
           title: this.translate.instant('PRODUCT.QTY'),
           type: 'number',
-          editable: true
+          editable: true,
         },
         prices: {
           title: this.translate.instant('PRODUCT.PRICE'),
           type: 'string',
           editable: true,
-          valuePrepareFunction: (prices) => {
-            return (prices.length && prices[0].originalPrice) ? prices[0].originalPrice : 'null';
-          }
+          valuePrepareFunction: (prices) =>
+            prices.length && prices[0].originalPrice
+              ? prices[0].originalPrice
+              : 'null',
         },
         creationDate: {
           title: this.translate.instant('PRODUCT.CREATION_DATE'),
           type: 'string',
-          editable: false
+          editable: false,
         },
       },
     };
@@ -114,13 +113,15 @@ export class PricesListComponent implements OnInit {
   route(event) {
     switch (event.action) {
       case 'details':
-        const path = `pages/catalogue/products/${this.params.productId}/` +
+        const path =
+          `pages/catalogue/products/${this.params.productId}/` +
           `inventory/${this.params.inventoryId}/price/${event.data.id}`;
         this.router.navigate([path]);
         break;
       case 'remove':
-        this.dialogService.open(ShowcaseDialogComponent, {})
-          .onClose.subscribe(res => {
+        this.dialogService
+          .open(ShowcaseDialogComponent, {})
+          .onClose.subscribe((res) => {
             if (res) {
               // todo remove price item from list
             }
@@ -154,5 +155,4 @@ export class PricesListComponent implements OnInit {
     }
     this.getList();
   }
-
 }

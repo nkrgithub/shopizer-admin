@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
 import { PropertiesService } from '../../services/product-properties';
 import { ConfigService } from '../../../../shared/services/config.service';
@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
     selector: 'ngx-product-property-form',
     templateUrl: './product-property-form.component.html',
-    styleUrls: ['./product-property-form.component.scss']
+    styleUrls: ['./product-property-form.component.scss'],
 })
 export class ProductPropertyForm implements OnInit {
 
@@ -19,9 +19,9 @@ export class ProductPropertyForm implements OnInit {
     attributeId: any;
     attribute: any = {};
 
-    form: FormGroup;
-    perPage: number = 15;
-    loader: boolean = false;
+    form: UntypedFormGroup;
+    perPage = 15;
+    loader = false;
     languages: Array<any> = [];
     options: Array<any> = [];
     optionValues: Array<any> = [];
@@ -32,11 +32,11 @@ export class ProductPropertyForm implements OnInit {
         private productAttributesService: ProductAttributesService,
         private toastr: ToastrService,
         private translate: TranslateService,
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private cdr: ChangeDetectorRef,
-        protected ref: NbDialogRef<ProductPropertyForm>
+        protected ref: NbDialogRef<ProductPropertyForm>,
     ) {
-        
+
         this.createForm();
         this.getLanguages();
     }
@@ -59,11 +59,11 @@ export class ProductPropertyForm implements OnInit {
         this.getProductProperty();
         if (this.attributeId) {
             this.loader = true;
-            
+
             this.productAttributesService.getAttributesById(this.productId, this.attributeId, { lang: '_all' }).subscribe(res => {
                 this.attribute = res;
                 setTimeout(() => {
-                    this.onChangePropertyOption({ value: res.option.id })
+                    this.onChangePropertyOption({ value: res.option.id });
                     this.fillForm();
                 }, 1000);
                 this.loader = false;
@@ -76,9 +76,9 @@ export class ProductPropertyForm implements OnInit {
     getProductProperty() {
         this.propertiesService.getProductProperties(this.productType, localStorage.getItem('lang'))
             .subscribe(property => {
-                let temp = []
+                const temp = [];
                 property.map((data) => {
-                    temp.push({ value: data.option.id, label: data.option.name, type: data.option.type, values: data.values })
+                    temp.push({ value: data.option.id, label: data.option.name, type: data.option.type, values: data.values });
                 });
                 this.options = temp;
             });
@@ -97,13 +97,13 @@ export class ProductPropertyForm implements OnInit {
 
 
     addFormArray() {
-        const control = <FormArray>this.form.controls.descriptions;
+        const control = <UntypedFormArray>this.form.controls.descriptions;
         this.languages.forEach(lang => {
             control.push(
                 this.fb.group({
                     language: [lang.code, []],
-                    name: ['', []]
-                })
+                    name: ['', []],
+                }),
             );
         });
     }
@@ -111,16 +111,14 @@ export class ProductPropertyForm implements OnInit {
     onChangePropertyOption(e) {
         // console.log('------------', this.options)
         // console.log(e)
-        let record = this.options.find((a) => {
-            return a.value === e.value
-        })
+        const record = this.options.find((a) => a.value === e.value);
         // console.log(record)
         this.selectedType = record.type;
         if (record.type !== 'text') {
-            let temp = [];
+            const temp = [];
             if (record.values && record.values.length > 0) {
                 record.values.map((data) => {
-                    temp.push({ value: data.id, label: data.name })
+                    temp.push({ value: data.id, label: data.name });
                 });
                 this.optionValues = temp;
             }
@@ -139,14 +137,14 @@ export class ProductPropertyForm implements OnInit {
         // const priceSeparator = this.attribute.productAttributePrice.indexOf('$') + 1;
         // this.currency = this.attribute.productAttributePrice.slice(0, priceSeparator);
         //console.log(this.optionValues);
-        let index = this.optionValues.findIndex((a) => a.value === this.attribute.optionValue.id);
+        const index = this.optionValues.findIndex((a) => a.value === this.attribute.optionValue.id);
         console.log(index);
         this.form.patchValue({
             option: this.attribute.option.id,
             optionValue: index === -1 ? '' : this.attribute.optionValue.id,
-            descriptions: []
+            descriptions: [],
         });
-        this.fillFormArray()
+        this.fillFormArray();
     }
     fillFormArray() {
         this.form.value.descriptions.forEach((desc, index) => {
@@ -154,9 +152,9 @@ export class ProductPropertyForm implements OnInit {
                 // console.log(description)
                 if (desc.language === description.language) {
 
-                    (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+                    (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
                         language: description.language,
-                        name: description.name
+                        name: description.name,
                     });
                 }
             });
@@ -169,8 +167,8 @@ export class ProductPropertyForm implements OnInit {
     get optionValue() {
         return this.form.get('optionValue');
     }
-    get descriptions(): FormArray {
-        return <FormArray>this.form.get('descriptions');
+    get descriptions(): UntypedFormArray {
+        return <UntypedFormArray>this.form.get('descriptions');
     }
 
     save() {
@@ -178,26 +176,26 @@ export class ProductPropertyForm implements OnInit {
         let param = {};
         if (this.selectedType === 'text') {
             param = {
-                "attributeDefault": false,
-                "attributeDisplayOnly": true,
-                "option": {
-                    "id": this.form.value.option
+                attributeDefault: false,
+                attributeDisplayOnly: true,
+                option: {
+                    id: this.form.value.option,
                 },
-                "optionValue": {
-                    "descriptions": this.form.value.descriptions
+                optionValue: {
+                    descriptions: this.form.value.descriptions,
                 },
-                "sortOrder": 0 //TODO option sort order
-            }
+                sortOrder: 0, //TODO option sort order
+            };
         } else {
             param = {
-                "attributeDefault": false,
-                "attributeDisplayOnly": true,
-                "option": {
-                    "id": this.form.value.option
+                attributeDefault: false,
+                attributeDisplayOnly: true,
+                option: {
+                    id: this.form.value.option,
                 },
-                "optionValue": { id: this.form.value.optionValue },
-                "sortOrder": 1 //TODO option sort order
-            }
+                optionValue: { id: this.form.value.optionValue },
+                sortOrder: 1, //TODO option sort order
+            };
         }
         this.loader = true;
         if (this.attribute.id) {

@@ -11,22 +11,19 @@ import { NbDialogModule } from '@nebular/theme';
 import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
 import { CustomModule } from '../custom-component/custom.module';
 @NgModule({
-  declarations: [
-    TaxComponent,
-    TaxClassListComponent,
-    TaxClassAddComponent,
-    TaxRateListComponent,
-    TaxRateAddComponent
-  ],
-  entryComponents: [
-
-  ],
-  imports: [
-    TaxRoutingModule,
-    SharedModule,
-    CustomModule,
-    NbDialogModule.forChild(),
-    MalihuScrollbarModule.forRoot(),
-  ]
+    declarations: [
+        TaxComponent,
+        TaxClassListComponent,
+        TaxClassAddComponent,
+        TaxRateListComponent,
+        TaxRateAddComponent,
+    ],
+    imports: [
+        TaxRoutingModule,
+        SharedModule,
+        CustomModule,
+        NbDialogModule.forChild(),
+        MalihuScrollbarModule.forRoot(),
+    ]
 })
 export class TaxManagementModule { }

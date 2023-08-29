@@ -4,13 +4,13 @@
 @import "themes";
 
 // framework component themes (styles tied to theme variables)
-@import "~@nebular/theme/styles/globals";
-@import "~@nebular/auth/styles/all";
+@import "node_modules/@nebular/theme/styles/globals";
+@import "node_modules/@nebular/auth/styles/_globals.scss";
 
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/grid";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/grid";
 
 // loading progress bar theme
 @import "./pace.theme";
@@ -54,7 +54,7 @@
     $transition-duration: 0ms;
   }
 
-  @import "~ngx-smart-modal/ngx-smart-modal";
+  @import "node_modules/ngx-smart-modal/ngx-smart-modal";
 
   ////////////
   // mixins //

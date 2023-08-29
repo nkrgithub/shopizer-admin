@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
-import { LocalDataSource } from 'ng2-smart-table';
 import { TranslateService } from '@ngx-translate/core';
-import { StorageService } from '../../../shared/services/storage.service';
-import { CatalogService } from '../services/catalog.service';
-import { StoreService } from '../../../store-management/services/store.service';
+import { LocalDataSource } from 'angular2-smart-table';
+import { ToastrService } from 'ngx-toastr';
 import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { StorageService } from '../../../shared/services/storage.service';
+import { StoreService } from '../../../store-management/services/store.service';
+import { CatalogService } from '../services/catalog.service';
 
 @Component({
   selector: 'ngx-catalogues-list',
   templateUrl: './catalogues-list.component.html',
-  styleUrls: ['./catalogues-list.component.scss']
+  styleUrls: ['./catalogues-list.component.scss'],
 })
 export class CataloguesListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
@@ -31,7 +31,7 @@ export class CataloguesListComponent implements OnInit {
     store: this.storageService.getMerchant(),
     lang: this.storageService.getLanguage(),
     count: this.perPage,
-    page: 0
+    page: 0,
   };
 
   constructor(
@@ -42,9 +42,8 @@ export class CataloguesListComponent implements OnInit {
     private storageService: StorageService,
     private catalogService: CatalogService,
     private storeService: StoreService,
-    private toastr: ToastrService,
-  ) {
-  }
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getStoreList();
@@ -56,22 +55,21 @@ export class CataloguesListComponent implements OnInit {
   }
 
   getList() {
-
     this.params.page = this.currentPage - 1;
     this.loadingList = true;
-    this.catalogService.getListOfCatalogues(this.params)
-      .subscribe(res => {
-        this.totalCount = res.recordsTotal;
-        console.log(res)
-        this.source.load(res.items);
-        this.loadingList = false;
-      });
+    this.catalogService.getListOfCatalogues(this.params).subscribe((res) => {
+      this.totalCount = res.recordsTotal;
+      console.log(res);
+      this.source.load(res.items);
+      this.loadingList = false;
+    });
     this.setSettings();
   }
 
   getStoreList() {
-    this.storeService.getListOfMerchantStoreNames({ 'store': '' })
-      .subscribe(res => {
+    this.storeService
+      .getListOfMerchantStoreNames({ store: '' })
+      .subscribe((res) => {
         res.forEach((store) => {
           this.stores.push({ value: store.code, label: store.code });
         });
@@ -89,7 +87,12 @@ export class CataloguesListComponent implements OnInit {
         sort: true,
         custom: [
           { name: 'edit', title: '<i class="nb-edit"></i>' },
-          { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="nb-trash"></i>') }
+          {
+            name: 'remove',
+            title: this._sanitizer.bypassSecurityTrustHtml(
+              '<i class="nb-trash"></i>'
+            ),
+          },
         ],
       },
       pager: { display: false },
@@ -109,18 +112,18 @@ export class CataloguesListComponent implements OnInit {
             if (store) {
               return store.code;
             }
-          }
+          },
         },
         creationDate: {
           title: this.translate.instant('COMMON.CREATION_DATE'),
           type: 'string',
-        }
+        },
       },
     };
   }
 
   onSelectStore(e) {
-    this.params["store"] = e;
+    this.params['store'] = e;
     this.getList();
   }
 
@@ -157,29 +160,33 @@ export class CataloguesListComponent implements OnInit {
         this.onEdit(event);
         break;
       case 'remove':
-        this.deleteRecord(event)
-        break
+        this.deleteRecord(event);
+        break;
     }
   }
   onEdit(event) {
-    this.router.navigate(['/pages/catalogue/catalogues/catalogue/' + event.data.id]);
+    this.router.navigate([
+      '/pages/catalogue/catalogues/catalogue/' + event.data.id,
+    ]);
   }
 
   deleteRecord(event) {
-    this.dialogService.open(ShowcaseDialogComponent, {})
-      .onClose.subscribe(res => {
+    this.dialogService
+      .open(ShowcaseDialogComponent, {})
+      .onClose.subscribe((res) => {
         if (res) {
-          this.catalogService.deleteCatalog(event.data.id)
-            .subscribe(result => {
-              this.toastr.success(this.translate.instant('CATALOG.CATALOG_REMOVED'));
+          this.catalogService
+            .deleteCatalog(event.data.id)
+            .subscribe((result) => {
+              this.toastr.success(
+                this.translate.instant('CATALOG.CATALOG_REMOVED')
+              );
               this.getList();
             });
-
         } else {
           // TODO navigate generic error
           // event.confirm.reject();
         }
       });
   }
-
 }

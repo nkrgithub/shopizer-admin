@@ -14,24 +14,23 @@ import { ButtonRenderUserComponent } from './users-list/button-render-user.compo
 import { CustomModule } from '../custom-component/custom.module';
 // import { EqualValidator } from '../shared/validation/equal-validator';
 @NgModule({
-  declarations: [
-    UserManagementComponent,
-    UserProfileComponent,
-    UsersListComponent,
-    ChangePasswordComponent,
-    UserFormComponent,
-    CreateNewUserComponent,
-    ButtonRenderUserComponent,
-    UserDetailsComponent,
-    // EqualValidator
-  ],
-  imports: [
-    UserManagementRoutingModule,
-    NbDialogModule.forChild(),
-    SharedModule,
-    CustomModule
-  ],
-  entryComponents: [ButtonRenderUserComponent],
+    declarations: [
+        UserManagementComponent,
+        UserProfileComponent,
+        UsersListComponent,
+        ChangePasswordComponent,
+        UserFormComponent,
+        CreateNewUserComponent,
+        ButtonRenderUserComponent,
+        UserDetailsComponent,
+        // EqualValidator
+    ],
+    imports: [
+        UserManagementRoutingModule,
+        NbDialogModule.forChild(),
+        SharedModule,
+        CustomModule,
+    ]
 })
 export class UserManagementModule {
 }

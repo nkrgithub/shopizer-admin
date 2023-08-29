@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
-import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
-import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
-import { StoreService } from '../../store-management/services/store.service';
-import { StorageService } from '../../shared/services/storage.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ToastrService } from 'ngx-toastr';
 import { NbDialogService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
+import { LocalDataSource } from 'angular2-smart-table';
+import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
+import { ToastrService } from 'ngx-toastr';
 import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
+import { CrudService } from '../../shared/services/crud.service';
+import { StorageService } from '../../shared/services/storage.service';
+import { StoreService } from '../../store-management/services/store.service';
 @Component({
   selector: 'boxes-table',
   templateUrl: './boxes.component.html',
@@ -21,7 +21,7 @@ export class BoxesComponent {
   stores: Array<any> = [];
   loadingList = false;
   params = this.loadParams();
-  settings = {}
+  settings = {};
   // request params
 
   source: LocalDataSource = new LocalDataSource();
@@ -50,13 +50,14 @@ export class BoxesComponent {
       store: this.storageService.getMerchant(),
       lang: '_all',
       count: this.perPage,
-      page: 0
+      page: 0,
     };
   }
 
   getStoreList() {
-    this.storeService.getListOfMerchantStoreNames({ 'store': '' })
-      .subscribe(res => {
+    this.storeService
+      .getListOfMerchantStoreNames({ store: '' })
+      .subscribe((res) => {
         res.forEach((store) => {
           this.stores.push({ value: store.code, label: store.code });
         });
@@ -65,12 +66,13 @@ export class BoxesComponent {
 
   getBox() {
     this.params.page = this.currentPage - 1;
-    this.crudService.get('/v1/private/content/boxes/', this.params)
-      .subscribe(data => {
+    this.crudService.get('/v1/private/content/boxes/', this.params).subscribe(
+      (data) => {
         this.source = data.items;
-        this.totalCount = data.recordsTotal * data.totalPages
-      }, error => {
-      });
+        this.totalCount = data.recordsTotal * data.totalPages;
+      },
+      (error) => {}
+    );
     this.setSettings();
   }
   setSettings() {
@@ -86,13 +88,13 @@ export class BoxesComponent {
         custom: [
           {
             name: 'edit',
-            title: '<i class="nb-edit"></i>'
+            title: '<i class="nb-edit"></i>',
           },
           {
             name: 'delete',
-            title: '<i class="nb-trash"></i>'
-          }
-        ]
+            title: '<i class="nb-trash"></i>',
+          },
+        ],
       },
       columns: {
         id: {
@@ -109,16 +111,17 @@ export class BoxesComponent {
           valuePrepareFunction: (cell, row) => {
             // console.log(row.descriptions)
             if (this.params.lang == '_all') {
-              return row.descriptions[0].name
+              return row.descriptions[0].name;
             } else {
-              let value = row.descriptions.find((a) => a.language == this.params.lang);
-              return value.name
+              const value = row.descriptions.find(
+                (a) => a.language == this.params.lang
+              );
+              return value.name;
             }
-          }
-        }
+          },
+        },
       },
     };
-
   }
   addBoxes() {
     this.router.navigate(['/pages/content/boxes/add']);
@@ -146,10 +149,10 @@ export class BoxesComponent {
         break;
       }
     }
-    this.getBox()
+    this.getBox();
   }
   onSelectStore(e) {
-    this.params["store"] = e;
+    this.params['store'] = e;
     this.getBox();
   }
   onClickAction(event) {
@@ -165,31 +168,41 @@ export class BoxesComponent {
     this.router.navigate(['/pages/content/boxes/add/' + event.data.code]);
   }
   onDelete(event) {
-
-    this.dialogService.open(ShowcaseDialogComponent, {
-      context: 'Do you really want to remove this entity?'
-      // context: {
-      //   title: 'Are you sure!',
-      //   body: 'Do you really want to remove this entity?'
-      // },
-    }).onClose.subscribe(res => {
-      if (res) {
-        this.loadingList = true;
-        this.crudService.delete('/v1/private/content/' + event.data.id + '?id=' + event.data.id)
-          .subscribe(data => {
-            this.loadingList = false;
-            this.toastr.success('Content box deleted successfully');
-            this.getBox();
-          }, error => {
-            this.loadingList = false;
-          });
-      } else {
-        this.loadingList = false;
-      }
-    });
-
+    this.dialogService
+      .open(ShowcaseDialogComponent, {
+        context: 'Do you really want to remove this entity?',
+        // context: {
+        //   title: 'Are you sure!',
+        //   body: 'Do you really want to remove this entity?'
+        // },
+      })
+      .onClose.subscribe((res) => {
+        if (res) {
+          this.loadingList = true;
+          this.crudService
+            .delete(
+              '/v1/private/content/' + event.data.id + '?id=' + event.data.id
+            )
+            .subscribe(
+              (data) => {
+                this.loadingList = false;
+                this.toastr.success('Content box deleted successfully');
+                this.getBox();
+              },
+              (error) => {
+                this.loadingList = false;
+              }
+            );
+        } else {
+          this.loadingList = false;
+        }
+      });
   }
   ngAfterViewInit() {
-    this.mScrollbarService.initScrollbar('.custom_scroll', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
+    this.mScrollbarService.initScrollbar('.custom_scroll', {
+      axis: 'y',
+      theme: 'minimal-dark',
+      scrollButtons: { enable: true },
+    });
   }
 }

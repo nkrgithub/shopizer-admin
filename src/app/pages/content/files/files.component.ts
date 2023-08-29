@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
-import { CrudService } from '../../shared/services/crud.service';
 import { NbDialogService } from '@nebular/theme';
-import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
 import { Lightbox } from 'ngx-lightbox';
 import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
+import { CrudService } from '../../shared/services/crud.service';
 
 @Component({
   selector: 'files-content',
@@ -14,7 +12,7 @@ import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 export class FilesComponent {
   name: string;
   copyText(val: string) {
-    let selBox = document.createElement('textarea');
+    const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
     selBox.style.left = '0';
     selBox.style.top = '0';
@@ -28,8 +26,7 @@ export class FilesComponent {
   }
   files: File[] = [];
   _albums: any[] = [];
-  onSelect(event) {
-  }
+  onSelect(event) {}
   // onRemove(event) {
   //   this.files.splice(this.files.indexOf(event), 1);
   // }
@@ -72,9 +69,9 @@ export class FilesComponent {
     private crudService: CrudService,
     private dialogService: NbDialogService,
     private _lightbox: Lightbox,
-    private mScrollbarService: MalihuScrollbarService,
+    private mScrollbarService: MalihuScrollbarService
   ) {
-    this.getFiles()
+    this.getFiles();
   }
   // onClickAction(event) {
   //   switch (event.action) {
@@ -84,8 +81,8 @@ export class FilesComponent {
   // }
   getFiles() {
     this.loadingList = true;
-    this.crudService.get('/v1/content/folder')
-      .subscribe(data => {
+    this.crudService.get('/v1/content/folder').subscribe(
+      (data) => {
         this.loadingList = false;
         this.data = data.content;
         for (let i = 0; i < this.data.length; i++) {
@@ -93,50 +90,50 @@ export class FilesComponent {
           const caption = this.data[i].name;
           // const thumb = this.uploadedFiles[i].path + this.uploadedFiles[i].name;
           const album = {
-            src: src,
-            caption: caption,
+            src,
+            caption,
             // thumb: thumb
           };
           this._albums.push(album);
         }
-      }, error => {
+      },
+      (error) => {
         this.loadingList = false;
-
-      });
+      }
+    );
   }
   // onChange(event) {
   //   this.isDisbaled = true;
   //   this.files = event.srcElement.files;
   // }
   handleUpload = (files: any) => {
-    console.log(files)
+    console.log(files);
     this.loadingList = true;
-    files.addedFiles.forEach(element => {
-      let reader = new FileReader();
+    files.addedFiles.forEach((element) => {
+      const reader = new FileReader();
       reader.onload = (e: any) => {
         this.data.push({
           name: element.name,
           contentType: 1,
-          path: e.target.result
+          path: e.target.result,
         });
-      }
+      };
       reader.readAsDataURL(element);
     });
-    for (var i = 0; i < files.addedFiles.length; i++) {
-
-      let formData = new FormData();
+    for (let i = 0; i < files.addedFiles.length; i++) {
+      const formData = new FormData();
       formData.append('file', files.addedFiles[i]);
-      this.crudService.post('/v1/private/file', formData)
-        .subscribe(data => {
+      this.crudService.post('/v1/private/file', formData).subscribe(
+        (data) => {
           this.loadingList = false;
           // this.uploadedFiles = data.content;
-        }, error => {
+        },
+        (error) => {
           this.loadingList = false;
-
-        });
+        }
+      );
     }
-
-  }
+  };
   // uploadFiles() {
   //   for (var i = 0; i < this.files.length; i++) {
   //     let formData = new FormData();
@@ -153,10 +150,10 @@ export class FilesComponent {
   //       });
   //   }
   // }
-        //context: {
-      //  title: 'Are you sure!',
-      //  body: 'Do you really want to remove this entity?'
-      //},
+  //context: {
+  //  title: 'Are you sure!',
+  //  body: 'Do you really want to remove this entity?'
+  //},
   removeImage(e) {
     // this.loadingList = true;
     /**
@@ -178,10 +175,14 @@ export class FilesComponent {
           this.loadingList = false;
         }
       });
-      **/
+     **/
   }
   ngAfterViewInit() {
-    this.mScrollbarService.initScrollbar('.file_listing_scroll', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
+    this.mScrollbarService.initScrollbar('.file_listing_scroll', {
+      axis: 'y',
+      theme: 'minimal-dark',
+      scrollButtons: { enable: true },
+    });
   }
   openImage(index: number): void {
     this._lightbox.open(this._albums, index);

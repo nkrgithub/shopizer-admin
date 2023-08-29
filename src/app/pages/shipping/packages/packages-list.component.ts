@@ -1,17 +1,15 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
 // import { StorageService } from '../../shared/services/storage.service';
 // import { StoreService } from '../../store-management/services/store.service';
-import { LocalDataSource } from 'ng2-smart-table';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { SharedService } from '../services/shared.service';
-import { error } from '@angular/compiler/src/util';
+import { LocalDataSource } from 'angular2-smart-table';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from '../services/shared.service';
 @Component({
   selector: 'ngx-packages-list',
   templateUrl: './packages-list.component.html',
-  styleUrls: ['./packages-list.component.scss']
+  styleUrls: ['./packages-list.component.scss'],
 })
 export class PackagesListComponent implements OnInit {
   @ViewChild('item', { static: false }) accordion;
@@ -30,7 +28,7 @@ export class PackagesListComponent implements OnInit {
     private router: Router,
     private translate: TranslateService,
     private sharedService: SharedService,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {
     this.getPackagesList();
   }
@@ -43,20 +41,19 @@ export class PackagesListComponent implements OnInit {
 
   getPackagesList() {
     this.loadingList = true;
-    this.sharedService.getPackaging()
-      .subscribe(data => {
+    this.sharedService.getPackaging().subscribe(
+      (data) => {
         this.loadingList = false;
         this.source.load(data);
-      }, error => {
-
-      });
+      },
+      (error) => {}
+    );
     this.setSettings();
   }
 
   setSettings() {
-    var me = this;
+    const me = this;
     this.settings = {
-
       hideSubHeader: true,
       actions: {
         columnTitle: this.translate.instant('ORDER.ACTIONS'),
@@ -67,53 +64,51 @@ export class PackagesListComponent implements OnInit {
         custom: [
           {
             name: 'edit',
-            title: '<i class="nb-edit"></i>'
+            title: '<i class="nb-edit"></i>',
           },
           {
             name: 'delete',
-            title: '<i class="nb-trash"></i>'
-          }
+            title: '<i class="nb-trash"></i>',
+          },
         ],
       },
       pager: {
-        display: false
+        display: false,
       },
       columns: {
         code: {
           title: this.translate.instant('PACKAGING.CODE'),
           type: 'string',
-          filter: false
+          filter: false,
         },
         shippingWidth: {
           title: this.translate.instant('PACKAGING.WIDTH'),
           type: 'double',
-          filter: false
+          filter: false,
         },
         shippingHeight: {
           title: this.translate.instant('PACKAGING.HEIGHT'),
           type: 'double',
-          filter: false
+          filter: false,
         },
         shippingLength: {
           title: this.translate.instant('PACKAGING.LENGTH'),
           type: 'double',
-          filter: false
+          filter: false,
         },
         shippingWeight: {
           title: this.translate.instant('PACKAGING.WEIGHT'),
           type: 'double',
-          filter: false
+          filter: false,
         },
 
         type: {
           title: this.translate.instant('PACKAGING.TYPE'),
           type: 'string',
-          filter: false
-        }
+          filter: false,
+        },
       },
-
     };
-
   }
   // paginator
   changePage(event) {
@@ -139,24 +134,25 @@ export class PackagesListComponent implements OnInit {
         break;
       }
     }
-
   }
   delete(e) {
     this.loadingList = true;
-    this.sharedService.deletePackaging(e.data.code)
-      .subscribe(res => {
+    this.sharedService.deletePackaging(e.data.code).subscribe(
+      (res) => {
         this.loadingList = false;
-        this.toastr.success("Packages has been deleted successfully");
-        this.getPackagesList()
-      }, error => {
+        this.toastr.success('Packages has been deleted successfully');
+        this.getPackagesList();
+      },
+      (error) => {
         this.loadingList = false;
-
-      });
+      }
+    );
   }
   route(e) {
     if (e.action == 'delete') {
       this.delete(e);
-    } if (e.action == 'edit') {
+    }
+    if (e.action == 'edit') {
       localStorage.setItem('packagesID', e.data.code);
       this.router.navigate(['pages/shipping/packaging/add']);
     }

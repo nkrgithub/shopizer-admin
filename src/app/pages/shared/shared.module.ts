@@ -1,29 +1,31 @@
-import { NgModule } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { ThemeModule } from '../../@theme/theme.module';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { NbSpinnerModule, NbTreeGridComponent, NbTreeGridModule } from '@nebular/theme';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { FiveHundredComponent } from './components/five-hundred/five-hundred.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  NbSpinnerModule,
+  NbTreeGridComponent,
+  NbTreeGridModule,
+} from '@nebular/theme';
 import { TranslateModule } from '@ngx-translate/core';
-import { RightSidemenuComponent } from './components/right-sidemenu/right-sidemenu.component';
-import { ImageUploadingComponent } from './components/image-uploading/image-uploading.component';
-import { ShowcaseDialogComponent } from './components/showcase-dialog/showcase-dialog.component';
-import { PaginatorComponent } from './components/paginator/paginator.component';
-import { PickListModule } from 'primeng/picklist';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { DropdownModule } from 'primeng/dropdown';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { TreeTableModule } from 'primeng/treetable';
-import { BackButtonComponent } from './components/back-button/back-button.component';
-import { ValidateNumberDirective } from './validation/validate-number.directive';
-import { PasswordPromptComponent } from './components/password-prompt/password-prompt';
+import { Angular2SmartTableModule } from 'angular2-smart-table';
 import { FilePickerModule } from 'ngx-awesome-uploader';
-import { DragDropModule } from "@angular/cdk/drag-drop";
-
-
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { PickListModule } from 'primeng/picklist';
+import { TreeTableModule } from 'primeng/treetable';
+import { ThemeModule } from '../../@theme/theme.module';
+import { BackButtonComponent } from './components/back-button/back-button.component';
+import { FiveHundredComponent } from './components/five-hundred/five-hundred.component';
+import { ImageUploadingComponent } from './components/image-uploading/image-uploading.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { PasswordPromptComponent } from './components/password-prompt/password-prompt';
+import { RightSidemenuComponent } from './components/right-sidemenu/right-sidemenu.component';
+import { ShowcaseDialogComponent } from './components/showcase-dialog/showcase-dialog.component';
+import { ValidateNumberDirective } from './validation/validate-number.directive';
 @NgModule({
   declarations: [
     RightSidemenuComponent,
@@ -35,22 +37,21 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     PaginatorComponent,
     BackButtonComponent,
     ValidateNumberDirective,
-
   ],
   imports: [
     CommonModule,
     RouterModule,
     NbTreeGridModule,
-    Ng2SmartTableModule,
+    Angular2SmartTableModule,
     ThemeModule,
     NbSpinnerModule,
     TranslateModule,
     TreeTableModule,
     FilePickerModule,
-    DragDropModule
+    DragDropModule,
   ],
   exports: [
-    Ng2SmartTableModule,
+    Angular2SmartTableModule,
     ThemeModule,
     NbSpinnerModule,
     TranslateModule,
@@ -68,11 +69,10 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
     DropdownModule,
     AutoCompleteModule,
     MultiSelectModule,
-    ValidateNumberDirective
+    ValidateNumberDirective,
+    DragDropModule,
     // EqualValidator
   ],
   providers: [CurrencyPipe],
-  entryComponents: [ShowcaseDialogComponent],
 })
-export class SharedModule {
-}
+export class SharedModule {}

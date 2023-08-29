@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { BrandService } from '../services/brand.service';
 import { ConfigService } from '../../../shared/services/config.service';
@@ -12,12 +12,12 @@ import { slugify } from '../../../shared/utils/slugifying';
 @Component({
   selector: 'ngx-brand-form',
   templateUrl: './brand-form.component.html',
-  styleUrls: ['./brand-form.component.scss']
+  styleUrls: ['./brand-form.component.scss'],
 })
 export class BrandFormComponent implements OnInit {
   @Input() brand;
   @Input() title;
-  form: FormGroup;
+  form: UntypedFormGroup;
   loader = false;
   defaultLanguage = localStorage.getItem('lang');
   languages = [];
@@ -32,15 +32,15 @@ export class BrandFormComponent implements OnInit {
       ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
       ['fontsize', ['fontname', 'fontsize', 'color']],
       ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
-      ['insert', ['table', 'picture', 'link', 'video', 'hr']]
+      ['insert', ['table', 'picture', 'link', 'video', 'hr']],
     ],
-    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
+    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times'],
   };
   isCodeUnique = true;
 
   constructor(
     private brandService: BrandService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private configService: ConfigService,
     private toastr: ToastrService,
     private translate: TranslateService,
@@ -73,7 +73,7 @@ export class BrandFormComponent implements OnInit {
   }
 
   addFormArray() {
-    const control = <FormArray>this.form.controls.descriptions;
+    const control = <UntypedFormArray>this.form.controls.descriptions;
     this.languages.forEach(lang => {
       control.push(
         this.fb.group({
@@ -85,7 +85,7 @@ export class BrandFormComponent implements OnInit {
           title: [''],
           keyWords: [''],
           metaDescription: [''],
-        })
+        }),
       );
     });
   }
@@ -106,7 +106,7 @@ export class BrandFormComponent implements OnInit {
       if (this.brand != null && this.brand.descriptions) {
         this.brand.descriptions.forEach((description) => {
           if (desc.language === description.language) {
-            (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
               language: description.language,
               name: description.name,
               highlights: description.highlights,
@@ -137,13 +137,13 @@ export class BrandFormComponent implements OnInit {
     return this.form.get('selectedLanguage');
   }
 
-  get descriptions(): FormArray {
-    return <FormArray>this.form.get('descriptions');
+  get descriptions(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('descriptions');
   }
 
   changeName(event, index) {
-    (<FormArray>this.form.get('descriptions')).at(index).patchValue({
-      friendlyUrl: slugify(event)
+    (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
+      friendlyUrl: slugify(event),
     });
   }
 
@@ -160,7 +160,7 @@ export class BrandFormComponent implements OnInit {
     // save important values for filling empty field in result object
     const tmpObj = {
       name: '',
-      friendlyUrl: ''
+      friendlyUrl: '',
     };
     brandObject.descriptions.forEach((el) => {
       if (tmpObj.name === '' && el.name !== '') {

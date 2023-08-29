@@ -13,23 +13,21 @@ import { CustomModule } from '../../custom-component/custom.module';
 
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
-  declarations: [
-    ProductsGroupsComponent,
-    ProductsGroupsCreationComponent,
-    ProductsGroupsListComponent,
-    GroupsListComponent,
-    ProductGroupFormComponent,
-
-    ActiveButtonComponent
-  ],
-  imports: [
-    ProductsGroupsRoutingModule,
-    SharedModule,
-    NgxSummernoteModule,
-    CustomModule,
-    NgMultiSelectDropDownModule.forRoot()
-  ],
-  entryComponents: [ActiveButtonComponent]
+    declarations: [
+        ProductsGroupsComponent,
+        ProductsGroupsCreationComponent,
+        ProductsGroupsListComponent,
+        GroupsListComponent,
+        ProductGroupFormComponent,
+        ActiveButtonComponent,
+    ],
+    imports: [
+        ProductsGroupsRoutingModule,
+        SharedModule,
+        NgxSummernoteModule,
+        CustomModule,
+        NgMultiSelectDropDownModule.forRoot(),
+    ]
 })
 export class ProductsGroupsModule {
 }

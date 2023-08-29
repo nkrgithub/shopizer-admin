@@ -1,19 +1,19 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LocalDataSource } from 'ng2-smart-table';
+import { NbDialogService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
+import { LocalDataSource } from 'angular2-smart-table';
+import { ToastrService } from 'ngx-toastr';
+import { ShowcaseDialogComponent } from '../../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { ListingService } from '../../../../shared/services/listing.service';
+import { StorageService } from '../../../../shared/services/storage.service';
+import { OptionService } from '../../../options/services/option.service';
 import { ProductAttributesService } from '../../services/product-attributes.service';
 import { ProductService } from '../../services/product.service';
 import { AttributeFormComponent } from '../attribute-form/attribute-form.component';
-import { OptionService } from '../../../options/services/option.service';
 import { Attribute } from '../model/attribute';
-import { ToastrService } from 'ngx-toastr';
-import { TranslateService } from '@ngx-translate/core';
-import { StorageService } from '../../../../shared/services/storage.service';
-import { ShowcaseDialogComponent } from '../../../../shared/components/showcase-dialog/showcase-dialog.component';
-import { NbDialogService } from '@nebular/theme';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Location } from '@angular/common';
-import { ListingService } from '../../../../shared/services/listing.service';
 
 export interface TreeNode {
   data?: Attribute;
@@ -25,21 +25,18 @@ export interface TreeNode {
 @Component({
   selector: 'ngx-product-attributes',
   templateUrl: './product-attributes.component.html',
-  styleUrls: ['./product-attributes.component.scss']
+  styleUrls: ['./product-attributes.component.scss'],
 })
 export class ProductAttributesComponent implements OnInit {
-
-  id : any;
+  id: any;
   loaded = false;
   loading = false;
   loadingList = false;
-
 
   data: TreeNode[] = [];
   source: LocalDataSource = new LocalDataSource();
   options = [];
   listingService: ListingService;
-
 
   isEmpty = false;
   settings = {};
@@ -48,7 +45,7 @@ export class ProductAttributesComponent implements OnInit {
   totalCount;
 
   params = this.loadParams();
-  public input: string = '<input type="checkbox"></input>';
+  public input = '<input type="checkbox"></input>';
   constructor(
     private productAttributesService: ProductAttributesService,
     private productService: ProductService,
@@ -62,28 +59,24 @@ export class ProductAttributesComponent implements OnInit {
     private router: Router,
     private _sanitizer: DomSanitizer
   ) {
-    this.optionService.getListOfOptions({ count: 1000 })
-      .subscribe(res => {
-        this.options = [...res.options];
-      });
+    this.optionService.getListOfOptions({ count: 1000 }).subscribe((res) => {
+      this.options = [...res.options];
+    });
   }
   loadParams() {
     return {
       store: this.storageService.getMerchant(),
-      lang: "_all",
+      lang: '_all',
       count: this.perPage,
       page: 0,
     };
   }
 
-
-
   ngOnInit() {
-
-    this.id = this.productService.getProductIdRoute(this.router,this.location);
+    this.id = this.productService.getProductIdRoute(this.router, this.location);
 
     //specify add image url to image component
-    let el = document.getElementById('tabs');
+    const el = document.getElementById('tabs');
     el.scrollIntoView();
     this.getList();
 
@@ -92,7 +85,7 @@ export class ProductAttributesComponent implements OnInit {
       this.getList();
     });
 
-    //ng2-smart-table server side filter
+    //angular2-smart-table server side filter
     this.source.onChanged().subscribe((change) => {
       //if (!this.loadingList) {//listing service
       //    this.listingService.filterDetect(this.params, change, this.loadList.bind(this), this.resetList.bind(this));
@@ -100,17 +93,16 @@ export class ProductAttributesComponent implements OnInit {
     });
   }
 
-
-
   getList() {
-    var page = this.currentPage -1;
+    const page = this.currentPage - 1;
     this.params.page = page;
     this.loading = true;
-    this.productAttributesService.getListOfProductsAttributes(this.id, this.params)
-      .subscribe(res => {
-        var tempArray = res.attributes.filter((value) => {
-          return value.attributeDisplayOnly === false;
-        });
+    this.productAttributesService
+      .getListOfProductsAttributes(this.id, this.params)
+      .subscribe((res) => {
+        const tempArray = res.attributes.filter(
+          (value) => value.attributeDisplayOnly === false
+        );
         if (tempArray.length !== 0) {
           this.source.load(tempArray);
         } else {
@@ -133,36 +125,32 @@ export class ProductAttributesComponent implements OnInit {
         sort: true,
         custom: [
           { name: 'edit', title: '<i class="nb-edit"></i>' },
-          { name: 'remove', title: '<i class="nb-trash"></i>' }
+          { name: 'remove', title: '<i class="nb-trash"></i>' },
         ],
       },
       pager: {
-        display: false
+        display: false,
       },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),
           type: 'number',
           editable: false,
-          filter: false
+          filter: false,
         },
         option: {
           title: this.translate.instant('PRODUCT_ATTRIBUTES.OPTION_NAME'),
           type: 'string',
           editable: false,
           filter: false,
-          valuePrepareFunction: (name) => {
-            return name.code;
-          }
+          valuePrepareFunction: (name) => name.code,
         },
         optionValue: {
           title: this.translate.instant('PRODUCT_ATTRIBUTES.PRODUCT_OPTION'),
           type: 'string',
           editable: false,
           filter: false,
-          valuePrepareFunction: (name) => {
-            return name.code;
-          }
+          valuePrepareFunction: (name) => name.code,
         },
         /**
         attributeDisplayOnly: {
@@ -176,8 +164,8 @@ export class ProductAttributesComponent implements OnInit {
              type: 'checkbox'
            }
          },
-        **/
-       /**
+         **/
+        /**
         attributeDisplayOnly: {
           title: this.translate.instant('PRODUCT_ATTRIBUTES.DISPLAY_ONLY'),
           type: 'html',
@@ -189,15 +177,15 @@ export class ProductAttributesComponent implements OnInit {
           title: this.translate.instant('PRODUCT_ATTRIBUTES.PRICE'),
           type: 'string',
           editable: false,
-          filter: false
+          filter: false,
         },
         sortOrder: {
           title: this.translate.instant('COMMON.ORDER'),
           type: 'string',
           editable: false,
-          filter: false
-        }
-      }
+          filter: false,
+        },
+      },
     };
   }
 
@@ -232,48 +220,55 @@ export class ProductAttributesComponent implements OnInit {
   route(event) {
     switch (event.action) {
       case 'edit':
-        this.dialogService.open(AttributeFormComponent, {
-          context: {
-            productId: this.id,
-            attributeId: event.data.id
-          }
-        }).onClose.subscribe(res => {
-          this.getList()
-        });
+        this.dialogService
+          .open(AttributeFormComponent, {
+            context: {
+              productId: this.id,
+              attributeId: event.data.id,
+            },
+          })
+          .onClose.subscribe((res) => {
+            this.getList();
+          });
         break;
       case 'remove':
         this.removeAttribute(event.data.id);
         break;
-
     }
   }
   onClickAdd() {
-    this.dialogService.open(AttributeFormComponent, {
-      context: {
-        productId: this.id
-      }
-    }).onClose.subscribe(res => {
-      this.getList()
-    });
+    this.dialogService
+      .open(AttributeFormComponent, {
+        context: {
+          productId: this.id,
+        },
+      })
+      .onClose.subscribe((res) => {
+        this.getList();
+      });
   }
   removeAttribute(id) {
-    this.loading=true;
-    this.dialogService.open(ShowcaseDialogComponent, {})
-      .onClose.subscribe(res => {
+    this.loading = true;
+    this.dialogService
+      .open(ShowcaseDialogComponent, {})
+      .onClose.subscribe((res) => {
         if (res) {
-          this.loading=false;
-                                                      //product id, attribute id
-          this.productAttributesService.deleteAttribute(this.id, id).subscribe(res => {
-            this.getList();
-            this.toastr.success(this.translate.instant('PRODUCT_ATTRIBUTES.PRODUCT_ATTRIBUTES_REMOVED'));
-          });
-          this.loading=false;
+          this.loading = false;
+          //product id, attribute id
+          this.productAttributesService
+            .deleteAttribute(this.id, id)
+            .subscribe((res) => {
+              this.getList();
+              this.toastr.success(
+                this.translate.instant(
+                  'PRODUCT_ATTRIBUTES.PRODUCT_ATTRIBUTES_REMOVED'
+                )
+              );
+            });
+          this.loading = false;
         } else {
-          this.loading=false;
+          this.loading = false;
         }
       });
   }
-
-
-  
 }

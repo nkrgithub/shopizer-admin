@@ -30,7 +30,7 @@ const routes: Routes = [
       },
       {
         path: 'product-ordering',
-        component: ProductOrderingComponent
+        component: ProductOrderingComponent,
       },
       {
         path: 'product/:id',
@@ -68,7 +68,7 @@ const routes: Routes = [
             component: ProductDiscountComponent,
           },
         ],
-        
+
       },
       {
         path: ':productId/category-association',
@@ -77,20 +77,20 @@ const routes: Routes = [
       {
         path: 'association',
         component: ProductToCategoryComponent,
-      }
+      },
     ],
-  }
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
     //RouterModule.forRoot(routes, {
     //  anchorScrolling: 'enabled',
     //  enableTracing: false
     //}),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 
 export class ProductsRoutingModule {

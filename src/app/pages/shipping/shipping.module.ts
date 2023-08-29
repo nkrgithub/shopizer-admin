@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
-import { ShippingRoutingModule, routedComponents } from './shipping-routing.module';
-import { SharedModule } from '../shared/shared.module';
-import { TransferBoxModule } from './transferlistbox/transferlistbox.module';
+import { NgxAngularQueryBuilderModule } from 'ngx-angular-query-builder';
 import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
-import { QueryBuilderModule } from "angular2-query-builder";
-import { CustomModule } from '../custom-component/custom.module';
 import { NgxSummernoteModule } from 'ngx-summernote';
+import { CustomModule } from '../custom-component/custom.module';
+import { SharedModule } from '../shared/shared.module';
+import {
+  routedComponents,
+  ShippingRoutingModule,
+} from './shipping-routing.module';
+import { TransferBoxModule } from './transferlistbox/transferlistbox.module';
 @NgModule({
   declarations: [
     ...routedComponents,
@@ -16,10 +19,10 @@ import { NgxSummernoteModule } from 'ngx-summernote';
     SharedModule,
     TransferBoxModule,
     MalihuScrollbarModule.forRoot(),
-    QueryBuilderModule,
+    NgxAngularQueryBuilderModule,
     CustomModule,
-    NgxSummernoteModule
+    NgxSummernoteModule,
   ],
-  exports: []
+  exports: [],
 })
-export class ShippingModule { }
+export class ShippingModule {}

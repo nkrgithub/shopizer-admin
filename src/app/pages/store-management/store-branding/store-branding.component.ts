@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StoreService } from '../services/store.service';
 import { Logo } from '../models/logo';
@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'ngx-store-branding',
   templateUrl: './store-branding.component.html',
-  styleUrls: ['./store-branding.component.scss']
+  styleUrls: ['./store-branding.component.scss'],
 })
 export class StoreBrandingComponent implements OnInit {
   store;
@@ -23,36 +23,36 @@ export class StoreBrandingComponent implements OnInit {
       id: '0',
       title: 'Store branding',
       key: 'COMPONENTS.STORE_BRANDING',
-      link: 'store-branding'
+      link: 'store-branding',
     },
     {
       id: '1',
       title: 'Store home page',
       key: 'COMPONENTS.STORE_LANDING',
-      link: 'store-landing'
+      link: 'store-landing',
     },
     {
       id: '2',
       title: 'Store details',
       key: 'COMPONENTS.STORE_DETAILS',
-      link: 'store'
-    }
+      link: 'store',
+    },
   ];
 
   @ViewChild('imageDrop', { static: false }) imageDrop;
   acceptedImageTypes = { 'image/png': true, 'image/jpeg': true, 'image/gif': true };
   imageUpload = this.formBuilder.group({
-    imageInput: ['', Validators.required]
+    imageInput: ['', Validators.required],
   });
   logoFile: any;
   logo: Logo;
-  form: FormGroup;
+  form: UntypedFormGroup;
   showRemoveButton = false;
 
 
   constructor(
     private storeService: StoreService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private toastr: ToastrService,
     private translate: TranslateService,
     private router: Router,
@@ -68,7 +68,7 @@ export class StoreBrandingComponent implements OnInit {
 
     forkJoin(
       //this.storeService.getBrandingDetails(code),
-      this.storeService.getStore(code)
+      this.storeService.getStore(code),
     )
       .subscribe(([st]) => {
         this.store = st;
@@ -85,7 +85,7 @@ export class StoreBrandingComponent implements OnInit {
   }
 
   route(link) {
-    this.router.navigate(['pages/store-management/' + link + "/", this.store.code]);
+    this.router.navigate(['pages/store-management/' + link + '/', this.store.code]);
   }
 
   // start WORK WITH IMAGE
@@ -178,13 +178,13 @@ export class StoreBrandingComponent implements OnInit {
 
   private createForm() {
     this.form = this.formBuilder.group({
-      socialNetworks: this.formBuilder.array([])
+      socialNetworks: this.formBuilder.array([]),
     });
 
   }
 
   fillForm(socialNetworksArray) {
-    const control = <FormArray>this.form.controls.socialNetworks;
+    const control = <UntypedFormArray>this.form.controls.socialNetworks;
     socialNetworksArray.forEach(el => {
       control.push(
         this.formBuilder.group({
@@ -192,14 +192,14 @@ export class StoreBrandingComponent implements OnInit {
           active: el.active,
           key: el.key,
           type: el.type,
-          value: el.value
-        })
+          value: el.value,
+        }),
       );
     });
   }
 
-  get socialNetworks(): FormArray {
-    return <FormArray>this.form.get('socialNetworks');
+  get socialNetworks(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('socialNetworks');
   }
 
   saveNetworks() {

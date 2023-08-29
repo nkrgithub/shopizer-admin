@@ -1,21 +1,12 @@
 import { Injectable } from '@angular/core';
-import { PeriodsService } from './periods.service';
 import { ProfitChart, ProfitChartData } from '../data/profit-chart';
+import { PeriodsService } from './periods.service';
 
 @Injectable()
 export class ProfitChartService extends ProfitChartData {
+  private year = ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
 
-  private year = [
-    '2012',
-    '2013',
-    '2014',
-    '2015',
-    '2016',
-    '2017',
-    '2018',
-  ];
-
-  private data = { };
+  private data = {};
 
   constructor(private period: PeriodsService) {
     super();
@@ -25,7 +16,9 @@ export class ProfitChartService extends ProfitChartData {
       year: this.getDataForYearPeriod(),
     };
   }
-
+  getProfitChartData(period: string): ProfitChart {
+    return this.data[period];
+  }
   private getDataForWeekPeriod(): ProfitChart {
     const nPoint = this.period.getWeeks().length;
 
@@ -66,12 +59,8 @@ export class ProfitChartService extends ProfitChartData {
   }
 
   private getRandomData(nPoints: number): number[] {
-    return Array.from(Array(nPoints)).map(() => {
-      return Math.round(Math.random() * 500);
-    });
-  }
-
-  getProfitChartData(period: string): ProfitChart {
-    return this.data[period];
+    return Array.from(Array(nPoints)).map(() =>
+      Math.round(Math.random() * 500)
+    );
   }
 }

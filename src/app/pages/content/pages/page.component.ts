@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
-import { CrudService } from '../../shared/services/crud.service';
 import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
-import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
-import { ToastrService } from 'ngx-toastr';
-import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
-import { StoreService } from '../../store-management/services/store.service';
-import { StorageService } from '../../shared/services/storage.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalDataSource } from 'angular2-smart-table';
+import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
+import { ToastrService } from 'ngx-toastr';
+import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
+import { CrudService } from '../../shared/services/crud.service';
+import { StorageService } from '../../shared/services/storage.service';
+import { StoreService } from '../../store-management/services/store.service';
 @Component({
   selector: 'page-table',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss'],
 })
 export class PageComponent {
-  search_text: string = '';
+  search_text = '';
   stores: Array<any> = [];
   perPage = 10;
   currentPage = 1;
@@ -27,7 +27,7 @@ export class PageComponent {
     lang: this.storageService.getLanguage(),
     store: this.storageService.getMerchant(),
     count: this.perPage,
-    page: 0
+    page: 0,
   };
 
   source: any = new LocalDataSource();
@@ -43,19 +43,20 @@ export class PageComponent {
     private storageService: StorageService,
     private translate: TranslateService
   ) {
-    this.getStoreList()
+    this.getStoreList();
 
     this.translate.onLangChange.subscribe((lang) => {
       this.params.lang = this.storageService.getLanguage();
-      this.getPages()
+      this.getPages();
     });
   }
   ngOnInit() {
     this.getPages();
   }
   getStoreList() {
-    this.storeService.getListOfMerchantStoreNames({ 'store': '' })
-      .subscribe(res => {
+    this.storeService
+      .getListOfMerchantStoreNames({ store: '' })
+      .subscribe((res) => {
         res.forEach((store) => {
           this.stores.push({ value: store.code, label: store.code });
         });
@@ -65,15 +66,17 @@ export class PageComponent {
     this.loadingList = true;
 
     this.params.page = this.currentPage - 1;
-    this.crudService.get('/v1/private/content/pages', this.params)
-      .subscribe(data => {
+    this.crudService.get('/v1/private/content/pages', this.params).subscribe(
+      (data) => {
         this.source = data.items;
         this.tempData = data.items;
-        this.totalCount = data.recordsTotal * data.totalPages
+        this.totalCount = data.recordsTotal * data.totalPages;
         this.loadingList = false;
-      }, error => {
+      },
+      (error) => {
         this.loadingList = false;
-      });
+      }
+    );
     this.setSettings();
   }
   setSettings() {
@@ -89,13 +92,13 @@ export class PageComponent {
         custom: [
           {
             name: 'edit',
-            title: '<i class="nb-edit"></i>'
+            title: '<i class="nb-edit"></i>',
           },
           {
             name: 'delete',
-            title: '<i class="nb-trash"></i>'
-          }
-        ]
+            title: '<i class="nb-trash"></i>',
+          },
+        ],
       },
       columns: {
         id: {
@@ -112,11 +115,11 @@ export class PageComponent {
           valuePrepareFunction: (cell, row) => {
             // console.log(row.description.name)
             if (row.description) {
-              return row.description.name
+              return row.description.name;
             } else {
-              return ''
+              return '';
             }
-          }
+          },
         },
         friendlyUrl: {
           title: this.translate.instant('CONTENT.URL'),
@@ -124,13 +127,12 @@ export class PageComponent {
           valuePrepareFunction: (cell, row) => {
             // console.log(row.description.name)
             if (row.description) {
-              return row.description.friendlyUrl
+              return row.description.friendlyUrl;
             } else {
-              return ''
+              return '';
             }
-          }
-        }
-
+          },
+        },
       },
     };
   }
@@ -165,7 +167,7 @@ export class PageComponent {
     this.router.navigate(['/pages/content/pages/add']);
   }
   onSelectStore(e) {
-    this.params["store"] = e;
+    this.params['store'] = e;
     this.getPages();
   }
   onClickAction(event) {
@@ -175,41 +177,49 @@ export class PageComponent {
         break;
       case 'delete':
         this.onDelete(event);
-
     }
-
   }
   onEdit(event) {
     this.router.navigate(['/pages/content/pages/add/' + event.data.code]);
   }
   onDelete(event) {
-
     // console.log(event);
 
-    this.dialogService.open(ShowcaseDialogComponent, {
-      context: 'Do you really want to remove this entity?'
-      // context: {
-      //   title: 'Are you sure!',
-      //   body: 'Do you really want to remove this entity?'
-      // },
-    }).onClose.subscribe(res => {
-      if (res) {
-        this.loadingList = true;
-        this.crudService.delete('/v1/private/content/' + event.data.id + '?id=' + event.data.id)
-          .subscribe(data => {
-            this.loadingList = false;
-            this.toastr.success('Content page deleted successfully');
-            this.getPages();
-          }, error => {
-            this.loadingList = false;
-          });
-      } else {
-        this.loadingList = false;
-      }
-    });
-
+    this.dialogService
+      .open(ShowcaseDialogComponent, {
+        context: 'Do you really want to remove this entity?',
+        // context: {
+        //   title: 'Are you sure!',
+        //   body: 'Do you really want to remove this entity?'
+        // },
+      })
+      .onClose.subscribe((res) => {
+        if (res) {
+          this.loadingList = true;
+          this.crudService
+            .delete(
+              '/v1/private/content/' + event.data.id + '?id=' + event.data.id
+            )
+            .subscribe(
+              (data) => {
+                this.loadingList = false;
+                this.toastr.success('Content page deleted successfully');
+                this.getPages();
+              },
+              (error) => {
+                this.loadingList = false;
+              }
+            );
+        } else {
+          this.loadingList = false;
+        }
+      });
   }
   ngAfterViewInit() {
-    this.mScrollbarService.initScrollbar('.custom_scroll', { axis: 'y', theme: 'minimal-dark', scrollButtons: { enable: true } });
+    this.mScrollbarService.initScrollbar('.custom_scroll', {
+      axis: 'y',
+      theme: 'minimal-dark',
+      scrollButtons: { enable: true },
+    });
   }
 }

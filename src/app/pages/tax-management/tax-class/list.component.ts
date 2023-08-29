@@ -1,20 +1,19 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { Router } from '@angular/router';
+import { LocalDataSource } from 'angular2-smart-table';
 import { StorageService } from '../../shared/services/storage.service';
 import { StoreService } from '../../store-management/services/store.service';
 import { TaxService } from '../services/tax.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import { Router } from '@angular/router';
 // import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
-import { TranslateService } from '@ngx-translate/core';
-import { error } from '@angular/compiler/src/util';
-import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
 import { NbDialogService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
+import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
 @Component({
   selector: 'ngx-tax-class-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
 export class TaxClassListComponent implements OnInit {
   @ViewChild('item', { static: false }) accordion;
@@ -28,7 +27,7 @@ export class TaxClassListComponent implements OnInit {
   currentPage = 1;
   totalCount;
   // roles;
-  searchValue: string = '';
+  searchValue = '';
   isSuperAdmin: boolean;
 
   params = this.loadParams();
@@ -45,12 +44,12 @@ export class TaxClassListComponent implements OnInit {
   ) {
     this.isSuperAdmin = this.storageService.getUserRoles().isSuperadmin;
     this.getStoreList();
-    this.selectedStore = this.storageService.getMerchant()
+    this.selectedStore = this.storageService.getMerchant();
   }
   getStoreList() {
-    this.storeService.getListOfMerchantStoreNames({ 'store': '' })
-      .subscribe(res => {
-
+    this.storeService
+      .getListOfMerchantStoreNames({ store: '' })
+      .subscribe((res) => {
         res.forEach((store) => {
           this.stores.push({ value: store.code, label: store.code });
         });
@@ -62,22 +61,21 @@ export class TaxClassListComponent implements OnInit {
       this.params.lang = this.storageService.getLanguage();
       this.getTaxClassList();
     });
-
   }
   loadParams() {
     return {
       // store: this.storageService.getMerchant(),
       lang: this.storageService.getLanguage(),
       count: this.perPage,
-      page: 0
+      page: 0,
     };
   }
   getTaxClassList() {
     this.params.page = this.currentPage;
 
     this.loadingList = true;
-    this.taxService.getTaxClass(this.params)
-      .subscribe(data => {
+    this.taxService.getTaxClass(this.params).subscribe(
+      (data) => {
         this.loadingList = false;
         if (data.items && data.items.length !== 0) {
           this.source.load(data.items);
@@ -85,15 +83,17 @@ export class TaxClassListComponent implements OnInit {
           this.source.load([]);
         }
         this.totalCount = data.recordsTotal;
-      }, error => {
+      },
+      (error) => {
         this.loadingList = false;
         this.source.load([]);
-      });
+      }
+    );
     this.setSettings();
   }
 
   setSettings() {
-    var me = this;
+    const me = this;
     this.settings = {
       // mode: 'external',
       hideSubHeader: true,
@@ -106,36 +106,35 @@ export class TaxClassListComponent implements OnInit {
         custom: [
           {
             name: 'edit',
-            title: '<i class="nb-edit"></i>'
+            title: '<i class="nb-edit"></i>',
           },
           {
             name: 'delete',
-            title: '<i class="nb-trash"></i>'
-          }
-        ]
+            title: '<i class="nb-trash"></i>',
+          },
+        ],
       },
       pager: {
-        display: false
+        display: false,
       },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),
-          type: 'number'
+          type: 'number',
           // filterFunction(cell: any, search?: string): boolean {
           //   return true;
           // }
         },
         code: {
           title: this.translate.instant('COMMON.CODE'),
-          type: 'string'
+          type: 'string',
         },
         name: {
           title: this.translate.instant('COMMON.NAME'),
-          type: 'string'
-        }
-      }
+          type: 'string',
+        },
+      },
     };
-
   }
   // paginator
   changePage(event) {
@@ -161,15 +160,15 @@ export class TaxClassListComponent implements OnInit {
         break;
       }
     }
-    this.getTaxClassList()
+    this.getTaxClassList();
   }
 
   onSelectStore(e) {
-    this.params["store"] = e;
+    this.params['store'] = e;
     this.getTaxClassList();
   }
   route(event) {
-    console.log(event)
+    console.log(event);
     switch (event.action) {
       case 'edit':
         this.editTaxClass(event);
@@ -178,23 +177,22 @@ export class TaxClassListComponent implements OnInit {
       case 'delete':
         this.onDelete(event);
         break;
-
     }
   }
   onDelete(event) {
     // console.log(data.data.id)
     this.loadingList = true;
-    this.dialogService.open(ShowcaseDialogComponent, {})
-      .onClose.subscribe(res => {
+    this.dialogService
+      .open(ShowcaseDialogComponent, {})
+      .onClose.subscribe((res) => {
         if (res) {
-          this.taxService.deleteTaxClass(event.data.id)
-            .subscribe(result => {
-              this.loadingList = false;
+          this.taxService.deleteTaxClass(event.data.id).subscribe((result) => {
+            this.loadingList = false;
 
-              this.toastr.success("Tax class has been deleted successfully");
-              this.getTaxClassList();
-              event.confirm.resolve();
-            });
+            this.toastr.success('Tax class has been deleted successfully');
+            this.getTaxClassList();
+            event.confirm.resolve();
+          });
         } else {
           this.loadingList = false;
           event.confirm.reject();
@@ -209,5 +207,4 @@ export class TaxClassListComponent implements OnInit {
     localStorage.setItem('classId', event.data.code);
     this.router.navigate(['pages/tax-management/classes-add']);
   }
-
 }

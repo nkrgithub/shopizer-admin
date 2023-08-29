@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { StoreService } from '../services/store.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import { TranslateService } from '@ngx-translate/core';
-import { SecurityService } from '../../shared/services/security.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { StorageService } from '../../shared/services/storage.service';
 import { NbDialogService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
+import { LocalDataSource } from 'angular2-smart-table';
 import { ToastrService } from 'ngx-toastr';
 import { ShowcaseDialogComponent } from '../../shared/components/showcase-dialog/showcase-dialog.component';
 import { ListingService } from '../../shared/services/listing.service';
+import { SecurityService } from '../../shared/services/security.service';
+import { StorageService } from '../../shared/services/storage.service';
+import { StoreService } from '../services/store.service';
 
 @Component({
   selector: 'ngx-stores-list',
   templateUrl: './stores-list.component.html',
-  styleUrls: ['./stores-list.component.scss']
+  styleUrls: ['./stores-list.component.scss'],
 })
 export class StoresListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
@@ -29,10 +29,9 @@ export class StoresListComponent implements OnInit {
   totalCount;
   totalPages;
   merchant = '';
-  searchValue: string = '';
+  searchValue = '';
 
   params = this.loadParams();
-
 
   settings = {};
 
@@ -52,38 +51,40 @@ export class StoresListComponent implements OnInit {
   ngOnInit() {
     this.getList();
 
-    //ng2-smart-table server side filter
+    //angular2-smart-table server side filter
     this.source.onChanged().subscribe((change) => {
-
-      if (!this.loadingList) {//listing service
-        this.listingService.filterDetect(this.params,change,this.loadList.bind(this),this.resetList.bind(this));
+      if (!this.loadingList) {
+        //listing service
+        this.listingService.filterDetect(
+          this.params,
+          change,
+          this.loadList.bind(this),
+          this.resetList.bind(this)
+        );
       }
-
     });
-
   }
 
   loadParams() {
     return {
       count: this.perPage,
       page: 0,
-      store: ''
+      store: '',
     };
   }
 
+  /** callback methods for table list*/
+  private loadList(newParams: any) {
+    this.currentPage = 1; //back to page 1
+    this.params = newParams;
+    this.getList();
+  }
 
-    /** callback methods for table list*/
-    private loadList(newParams:any) {
-      this.currentPage = 1; //back to page 1
-      this.params = newParams;
-      this.getList();
-    }
-  
-    private resetList() {
-      this.currentPage = 1;//back to page 1
-      this.params = this.loadParams();
-      this.getList();
-    }
+  private resetList() {
+    this.currentPage = 1; //back to page 1
+    this.params = this.loadParams();
+    this.getList();
+  }
 
   getList() {
     const startFrom = this.currentPage - 1;
@@ -91,27 +92,30 @@ export class StoresListComponent implements OnInit {
     this.params.page = startFrom;
     this.params.store = this.merchant;
     this.loadingList = true;
-    this.storeService.getListOfStores(this.params)
-      .subscribe(res => {
-        this.totalCount = res.recordsTotal;
-        this.totalPages = res.totalPages;
-        this.source.load(res.data);
-        this.loadingList = false;
-      });
+    this.storeService.getListOfStores(this.params).subscribe((res) => {
+      this.totalCount = res.recordsTotal;
+      this.totalPages = res.totalPages;
+      this.source.load(res.data);
+      this.loadingList = false;
+    });
     this.setSettings();
     this.translate.onLangChange.subscribe((event) => {
       this.setSettings();
     });
   }
 
-
   setSettings() {
     let customs = [];
     if (this.securityService.isAnAdmin()) {
       customs = [
         { name: 'details', title: '<i class="nb-edit"></i>' },
-        { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="nb-trash"></i>') }
-      ]
+        {
+          name: 'remove',
+          title: this._sanitizer.bypassSecurityTrustHtml(
+            '<i class="nb-trash"></i>'
+          ),
+        },
+      ];
     }
 
     this.settings = {
@@ -122,7 +126,7 @@ export class StoresListComponent implements OnInit {
         delete: false,
         position: 'right',
         sort: true,
-        custom: customs
+        custom: customs,
       },
       pager: { display: false },
       columns: {
@@ -148,19 +152,20 @@ export class StoresListComponent implements OnInit {
         email: {
           title: this.translate.instant('COMMON.EMAIL_ADDRESS'),
           type: 'string',
-        }
+        },
       },
     };
   }
 
-
-
   route(event) {
     switch (event.action) {
-      case 'details'://must be super admin or admin retail or admin
+      case 'details': //must be super admin or admin retail or admin
         if (!this.securityService.isAnAdmin()) {
         } else {
-          this.router.navigate(['pages/store-management/store/', event.data.code]);
+          this.router.navigate([
+            'pages/store-management/store/',
+            event.data.code,
+          ]);
           break;
         }
       case 'remove':
@@ -171,21 +176,27 @@ export class StoresListComponent implements OnInit {
             context: {
               title: '',
               text: '',
-              actionText: this.translate.instant('USER_FORM.CANT_DELETE_YOUR_PROFILE')
-            }
-          })
+              actionText: this.translate.instant(
+                'USER_FORM.CANT_DELETE_YOUR_PROFILE'
+              ),
+            },
+          });
         } else {
-          this.dialogService.open(ShowcaseDialogComponent, {
-            context: {
-              title: '',
-              text: event.data.name + ' ? '
-            }
-          })
-          .onClose.subscribe(res => {
+          this.dialogService
+            .open(ShowcaseDialogComponent, {
+              context: {
+                title: '',
+                text: event.data.name + ' ? ',
+              },
+            })
+            .onClose.subscribe((res) => {
               if (res) {
-                this.storeService.deleteStore(event.data.code)
-                  .subscribe(data => {
-                    this.toastr.success(this.translate.instant('USER_FORM.USER_REMOVED'));
+                this.storeService
+                  .deleteStore(event.data.code)
+                  .subscribe((data) => {
+                    this.toastr.success(
+                      this.translate.instant('USER_FORM.USER_REMOVED')
+                    );
                     this.getList();
                   });
               }
@@ -222,6 +233,4 @@ export class StoresListComponent implements OnInit {
     }
     this.getList();
   }
-
-
 }

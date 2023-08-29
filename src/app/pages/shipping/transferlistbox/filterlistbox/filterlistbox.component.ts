@@ -1,34 +1,34 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  EventEmitter,
-  Output,
-  ElementRef,
-  ViewChild,
-  ViewChildren,
   AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
   QueryList,
   Renderer2,
-} from "@angular/core";
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 
 @Component({
-  selector: "app-filterlistbox",
-  templateUrl: "./filterlistbox.component.html",
-  styleUrls: ["./filterlistbox.component.scss"],
+  selector: 'app-filterlistbox',
+  templateUrl: './filterlistbox.component.html',
+  styleUrls: ['./filterlistbox.component.scss'],
 })
 export class FilterlistboxComponent implements OnInit, AfterViewInit {
-  @ViewChildren("option") options: QueryList<ElementRef>;
-  @ViewChild("inputRef") inputRef: ElementRef;
-  @Input("itemsMap") itemsMap: Map<string, any>;
-  @Input("label") label: string;
-  @Input("code") code: string;
-  @Input("componentId") cid: string;
-  @Input("listName") listName: string;
+  @ViewChildren('option') options: QueryList<ElementRef>;
+  @ViewChild('inputRef') inputRef: ElementRef;
+  @Input('itemsMap') itemsMap: Map<string, any>;
+  @Input('label') label: string;
+  @Input('code') code: string;
+  @Input('componentId') cid: string;
+  @Input('listName') listName: string;
   @Output() onKeyWordChange = new EventEmitter<Object>();
   @Input() itemStateChanged = new EventEmitter<Object>();
   @Input() selectAllEvent = new EventEmitter<Object>();
-  @Input("showDelete") showDelete: boolean;
+  @Input('showDelete') showDelete: boolean;
   @Output() onDeleteClicked = new EventEmitter<string>();
   search: string;
   activedescendentItem: string = null;
@@ -46,6 +46,7 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {}
   /**
    * Event to capture when an item is selected
+   *
    * @param $event
    * @param item
    */
@@ -53,7 +54,7 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
     item.value.selected = item.value.selected == true ? false : true;
     this.activedescendentItem = $event.currentTarget.id;
     this.updateCurrentActiveDescendant();
-    this.itemStateChanged.emit({ componentId: this.cid, item: item });
+    this.itemStateChanged.emit({ componentId: this.cid, item });
   }
 
   /**
@@ -64,20 +65,21 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
       if (eleRef.nativeElement.id === this.activedescendentItem) {
         this.renderer.setAttribute(
           eleRef.nativeElement,
-          "data-activedesendent",
-          "true"
+          'data-activedesendent',
+          'true'
         );
       } else {
         this.renderer.setAttribute(
           eleRef.nativeElement,
-          "data-activedesendent",
-          "false"
+          'data-activedesendent',
+          'false'
         );
       }
     });
   }
   /**
    * Enable keyboard accessibility via listening to key down event
+   *
    * @param $event
    */
   onKeydown($event: any) {
@@ -109,6 +111,7 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
 
   /**
    * updates the current active descendent scrolls the option into view
+   *
    * @param eleRef
    * @param index
    * @param optionsarray
@@ -120,13 +123,13 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
   ) {
     this.renderer.setAttribute(
       eleRef.nativeElement,
-      "data-activedesendent",
-      "false"
+      'data-activedesendent',
+      'false'
     );
     this.renderer.setAttribute(
       optionsarray[index].nativeElement,
-      "data-activedesendent",
-      "true"
+      'data-activedesendent',
+      'true'
     );
     this.activedescendentItem = optionsarray[index].nativeElement.id;
     // optionsarray[index].nativeElement.scrollIntoView();
@@ -134,12 +137,13 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
   }
   /**
    * Triggered when HOME key is pressed. This sets the first option into focus
+   *
    * @param $event
    */
   selectFirstOption($event) {
     $event.preventDefault();
     if (
-      typeof this.activedescendentItem != "undefined" &&
+      typeof this.activedescendentItem != 'undefined' &&
       this.activedescendentItem
     ) {
       this.options.some(
@@ -164,20 +168,21 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
 
   scrollIntoViewSmoothly(eleRef: ElementRef) {
     eleRef.nativeElement.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "start",
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'start',
     });
   }
 
   /**
    * Triggered when END key is pressed. This sets the first option into focus
+   *
    * @param $event
    */
   selectLastOption($event) {
     $event.preventDefault();
     if (
-      typeof this.activedescendentItem != "undefined" &&
+      typeof this.activedescendentItem != 'undefined' &&
       this.activedescendentItem
     ) {
       this.options.some(
@@ -185,13 +190,13 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
           if (eleRef.nativeElement.id === this.activedescendentItem) {
             this.renderer.setAttribute(
               eleRef.nativeElement,
-              "data-activedesendent",
-              "false"
+              'data-activedesendent',
+              'false'
             );
             this.renderer.setAttribute(
               optionsarray[optionsarray.length - 1].nativeElement,
-              "data-activedesendent",
-              "true"
+              'data-activedesendent',
+              'true'
             );
             this.activedescendentItem =
               optionsarray[optionsarray.length - 1].nativeElement.id;
@@ -207,8 +212,8 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
           if (index == 0) {
             this.renderer.setAttribute(
               optionsarray[optionsarray.length - 1].nativeElement,
-              "data-activedesendent",
-              "true"
+              'data-activedesendent',
+              'true'
             );
             this.activedescendentItem =
               optionsarray[optionsarray.length - 1].nativeElement.id;
@@ -223,12 +228,13 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
 
   /**
    * Function executes logic associated to keydown for ARROW Down. This will set the next option into focus
+   *
    * @param $event
    */
   executeArrowDown($event: any) {
     $event.preventDefault();
     if (
-      typeof this.activedescendentItem != "undefined" &&
+      typeof this.activedescendentItem != 'undefined' &&
       this.activedescendentItem
     ) {
       this.options.some(
@@ -237,13 +243,13 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
             index = index < optionsarray.length - 1 ? index : -1;
             this.renderer.setAttribute(
               eleRef.nativeElement,
-              "data-activedesendent",
-              "false"
+              'data-activedesendent',
+              'false'
             );
             this.renderer.setAttribute(
               optionsarray[index + 1].nativeElement,
-              "data-activedesendent",
-              "true"
+              'data-activedesendent',
+              'true'
             );
             this.activedescendentItem =
               optionsarray[index + 1].nativeElement.id;
@@ -262,8 +268,8 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
           if (index == 0) {
             this.renderer.setAttribute(
               optionsarray[index].nativeElement,
-              "data-activedesendent",
-              "true"
+              'data-activedesendent',
+              'true'
             );
             this.activedescendentItem = optionsarray[index].nativeElement.id;
             //optionsarray[index].nativeElement.scrollIntoView();
@@ -280,12 +286,13 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
 
   /**
    * Function executes logic associated to keydown for ARROW UP. This will set the previous option into focus
+   *
    * @param $event
    */
   executeUpArrow($event: any) {
     $event.preventDefault();
     if (
-      typeof this.activedescendentItem != "undefined" &&
+      typeof this.activedescendentItem != 'undefined' &&
       this.activedescendentItem
     ) {
       this.options.some(
@@ -297,13 +304,13 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
                 : optionsarray.length;
             this.renderer.setAttribute(
               eleRef.nativeElement,
-              "data-activedesendent",
-              "false"
+              'data-activedesendent',
+              'false'
             );
             this.renderer.setAttribute(
               optionsarray[index - 1].nativeElement,
-              "data-activedesendent",
-              "true"
+              'data-activedesendent',
+              'true'
             );
             this.activedescendentItem =
               optionsarray[index - 1].nativeElement.id;
@@ -320,8 +327,8 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
         (eleRef: ElementRef, index: number, optionsarray: ElementRef[]) => {
           this.renderer.setAttribute(
             optionsarray[optionsarray.length - 1].nativeElement,
-            "data-activedesendent",
-            "true"
+            'data-activedesendent',
+            'true'
           );
           this.activedescendentItem =
             optionsarray[optionsarray.length - 1].nativeElement.id;
@@ -337,11 +344,12 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
   }
   /**
    * Function executes logic associated to keydown of Spacebar. This will select the current active-descendent i.e., focused option
+   *
    * @param $event
    */
   selectOption($event: any) {
     if (
-      typeof this.activedescendentItem != "undefined" &&
+      typeof this.activedescendentItem != 'undefined' &&
       this.activedescendentItem
     ) {
       this.options.some(
@@ -356,16 +364,18 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
   }
   /**
    * Utility fuction which will update the state of the option's model i.e.,selected/unselected
+   *
    * @param eleRef
    */
   updateSelectedOption(eleRef: ElementRef) {
-    let code = eleRef.nativeElement.getAttribute("data-code");
-    let item = this.itemsMap.get(code);
+    const code = eleRef.nativeElement.getAttribute('data-code');
+    const item = this.itemsMap.get(code);
     item.selected = item.selected ? false : true;
     this.itemsMap.set(code, item);
   }
   /**
    * Triggers for CTRL+A which will either select all/unselect all based on current state
+   *
    * @param $event
    */
   selectAllOptionsOnKeyDown($event: any) {
@@ -382,6 +392,7 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
   }
   /**
    * Triggered when select all checkbox state is changed
+   *
    * @param $event
    */
   selectOrUnselectAll($event: any) {
@@ -389,11 +400,17 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
   }
   /**
    * Common utility function which sets the model object value to desired state i.e., selected=true or false
+   *
    * @param selected
    */
   iterateAndSetSelectedStatus(selected: boolean) {
     this.itemsMap.forEach((item: any, key: string) => {
       item.selected = selected;
     });
+  }
+
+  onDelete(ev: Event) {
+    ev.stopPropagation();
+    this.onDeleteClicked.emit();
   }
 }

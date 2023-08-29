@@ -15,24 +15,23 @@ import { TreeModule, TreeDraggedElement } from 'angular-tree-component';
 
 
 @NgModule({
-  declarations: [
-    CategoriesComponent,
-    CategoryCreationComponent,
-    CategoriesListComponent,
-    CategoriesHierarchyComponent,
-    ButtonRenderComponent,
-    CategoryFormComponent,
-    CategoryDetailComponent,
-  ],
-  imports: [
-    CategoriesRoutingModule,
-    SharedModule,
-    NgxSummernoteModule,
-    NbDialogModule.forChild(),
-    TreeModule
-  ],
-  entryComponents: [ButtonRenderComponent],
-  providers: [TreeDraggedElement]
+    declarations: [
+        CategoriesComponent,
+        CategoryCreationComponent,
+        CategoriesListComponent,
+        CategoriesHierarchyComponent,
+        ButtonRenderComponent,
+        CategoryFormComponent,
+        CategoryDetailComponent,
+    ],
+    imports: [
+        CategoriesRoutingModule,
+        SharedModule,
+        NgxSummernoteModule,
+        NbDialogModule.forChild(),
+        TreeModule,
+    ],
+    providers: [TreeDraggedElement]
 })
 
 export class CategoriesModule {

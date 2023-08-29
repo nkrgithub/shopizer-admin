@@ -1,8 +1,8 @@
 module.exports = {
     packages: {
-      'angular2-query-builder': {
+      'ngx-angular-query-builder': {
         entryPoints: {
-          './dist/angular2-query-builder': {
+          './dist/ngx-angular-query-builder': {
             ignore: true
           }
         }

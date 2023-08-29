@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ConfigService } from '../../../shared/services/config.service';
@@ -13,29 +13,29 @@ import { OptionValueImageService } from '../services/option-value-image.service'
 @Component({
   selector: 'ngx-option-values',
   templateUrl: './option-values.component.html',
-  styleUrls: ['./option-values.component.scss']
+  styleUrls: ['./option-values.component.scss'],
 })
 export class OptionValuesComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   loader = false;
-  loadingInfo: boolean = false;
+  loadingInfo = false;
   optionValue = new OptionValue();
   languages = [];
   types = [
-    'Select', 'Radio', 'Checkbox', 'Text'
+    'Select', 'Radio', 'Checkbox', 'Text',
   ];
   isCodeUnique = true;
   uploadImage = new FormData();
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private configService: ConfigService,
     private optionValuesService: OptionValuesService,
     private toastr: ToastrService,
     private translate: TranslateService,
     private router: Router,
-    private optionValueImageService: OptionValueImageService
+    private optionValueImageService: OptionValueImageService,
   ) {
     this.languages = [...this.configService.languages];
   }
@@ -57,8 +57,8 @@ export class OptionValuesComponent implements OnInit {
     return this.form.get('selectedLanguage');
   }
 
-  get descriptions(): FormArray {
-    return <FormArray>this.form.get('descriptions');
+  get descriptions(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('descriptions');
   }
 
   get code() {
@@ -69,19 +69,19 @@ export class OptionValuesComponent implements OnInit {
     this.form = this.fb.group({
       code: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
       selectedLanguage: ['en'],
-      descriptions: this.fb.array([])
+      descriptions: this.fb.array([]),
     });
     this.addFormArray();
   }
 
   addFormArray() {
-    const control = <FormArray>this.form.controls.descriptions;
+    const control = <UntypedFormArray>this.form.controls.descriptions;
     this.languages.forEach(lang => {
       control.push(
         this.fb.group({
           language: [lang.code, []],
-          name: ['', []]
-        })
+          name: ['', []],
+        }),
       );
     });
   }
@@ -98,7 +98,7 @@ export class OptionValuesComponent implements OnInit {
     this.form.value.descriptions.forEach((desc, index) => {
       this.optionValue.descriptions.forEach((description) => {
         if (desc.language === description.language) {
-          (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+          (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
             language: description.language,
             name: description.name,
           });

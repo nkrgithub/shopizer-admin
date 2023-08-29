@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
 import { CategoryService } from '../services/category.service';
@@ -12,16 +12,16 @@ import { SecurityService } from '../../../shared/services/security.service';
 import { validators } from '../../../shared/validation/validators';
 import { slugify } from '../../../shared/utils/slugifying';
 import { ImageBrowserComponent } from '../../../../@theme/components/image-browser/image-browser.component';
-declare var jquery: any;
-declare var $: any;
+declare let jquery: any;
+declare let $: any;
 @Component({
   selector: 'ngx-category-form',
   templateUrl: './category-form.component.html',
-  styleUrls: ['./category-form.component.scss']
+  styleUrls: ['./category-form.component.scss'],
 })
 export class CategoryFormComponent implements OnInit {
   @Input() category: any;
-  form: FormGroup;
+  form: UntypedFormGroup;
   //category
   roots = [];
 
@@ -50,12 +50,12 @@ export class CategoryFormComponent implements OnInit {
       ['fontsize', ['fontname', 'fontsize', 'color']],
       ['para', ['style', 'ul', 'ol', 'paragraph', 'height']],
       ['insert', ['table', 'link', 'video']],
-      ['customButtons', ['testBtn']]
+      ['customButtons', ['testBtn']],
     ],
     buttons: {
-      'testBtn': this.customButton.bind(this)
+      testBtn: this.customButton.bind(this),
     },
-    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times']
+    fontNames: ['Helvetica', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Roboto', 'Times'],
   };
   //loader image
   loader = false;
@@ -71,12 +71,12 @@ export class CategoryFormComponent implements OnInit {
       lang: this.storageService.getLanguage(),
       store: this.storageService.getMerchant(),
       count: this.perPage,
-      page: 0
+      page: 0,
     };
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private categoryService: CategoryService,
     private configService: ConfigService,
     private storeService: StoreService,
@@ -86,7 +86,7 @@ export class CategoryFormComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private translate: TranslateService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
   ) {
     //this.roles = JSON.parse(localStorage.getItem('roles'));
   }
@@ -97,7 +97,7 @@ export class CategoryFormComponent implements OnInit {
     this.isRetailAdmin = this.securityService.isRetailAdmin();
     this.merchant = this.storageService.getMerchant();
     //for populating stores dropdown list
-    this.storeService.getListOfMerchantStoreNames({ 'store': '' })
+    this.storeService.getListOfMerchantStoreNames({ store: '' })
       .subscribe(res => {
         this.stores = res;
       });
@@ -110,17 +110,19 @@ export class CategoryFormComponent implements OnInit {
           this.getChildren(el);
         });
         this.roots.sort((a, b) => {
-          if (a.code < b.code)
-            return -1;
-          if (a.code > b.code)
-            return 1;
+          if (a.code < b.code) {
+return -1;
+}
+          if (a.code > b.code) {
+return 1;
+}
           return 0;
         });
         //this.roots = [...res.categories];
         //console.log(JSON.stringify(this.roots));
       });
     this.loader = true;
- 
+
     //determines how many languages should be supported
     this.configService.getListOfSupportedLanguages(localStorage.getItem('merchant'))
       .subscribe(res => {
@@ -136,7 +138,9 @@ export class CategoryFormComponent implements OnInit {
   }
 
   getChildren(node) {
-    if(node.id === this.category.id) return;
+    if(node.id === this.category.id) {
+return;
+}
     if (node.children && node.children.length !== 0) {
       this.roots.push(node);
       node.children.forEach((el) => {
@@ -158,12 +162,12 @@ export class CategoryFormComponent implements OnInit {
       descriptions: this.fb.array([]),
     });
     if (!this.isSuperAdmin) {
-      this.form.get("store").disable();
+      this.form.get('store').disable();
     }
   }
 
   addFormArray() {
-    const control = <FormArray>this.form.controls.descriptions;
+    const control = <UntypedFormArray>this.form.controls.descriptions;
     this.languages.forEach(lang => {
       control.push(
         this.fb.group({
@@ -174,7 +178,7 @@ export class CategoryFormComponent implements OnInit {
           description: [''],
           title: [''],
           metaDescription: [''],
-        })
+        }),
       );
     });
   }
@@ -209,7 +213,7 @@ export class CategoryFormComponent implements OnInit {
         this.category.descriptions.forEach((description) => {
           if (desc.language === description.language) {
             //6 fields + language
-            (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
               language: description.language,
               name: description.name,
               highlights: description.highlights,
@@ -232,16 +236,16 @@ export class CategoryFormComponent implements OnInit {
     return this.form.get('selectedLanguage');
   }
 
-  get descriptions(): FormArray {
-    return <FormArray>this.form.get('descriptions');
+  get descriptions(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('descriptions');
   }
 
-  get titles(): FormArray {
-    return <FormArray>this.form.get('titles');
+  get titles(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('titles');
   }
 
-  get names(): FormArray {
-    return <FormArray>this.form.get('names');
+  get names(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('names');
   }
 
   selectLanguage(lang) {
@@ -251,9 +255,9 @@ export class CategoryFormComponent implements OnInit {
   }
 
   changeName(event, index) {
-    
-    (<FormArray>this.form.get('descriptions')).at(index).patchValue({
-      friendlyUrl: slugify(event)
+
+    (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
+      friendlyUrl: slugify(event),
     });
 
   }
@@ -288,7 +292,7 @@ export class CategoryFormComponent implements OnInit {
      */
     const tmpObj = {
       name: '',
-      friendlyUrl: ''
+      friendlyUrl: '',
     };
     categoryObject.descriptions.forEach((el) => {
       if (tmpObj.name === '' && el.name !== '') {
@@ -338,7 +342,7 @@ export class CategoryFormComponent implements OnInit {
         return;
       }
 
-      let errors = this.findInvalidControls();
+      const errors = this.findInvalidControls();
       if (errors.length > 0) {
         this.toastr.error(this.translate.instant('COMMON.FILL_REQUIRED_FIELDS'));
         this.loading = false;
@@ -366,18 +370,20 @@ export class CategoryFormComponent implements OnInit {
   }
 
   public findInvalidControls(): string[] {
-    var invalidControls: string[] = [];
-    let recursiveFunc = (form: FormGroup | FormArray) => {
+    const invalidControls: string[] = [];
+    const recursiveFunc = (form: UntypedFormGroup | UntypedFormArray) => {
       Object.keys(form.controls).forEach(field => {
         const control = form.get(field);
-        if (control.invalid) invalidControls.push(field);
-        if (control instanceof FormGroup) {
+        if (control.invalid) {
+invalidControls.push(field);
+}
+        if (control instanceof UntypedFormGroup) {
           recursiveFunc(control);
-        } else if (control instanceof FormArray) {
+        } else if (control instanceof UntypedFormArray) {
           recursiveFunc(control);
         }
       });
-    }
+    };
     recursiveFunc(this.form);
     //console.log('Invalids ' + invalidControls);
     return invalidControls;
@@ -390,10 +396,10 @@ export class CategoryFormComponent implements OnInit {
       tooltip: 'Gallery',
       container: '.note-editor',
       className: 'note-btn',
-      click: function () {
+      click() {
         //console.log(me);
         me.dialogService.open(ImageBrowserComponent, {}).onClose.subscribe(name => name && context.invoke('editor.pasteHTML', '<img src="' + name + '">'));
-      }
+      },
     });
     return button.render();
   }

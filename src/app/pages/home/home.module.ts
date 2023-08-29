@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 
 //import { NgxEchartsModule } from 'ngx-echarts';
 //import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { ChartModule } from 'angular2-chartjs';
-import { HomeComponent } from './home.component';
 import { SharedModule } from '../shared/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
+import { HomeComponent } from './home.component';
 
 /** orders - carts - transactions */
 /**
@@ -17,7 +16,7 @@ import { OrdersChartComponent } from '../shared/wigets/e-commerce/charts-panel/c
 import { ProfitChartComponent } from '../shared/wigets/e-commerce/charts-panel/charts/profit-chart.component';
 import { ChartPanelHeaderComponent } from '../shared/wigets/e-commerce/charts-panel/chart-panel-header/chart-panel-header.component';
 import { ChartPanelSummaryComponent } from '../shared/wigets/e-commerce/charts-panel/chart-panel-summary/chart-panel-summary.component';
-**/
+ **/
 /** price chart */
 
 /**
@@ -26,8 +25,7 @@ import { StatsCardFrontComponent } from '../shared/wigets/e-commerce/profit-card
 import { StatsCardBackComponent } from '../shared/wigets/e-commerce/profit-card/back-side/stats-card-back.component';
 import { StatsBarAnimationChartComponent } from '../shared/wigets/e-commerce/profit-card/front-side/stats-bar-animation-chart.component';
 import { StatsAreaChartComponent } from '../shared/wigets/e-commerce/profit-card/back-side/stats-area-chart.component';
-**/
-
+ **/
 
 /** traffic list */
 
@@ -38,27 +36,27 @@ import { TrafficFrontCardComponent } from '../shared/wigets/e-commerce/traffic-r
 import { TrafficCardsHeaderComponent } from '../shared/wigets/e-commerce/traffic-reveal-card/traffic-cards-header/traffic-cards-header.component';
 import { TrafficBackCardComponent } from '../shared/wigets/e-commerce/traffic-reveal-card/back-side/traffic-back-card.component';
 import { TrafficBarChartComponent } from '../shared/wigets/e-commerce/traffic-reveal-card/back-side/traffic-bar-chart.component';
-**/
+ **/
 
 import {
   NbButtonModule,
   NbCardModule,
+  NbIconModule,
+  NbListModule,
   NbProgressBarModule,
+  NbSelectModule,
   NbTabsetModule,
   NbUserModule,
-  NbIconModule,
-  NbSelectModule,
-  NbListModule,
 } from '@nebular/theme';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
     /**
     ProfitCardComponent,
     ECommerceLegendChartComponent,
     OrdersChartComponent,
-    ProfitChartComponent,    
+    ProfitChartComponent,
     StatsCardFrontComponent,
     StatsCardBackComponent,
     StatsBarAnimationChartComponent,
@@ -72,12 +70,10 @@ import {
     ECommerceChartsPanelComponent,
     ChartPanelHeaderComponent,
     ChartPanelSummaryComponent
-    **/
-
+     **/
   ],
   imports: [
     SharedModule,
-    ChartModule,
     //NgxEchartsModule,
     //NgxChartsModule,
     HomeRoutingModule,
@@ -88,7 +84,7 @@ import {
     NbUserModule,
     NbIconModule,
     NbSelectModule,
-    NbListModule
-  ]
+    NbListModule,
+  ],
 })
-export class HomeModule { }
+export class HomeModule {}

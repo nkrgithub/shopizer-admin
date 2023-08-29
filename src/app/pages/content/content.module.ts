@@ -1,32 +1,32 @@
 import { NgModule } from '@angular/core';
-import { ContentRoutingModule, routedComponents } from './content-routing.module';
-import { SharedModule } from '../shared/shared.module';
-import { ngfModule } from 'angular-file';
-import { QueryBuilderModule } from "angular2-query-builder";
 import { NbDialogModule } from '@nebular/theme';
+import { ngfModule } from 'angular-file';
+import { FileManagerModule } from 'ng6-file-man';
+import { NgxAngularQueryBuilderModule } from 'ngx-angular-query-builder';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { LightboxModule } from 'ngx-lightbox';
 import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
-import { FileManagerModule } from 'ng6-file-man';
 import { NgxSummernoteModule } from 'ngx-summernote';
 import { CustomModule } from '../custom-component/custom.module';
+import { SharedModule } from '../shared/shared.module';
+import {
+  ContentRoutingModule,
+  routedComponents,
+} from './content-routing.module';
 @NgModule({
-  declarations: [
-    ...routedComponents
-  ],
+  declarations: [...routedComponents],
   imports: [
     ContentRoutingModule,
     SharedModule,
-    ngfModule,
     FileManagerModule,
-    QueryBuilderModule,
+    NgxAngularQueryBuilderModule,
     NbDialogModule.forChild(),
     NgxSummernoteModule,
     NgxDropzoneModule,
     LightboxModule,
     MalihuScrollbarModule.forRoot(),
-    CustomModule
+    CustomModule,
+    ngfModule,
   ],
-  exports: [ngfModule]
 })
-export class ContentModule { }
+export class ContentModule {}

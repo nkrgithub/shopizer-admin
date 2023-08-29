@@ -1,15 +1,15 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { PropertiesService } from '../../services/product-properties';
-import { ProductAttributesService } from '../../services/product-attributes.service';
-import { TranslateService } from '@ngx-translate/core';
-import { StorageService } from '../../../../shared/services/storage.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import { NbDialogService } from '@nebular/theme';
-import { ProductPropertyForm } from '../form/product-property-form.component';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NbDialogService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
+import { LocalDataSource } from 'angular2-smart-table';
 import { forkJoin } from 'rxjs';
+import { StorageService } from '../../../../shared/services/storage.service';
+import { ProductAttributesService } from '../../services/product-attributes.service';
+import { PropertiesService } from '../../services/product-properties';
 import { ProductService } from '../../services/product.service';
+import { ProductPropertyForm } from '../form/product-property-form.component';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -17,7 +17,7 @@ import { ShowcaseDialogComponent } from '../../../../shared/components/showcase-
 @Component({
   selector: 'ngx-product-property',
   templateUrl: './product-property.component.html',
-  styleUrls: ['./product-property.component.scss']
+  styleUrls: ['./product-property.component.scss'],
 })
 export class ProductProperties implements OnInit {
   product: any = {};
@@ -25,12 +25,10 @@ export class ProductProperties implements OnInit {
   attributeId: any;
   attribute: any = {};
 
-  id : any;
+  id: any;
   loaded = false;
   loading = false;
   loadingList = false;
-
-
 
   source: LocalDataSource = new LocalDataSource();
   settings = {};
@@ -50,56 +48,49 @@ export class ProductProperties implements OnInit {
     private productService: ProductService,
     private dialogService: NbDialogService,
     private router: Router
-
-  ) {
-
-  }
+  ) {}
   loadParams() {
     return {
       // store: this.storageService.getMerchant(),
       lang: this.storageService.getLanguage(),
       count: this.perPage,
-      page: 0
+      page: 0,
     };
   }
   ngOnInit() {
-
-    this.id = this.productService.getProductIdRoute(this.router,this.location);
-
-        
+    this.id = this.productService.getProductIdRoute(this.router, this.location);
 
     //specify add image url to image component
-    let el = document.getElementById('tabs');
+    const el = document.getElementById('tabs');
     el.scrollIntoView();
     this.getList();
 
-    
     this.translate.onLangChange.subscribe((lang) => {
       this.params.lang = this.storageService.getLanguage();
       this.getList();
     });
 
-    //ng2-smart-table server side filter
+    //angular2-smart-table server side filter
     this.source.onChanged().subscribe((change) => {
       //if (!this.loadingList) {//listing service
       //    this.listingService.filterDetect(this.params, change, this.loadList.bind(this), this.resetList.bind(this));
       //}
     });
-
   }
 
   getList() {
-    this.loading=true;
+    this.loading = true;
 
     forkJoin([
-      this.productService.getProductById(this.id), 
-      this.productAttributesService.getListOfProductsAttributes(this.id, this.params)])
-    .subscribe(([productRes, attrRes]) => {
-
-
-      var tempArray = attrRes.attributes.filter((value) => {
-        return value.attributeDisplayOnly === true;
-      });
+      this.productService.getProductById(this.id),
+      this.productAttributesService.getListOfProductsAttributes(
+        this.id,
+        this.params
+      ),
+    ]).subscribe(([productRes, attrRes]) => {
+      const tempArray = attrRes.attributes.filter(
+        (value) => value.attributeDisplayOnly === true
+      );
       if (tempArray.length !== 0) {
         this.source.load(tempArray);
       } else {
@@ -107,7 +98,6 @@ export class ProductProperties implements OnInit {
       }
       this.totalCount = attrRes.recordsTotal;
       this.product = productRes;
-
     });
 
     this.setSettings();
@@ -124,36 +114,32 @@ export class ProductProperties implements OnInit {
         sort: true,
         custom: [
           { name: 'edit', title: '<i class="nb-edit"></i>' },
-          { name: 'remove', title: '<i class="nb-trash"></i>' }
+          { name: 'remove', title: '<i class="nb-trash"></i>' },
         ],
       },
       pager: {
-        display: false
+        display: false,
       },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),
           type: 'number',
           editable: false,
-          filter: false
+          filter: false,
         },
         option: {
           title: this.translate.instant('PRODUCT_ATTRIBUTES.OPTION_NAME'),
           type: 'string',
           editable: false,
           filter: false,
-          valuePrepareFunction: (name) => {
-            return name.code;
-          }
+          valuePrepareFunction: (name) => name.code,
         },
         optionValue: {
           title: this.translate.instant('PRODUCT_ATTRIBUTES.PRODUCT_OPTION'),
           type: 'string',
           editable: false,
           filter: false,
-          valuePrepareFunction: (name) => {
-            return name.description.name;
-          }
+          valuePrepareFunction: (name) => name.description.name,
         },
         // productAttributePrice: {
         //   title: this.translate.instant('PRODUCT_ATTRIBUTES.PRICE'),
@@ -161,7 +147,7 @@ export class ProductProperties implements OnInit {
         //   editable: false,
         //   filter: false
         // }
-      }
+      },
     };
   }
   // paginator
@@ -192,56 +178,58 @@ export class ProductProperties implements OnInit {
     this.getList();
   }
 
-
-
   onClickAdd() {
-    this.dialogService.open(ProductPropertyForm, {
-      context: {
-        productId: this.id,
-        productType: this.product.type.code
-      }
-    }).onClose.subscribe(res => {
-      this.getList()
-    });
+    this.dialogService
+      .open(ProductPropertyForm, {
+        context: {
+          productId: this.id,
+          productType: this.product.type.code,
+        },
+      })
+      .onClose.subscribe((res) => {
+        this.getList();
+      });
   }
 
   route(event) {
     switch (event.action) {
       case 'edit':
-        this.dialogService.open(ProductPropertyForm, {
-          context: {
-            productId: this.id,
-            attributeId: event.data.id,
-            productType: this.product.type.code
-          }
-        }).onClose.subscribe(res => {
-          this.getList()
-        });
+        this.dialogService
+          .open(ProductPropertyForm, {
+            context: {
+              productId: this.id,
+              attributeId: event.data.id,
+              productType: this.product.type.code,
+            },
+          })
+          .onClose.subscribe((res) => {
+            this.getList();
+          });
         break;
       case 'remove':
         this.removeAttribute(event.data.id);
         break;
-
     }
   }
   removeAttribute(id) {
-
-    this.dialogService.open(ShowcaseDialogComponent, {})
-      .onClose.subscribe(res => {
+    this.dialogService
+      .open(ShowcaseDialogComponent, {})
+      .onClose.subscribe((res) => {
         if (res) {
-          this.loading=true;
-                                                        //product id, attribute id
-          this.productAttributesService.deleteAttribute(this.id, id).subscribe(res => {
-            this.getList();
-            this.toastr.success(this.translate.instant('PROPERTY.PRODUCT_PROPERTY_REMOVED'));
-          });
-          this.loading=false;
+          this.loading = true;
+          //product id, attribute id
+          this.productAttributesService
+            .deleteAttribute(this.id, id)
+            .subscribe((res) => {
+              this.getList();
+              this.toastr.success(
+                this.translate.instant('PROPERTY.PRODUCT_PROPERTY_REMOVED')
+              );
+            });
+          this.loading = false;
         } else {
-          this.loading=false;
+          this.loading = false;
         }
       });
-
   }
-
-
 }

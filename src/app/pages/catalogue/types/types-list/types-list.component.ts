@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { NbDialogService } from '@nebular/theme';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalDataSource } from 'angular2-smart-table';
+import { ToastrService } from 'ngx-toastr';
+import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
+import { ListingService } from '../../../shared/services/listing.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { StoreService } from '../../../store-management/services/store.service';
-import { NbDialogService } from '@nebular/theme';
-import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { TypesService } from '../services/types.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import { ListingService } from '../../../shared/services/listing.service';
 
 @Component({
   selector: 'ngx-types-list',
   templateUrl: './types-list.component.html',
-  styleUrls: ['./types-list.component.scss']
+  styleUrls: ['./types-list.component.scss'],
 })
 export class TypesListComponent implements OnInit {
-
   source: LocalDataSource = new LocalDataSource();
   listingService: ListingService;
   perPage = 15;
@@ -37,7 +36,7 @@ export class TypesListComponent implements OnInit {
     private toastr: ToastrService,
     private storageService: StorageService,
     private storeService: StoreService,
-    private typesService: TypesService,
+    private typesService: TypesService
   ) {
     this.listingService = new ListingService();
   }
@@ -47,20 +46,20 @@ export class TypesListComponent implements OnInit {
       store: this.storageService.getMerchant(),
       lang: this.storageService.getLanguage(),
       count: this.perPage,
-      page: 0
+      page: 0,
     };
   }
 
   ngOnInit(): void {
-
     this.setSettings();
     this.getStoreList();
     this.getList();
   }
 
   getStoreList() {
-    this.storeService.getListOfMerchantStoreNames({ 'store': '' })
-      .subscribe(res => {
+    this.storeService
+      .getListOfMerchantStoreNames({ store: '' })
+      .subscribe((res) => {
         res.forEach((store) => {
           this.stores.push({ value: store.code, label: store.code });
         });
@@ -78,11 +77,16 @@ export class TypesListComponent implements OnInit {
         sort: true,
         custom: [
           { name: 'edit', title: '<i class="nb-edit"></i>' },
-          { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="nb-trash"></i>') }
+          {
+            name: 'remove',
+            title: this._sanitizer.bypassSecurityTrustHtml(
+              '<i class="nb-trash"></i>'
+            ),
+          },
         ],
       },
       pager: {
-        display: false
+        display: false,
       },
       columns: {
         id: {
@@ -127,11 +131,10 @@ export class TypesListComponent implements OnInit {
   }
 
   private resetList() {
-    this.currentPage = 1;//back to page 1
+    this.currentPage = 1; //back to page 1
     this.params = this.loadParams();
     this.getList();
   }
-
 
   // paginator
   changePage(event) {
@@ -160,18 +163,17 @@ export class TypesListComponent implements OnInit {
     this.getList();
   }
 
-
   deleteRecord(event) {
-    this.dialogService.open(ShowcaseDialogComponent, {})
-      .onClose.subscribe(res => {
+    this.dialogService
+      .open(ShowcaseDialogComponent, {})
+      .onClose.subscribe((res) => {
         if (res) {
-
-          this.typesService.deleteType(event.data.id)
-            .subscribe(result => {
-              this.toastr.success(this.translate.instant('OPTION.OPTION_REMOVED'));
-              this.getList();
-            });
-
+          this.typesService.deleteType(event.data.id).subscribe((result) => {
+            this.toastr.success(
+              this.translate.instant('OPTION.OPTION_REMOVED')
+            );
+            this.getList();
+          });
         } else {
           // TODO navigate generic error
           // event.confirm.reject();
@@ -179,12 +181,10 @@ export class TypesListComponent implements OnInit {
       });
   }
 
-
   onSelectStore(e) {
-    this.params["store"] = e;
+    this.params['store'] = e;
     this.getList();
   }
-
 
   onClickAction(event) {
     switch (event.action) {
@@ -192,12 +192,11 @@ export class TypesListComponent implements OnInit {
         this.onEdit(event);
         break;
       case 'remove':
-        this.deleteRecord(event)
-        break
+        this.deleteRecord(event);
+        break;
     }
   }
   onEdit(event) {
     this.router.navigate(['/pages/catalogue/types/type/' + event.data.id]);
   }
-
 }

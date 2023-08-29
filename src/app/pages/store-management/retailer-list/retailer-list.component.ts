@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LocalDataSource } from 'ng2-smart-table';
-import { StoreService } from '../services/store.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalDataSource } from 'angular2-smart-table';
+import { StoreService } from '../services/store.service';
 
 @Component({
   selector: 'ngx-retailer-list',
   templateUrl: './retailer-list.component.html',
-  styleUrls: ['./retailer-list.component.scss']
+  styleUrls: ['./retailer-list.component.scss'],
 })
 export class RetailerListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
@@ -24,7 +24,7 @@ export class RetailerListComponent implements OnInit {
   params = {
     count: this.perPage,
     page: 0,
-    retailer: true
+    retailer: true,
   };
 
   settings = {};
@@ -33,7 +33,7 @@ export class RetailerListComponent implements OnInit {
     private storeService: StoreService,
     private router: Router,
     private translate: TranslateService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getList();
@@ -42,12 +42,11 @@ export class RetailerListComponent implements OnInit {
   getList() {
     this.params.page = this.currentPage - 1;
     this.loadingList = true;
-    this.storeService.getListOfStores(this.params)
-      .subscribe(res => {
-        this.totalCount = res.recordsTotal;
-        this.source.load(res.data);
-        this.loadingList = false;
-      });
+    this.storeService.getListOfStores(this.params).subscribe((res) => {
+      this.totalCount = res.recordsTotal;
+      this.source.load(res.data);
+      this.loadingList = false;
+    });
     this.setSettings();
     this.translate.onLangChange.subscribe((event) => {
       this.setSettings();
@@ -66,8 +65,8 @@ export class RetailerListComponent implements OnInit {
         custom: [
           {
             name: 'activate',
-            title: `${this.translate.instant('COMMON.DETAILS')}`
-          }
+            title: `${this.translate.instant('COMMON.DETAILS')}`,
+          },
         ],
       },
       pager: { display: false },
@@ -83,7 +82,7 @@ export class RetailerListComponent implements OnInit {
         email: {
           title: this.translate.instant('COMMON.EMAIL_ADDRESS'),
           type: 'string',
-        }
+        },
       },
     };
   }
@@ -110,6 +109,4 @@ export class RetailerListComponent implements OnInit {
     }
     this.getList();
   }
-
-
 }

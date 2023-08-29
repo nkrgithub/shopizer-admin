@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { ConfigService } from '../../../shared/services/config.service';
 import { Option } from '../models/option';
@@ -12,23 +12,23 @@ import { validators } from '../../../shared/validation/validators';
 @Component({
   selector: 'ngx-option',
   templateUrl: './option.component.html',
-  styleUrls: ['./option.component.scss']
+  styleUrls: ['./option.component.scss'],
 })
 export class OptionComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   loader = false;
-  loadingInfo: boolean = false;
+  loadingInfo = false;
   option = new Option();
   languages = [];
   defaultLanguage = localStorage.getItem('lang');
   types = [
-    'select', 'radio', 'checkbox', 'text'
+    'select', 'radio', 'checkbox', 'text',
   ];
   isCodeUnique = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private configService: ConfigService,
     private optionService: OptionService,
     private toastr: ToastrService,
@@ -42,9 +42,9 @@ export class OptionComponent implements OnInit {
   ngOnInit() {
     this.loader = true;
     const optionId = this.activatedRoute.snapshot.paramMap.get('optionId');
-    
+
     this.createForm();
-    
+
     this.configService.getListOfSupportedLanguages(localStorage.getItem('merchant'))
        .subscribe(res => {
         this.languages = [...res];
@@ -58,7 +58,7 @@ export class OptionComponent implements OnInit {
         } else {
           this.loader=false;
         }
-        
+
     });
   }
 
@@ -66,8 +66,8 @@ export class OptionComponent implements OnInit {
     return this.form.get('selectedLanguage');
   }
 
-  get descriptions(): FormArray {
-    return <FormArray>this.form.get('descriptions');
+  get descriptions(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('descriptions');
   }
 
   get code() {
@@ -79,19 +79,19 @@ export class OptionComponent implements OnInit {
       code: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
       type: ['', [Validators.required]],
       selectedLanguage: [this.defaultLanguage, [Validators.required]],
-      descriptions: this.fb.array([])
+      descriptions: this.fb.array([]),
     });
   }
 
   addFormArray() {
-    const control = <FormArray>this.form.controls.descriptions;
+    const control = <UntypedFormArray>this.form.controls.descriptions;
     //console.log('Here ' + JSON.stringify(this.languages));
     this.languages.forEach(lang => {
       control.push(
         this.fb.group({
           language: [lang.code, []],
-           name: ['', []]
-        })
+           name: ['', []],
+        }),
       );
     });
   }
@@ -100,7 +100,7 @@ export class OptionComponent implements OnInit {
     this.form.patchValue({
       code: this.option.code,
       type: this.option.type,
-      selectedLanguage: this.defaultLanguage
+      selectedLanguage: this.defaultLanguage,
     });
     this.fillFormArray();
   }
@@ -111,7 +111,7 @@ export class OptionComponent implements OnInit {
       this.option.descriptions.forEach((description) => {
         //console.log('Comparing ' + desc.language + ' - ' + description.language);
         if (desc.language === description.language) {
-          (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+          (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
             language: description.language,
             name: description.name,
           });

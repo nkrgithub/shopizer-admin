@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { OptionService } from '../services/option.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import { TranslateService } from '@ngx-translate/core';
-import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
 import { NbDialogService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
+import { LocalDataSource } from 'angular2-smart-table';
 import { ToastrService } from 'ngx-toastr';
+import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
 import { StorageService } from '../../../shared/services/storage.service';
 import { StoreService } from '../../../store-management/services/store.service';
+import { OptionService } from '../services/option.service';
 
 @Component({
   selector: 'ngx-options-list',
   templateUrl: './options-list.component.html',
-  styleUrls: ['./options-list.component.scss']
+  styleUrls: ['./options-list.component.scss'],
 })
 export class OptionsListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
@@ -25,7 +25,7 @@ export class OptionsListComponent implements OnInit {
   perPage = 15;
   currentPage = 1;
   totalCount;
-  searchValue: string = '';
+  searchValue = '';
   stores: Array<any> = [];
   selectedStore: String = '';
   params = this.loadParams();
@@ -36,9 +36,9 @@ export class OptionsListComponent implements OnInit {
     private dialogService: NbDialogService,
     private toastr: ToastrService,
     private storageService: StorageService,
-    private storeService: StoreService,
+    private storeService: StoreService
   ) {
-    this.getStoreList()
+    this.getStoreList();
   }
 
   ngOnInit() {
@@ -49,12 +49,13 @@ export class OptionsListComponent implements OnInit {
       store: this.storageService.getMerchant(),
       lang: this.storageService.getLanguage(),
       count: this.perPage,
-      page: 0
+      page: 0,
     };
   }
   getStoreList() {
-    this.storeService.getListOfMerchantStoreNames({ 'store': '' })
-      .subscribe(res => {
+    this.storeService
+      .getListOfMerchantStoreNames({ store: '' })
+      .subscribe((res) => {
         res.forEach((store) => {
           this.stores.push({ value: store.code, label: store.code });
         });
@@ -87,18 +88,17 @@ export class OptionsListComponent implements OnInit {
         sort: true,
         custom: [
           { name: 'edit', title: '<i class="nb-edit"></i>' },
-          { name: 'remove', title: '<i class="nb-trash"></i>' }
+          { name: 'remove', title: '<i class="nb-trash"></i>' },
         ],
       },
       pager: {
-        display: false
+        display: false,
       },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),
           type: 'number',
           filter: false,
-
         },
         descriptions: {
           title: this.translate.instant('COMMON.NAME'),
@@ -109,39 +109,41 @@ export class OptionsListComponent implements OnInit {
             // parent_id for link
             let parent_id = -1;
             // find element with certain language
-            const description = descriptions.find(el => {
+            const description = descriptions.find((el) => {
               // set parent_id
               if (parent_id === -1 && el) {
                 parent_id = el.parent_id;
               }
               return el.language === this.storageService.getLanguage();
             });
-            const name = description && description.name ? description.name : '';
+            const name =
+              description && description.name ? description.name : '';
             return name;
-          }
+          },
         },
         type: {
-          title: "Type",
+          title: 'Type',
           type: 'string',
           filter: false,
-          valuePrepareFunction: (type) => {
-            return this.translate.instant('COMMON.' + type);
-          }
-        }
+          valuePrepareFunction: (type) =>
+            this.translate.instant('COMMON.' + type),
+        },
       },
     };
   }
 
   deleteRecord(event) {
-    this.dialogService.open(ShowcaseDialogComponent, {})
-      .onClose.subscribe(res => {
+    this.dialogService
+      .open(ShowcaseDialogComponent, {})
+      .onClose.subscribe((res) => {
         if (res) {
           // event.confirm.resolve();
-          this.optionService.deleteOption(event.data.id)
-            .subscribe(result => {
-              this.toastr.success(this.translate.instant('OPTION.OPTION_REMOVED'));
-              this.getList();
-            });
+          this.optionService.deleteOption(event.data.id).subscribe((result) => {
+            this.toastr.success(
+              this.translate.instant('OPTION.OPTION_REMOVED')
+            );
+            this.getList();
+          });
         } else {
           // event.confirm.reject();
         }
@@ -175,9 +177,9 @@ export class OptionsListComponent implements OnInit {
     this.getList();
   }
   onSearch(value) {
-    this.params["name"] = value;
+    this.params['name'] = value;
     this.searchValue = value;
-    this.getList()
+    this.getList();
   }
   resetSearch() {
     this.params = this.loadParams();
@@ -185,7 +187,7 @@ export class OptionsListComponent implements OnInit {
     this.getList();
   }
   onSelectStore(e) {
-    this.params["store"] = e;
+    this.params['store'] = e;
     this.getList();
   }
   onClickAction(event) {
@@ -194,8 +196,8 @@ export class OptionsListComponent implements OnInit {
         this.onEdit(event);
         break;
       case 'remove':
-        this.deleteRecord(event)
-        break
+        this.deleteRecord(event);
+        break;
     }
   }
   onEdit(event) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { validators } from '../../../shared/validation/validators';
@@ -14,13 +14,13 @@ import { ConfigService } from '../../../shared/services/config.service';
 @Component({
   selector: 'ngx-types',
   templateUrl: './type-details.component.html',
-  styleUrls: ['./type-details.component.scss']
+  styleUrls: ['./type-details.component.scss'],
 })
 export class TypeDetailsComponent implements OnInit {
 
-  form: FormGroup;
-  loading: boolean = false;
-  loaded: boolean = false;
+  form: UntypedFormGroup;
+  loading = false;
+  loaded = false;
   isReadonlyCode = false;
   isCodeExist = false;
   isValidCode = true;
@@ -32,12 +32,12 @@ export class TypeDetailsComponent implements OnInit {
     allowAddToCart: false,
     visible: '',
     description: { name: '', language: '' },
-    descriptions: []
-  }
+    descriptions: [],
+  };
 
   constructor(
     private _sanitizer: DomSanitizer,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private translate: TranslateService,
     private router: Router,
     private dialogService: NbDialogService,
@@ -45,21 +45,21 @@ export class TypeDetailsComponent implements OnInit {
     private storageService: StorageService,
     private typesService: TypesService,
     private activatedRoute: ActivatedRoute,
-    private configService: ConfigService
+    private configService: ConfigService,
   ) { }
 
   ngOnInit(): void {
 
     this.loading = true;
-    
-    let param = {
+
+    const param = {
       //lang: this.storageService.getLanguage(),
-      lang: "_all",
-      store: this.storageService.getMerchant()
-    }
+      lang: '_all',
+      store: this.storageService.getMerchant(),
+    };
     const typeId = this.activatedRoute.snapshot.paramMap.get('id');
     if (typeId) {
-    const types$ = this.typesService.getType(typeId, param)
+    const types$ = this.typesService.getType(typeId, param);
     const config$ = this.configService.getListOfSupportedLanguages(localStorage.getItem('merchant'));
     forkJoin([types$, config$])
       .subscribe(([productType, languages]) => {
@@ -82,7 +82,7 @@ export class TypeDetailsComponent implements OnInit {
         this.loading = false;
         this.loaded = true;
 
-      
+
     });
   } else {
     const config$ = this.configService.getListOfSupportedLanguages(localStorage.getItem('merchant'))
@@ -109,13 +109,13 @@ export class TypeDetailsComponent implements OnInit {
   }
 
   addFormArray() {
-    const control = <FormArray>this.form.controls.descriptions;
+    const control = <UntypedFormArray>this.form.controls.descriptions;
     this.languages.forEach(lang => {
       control.push(
         this.fb.group({
           language: [lang.code, [Validators.required]],
           name: ['', [Validators.required]],
-        })
+        }),
       );
     });
   }
@@ -125,7 +125,7 @@ export class TypeDetailsComponent implements OnInit {
       allowAddToCart: this.type.allowAddToCart,
       visible: this.type.visible,
       code: this.type.code,
-      selectedLanguage: this.defaultLanguage
+      selectedLanguage: this.defaultLanguage,
     });
     if (this.type.id) {
       this.form.controls['code'].disable();
@@ -139,7 +139,7 @@ export class TypeDetailsComponent implements OnInit {
       if (desc.language === this.selectedLanguage.value) {
         this.type.descriptions.forEach((d, i) => {
           if(d.language === this.selectedLanguage.value) {
-            (<FormArray>this.form.get('descriptions')).at(index).patchValue({
+            (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
               language: d.language,
               name: d.name,
             });
@@ -163,7 +163,7 @@ export class TypeDetailsComponent implements OnInit {
       return;
     }
 
-    let obj = this.form.value;
+    const obj = this.form.value;
 
     if (this.type.id) {
 
@@ -175,8 +175,7 @@ export class TypeDetailsComponent implements OnInit {
           this.loading = false;
         });
 
-    }
-    else {
+    } else {
       this.typesService.createType(obj)
         .subscribe((res) => {
           this.toastr.success(this.translate.instant('PRODUCT_TYPE.PRODUCT_TYPE_CREATED'));
@@ -207,8 +206,8 @@ export class TypeDetailsComponent implements OnInit {
     });
   }
 
-  get descriptions(): FormArray {
-    return <FormArray>this.form.get('descriptions');
+  get descriptions(): UntypedFormArray {
+    return <UntypedFormArray>this.form.get('descriptions');
   }
 
   checkCode(event) {

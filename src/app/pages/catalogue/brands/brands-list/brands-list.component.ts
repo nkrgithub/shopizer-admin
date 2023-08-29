@@ -1,26 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
-import { BrandService } from '../services/brand.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import { TranslateService } from '@ngx-translate/core';
 import { NbDialogService } from '@nebular/theme';
+import { TranslateService } from '@ngx-translate/core';
+import { LocalDataSource } from 'angular2-smart-table';
+import { ToastrService } from 'ngx-toastr';
 import { ShowcaseDialogComponent } from '../../../shared/components/showcase-dialog/showcase-dialog.component';
 import { StorageService } from '../../../shared/services/storage.service';
-import { ToastrService } from 'ngx-toastr';
-import { listenerCount } from 'process';
+import { BrandService } from '../services/brand.service';
 
 @Component({
   selector: 'ngx-brands-list',
   templateUrl: './brands-list.component.html',
-  styleUrls: ['./brands-list.component.scss']
+  styleUrls: ['./brands-list.component.scss'],
 })
 export class BrandsListComponent implements OnInit {
   source: LocalDataSource = new LocalDataSource();
   loadingList = false;
   settings = {};
-  searchValue: string = '';
+  searchValue = '';
   // paginator
   perPage = 25;
   currentPage = 1;
@@ -31,7 +30,7 @@ export class BrandsListComponent implements OnInit {
     lang: this.storageService.getLanguage(),
     store: this.storageService.getMerchant(),
     count: this.perPage,
-    page: 0
+    page: 0,
   };
 
   constructor(
@@ -41,9 +40,8 @@ export class BrandsListComponent implements OnInit {
     private dialogService: NbDialogService,
     private translate: TranslateService,
     private storageService: StorageService,
-    private toastr: ToastrService,
-  ) {
-  }
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getList();
@@ -56,16 +54,15 @@ export class BrandsListComponent implements OnInit {
   getList() {
     this.params.page = this.currentPage - 1;
     this.loadingList = true;
-    this.brandService.getListOfBrands(this.params)
-      .subscribe(brands => {
-        this.totalCount = brands.recordsTotal;
-        this.source.load(brands.manufacturers);
-        this.loadingList = false;
-      });
+    this.brandService.getListOfBrands(this.params).subscribe((brands) => {
+      this.totalCount = brands.recordsTotal;
+      this.source.load(brands.manufacturers);
+      this.loadingList = false;
+    });
     this.setSettings();
   }
   onSelectStore(e) {
-    this.params["store"] = e;
+    this.params['store'] = e;
     this.getList();
   }
   setSettings() {
@@ -78,8 +75,18 @@ export class BrandsListComponent implements OnInit {
         position: 'right',
         sort: true,
         custom: [
-          { name: 'details', title: this._sanitizer.bypassSecurityTrustHtml('<i class="nb-edit"></i>') },
-          { name: 'remove', title: this._sanitizer.bypassSecurityTrustHtml('<i class="nb-trash"></i>') }
+          {
+            name: 'details',
+            title: this._sanitizer.bypassSecurityTrustHtml(
+              '<i class="nb-edit"></i>'
+            ),
+          },
+          {
+            name: 'remove',
+            title: this._sanitizer.bypassSecurityTrustHtml(
+              '<i class="nb-trash"></i>'
+            ),
+          },
         ],
       },
       pager: { display: false },
@@ -96,7 +103,7 @@ export class BrandsListComponent implements OnInit {
             if (description) {
               return description.name;
             }
-          }
+          },
         },
         code: {
           title: this.translate.instant('COMMON.CODE'),
@@ -112,14 +119,16 @@ export class BrandsListComponent implements OnInit {
         this.router.navigate(['pages/catalogue/brands/brand/', event.data.id]);
         break;
       case 'remove':
-        this.dialogService.open(ShowcaseDialogComponent, {})
-          .onClose.subscribe(res => {
+        this.dialogService
+          .open(ShowcaseDialogComponent, {})
+          .onClose.subscribe((res) => {
             if (res) {
-              this.brandService.deleteBrand(event.data.id)
-                .subscribe(data => {
-                  this.toastr.success(this.translate.instant('BRAND.BRAND_REMOVED'));
-                  this.getList();
-                });
+              this.brandService.deleteBrand(event.data.id).subscribe((data) => {
+                this.toastr.success(
+                  this.translate.instant('BRAND.BRAND_REMOVED')
+                );
+                this.getList();
+              });
             }
           });
     }
@@ -151,5 +160,4 @@ export class BrandsListComponent implements OnInit {
     }
     this.getList();
   }
-
 }
