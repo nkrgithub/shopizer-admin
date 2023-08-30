@@ -38,7 +38,7 @@ export class InventoryFormComponent implements OnInit {
     private configService: ConfigService,
     private activatedRoute: ActivatedRoute,
     private inventoryService: InventoryService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
@@ -129,9 +129,9 @@ export class InventoryFormComponent implements OnInit {
     }
   }
 
-  onImageChanged(event) {}
+  onImageChanged(event) { }
 
-  checkSku(ev: Event) {}
+  checkSku(ev: Event) { }
 
-  transformTotal() {}
+  transformTotal() { }
 }

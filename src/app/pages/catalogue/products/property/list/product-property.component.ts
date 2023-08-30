@@ -48,7 +48,7 @@ export class ProductProperties implements OnInit {
     private productService: ProductService,
     private dialogService: NbDialogService,
     private router: Router
-  ) {}
+  ) { }
   loadParams() {
     return {
       // store: this.storageService.getMerchant(),

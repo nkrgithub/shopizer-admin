@@ -80,7 +80,7 @@ export class ProductFormComponent implements OnInit {
       route: 'discount',
       fragment: 'tab1',
     },
-   ];
+  ];
 
 
   //summernote

@@ -35,6 +35,6 @@ export class PromotionComponent implements OnInit {
       },
     },
   };
-  constructor() {}
-  ngOnInit() {}
+  constructor() { }
+  ngOnInit() { }
 }

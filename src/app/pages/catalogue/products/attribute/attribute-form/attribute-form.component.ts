@@ -59,12 +59,12 @@ export class AttributeFormComponent implements OnInit {
   };
 
 
-  params =  {
-      store: this.storageService.getMerchant(),
-      lang: '_all',
-      name: null,
-      count: this.perPage,
-      page: 0,
+  params = {
+    store: this.storageService.getMerchant(),
+    lang: '_all',
+    name: null,
+    count: this.perPage,
+    page: 0,
   };
 
 
@@ -113,7 +113,7 @@ export class AttributeFormComponent implements OnInit {
   fillForm() {
     const index = this.optionValues.findIndex((a) => a.value === this.attribute.optionValue.code);
     let value = null;
-    if(this.attribute.optionValue != null) {
+    if (this.attribute.optionValue != null) {
       value = this.attribute.optionValue.code;
     }
 
@@ -149,46 +149,46 @@ export class AttributeFormComponent implements OnInit {
     this.loading = true;
     this.params.name = event.query;
     this.optionValuesService.getListOfOptionValues(this.params)
-    .subscribe(res => {
-      if(res.recordsTotal === 0 ) {
-        //invalid selection
-        //this.form.controls['optionValue'].setErrors({'invalid': true});
-        //this.form.controls['optionValue'].markAsTouched();
-        this.loading = false;
-      } else {
-        //this.optionValues = new Array();
-        res.optionValues.forEach((optionValue) => {
-          this.optionValues.push({ value: optionValue.code, label: optionValue.code });
-        });
-        this.loading = false;
-      }
+      .subscribe(res => {
+        if (res.recordsTotal === 0) {
+          //invalid selection
+          //this.form.controls['optionValue'].setErrors({'invalid': true});
+          //this.form.controls['optionValue'].markAsTouched();
+          this.loading = false;
+        } else {
+          //this.optionValues = new Array();
+          res.optionValues.forEach((optionValue) => {
+            this.optionValues.push({ value: optionValue.code, label: optionValue.code });
+          });
+          this.loading = false;
+        }
 
-    });
+      });
   }
 
   searchOptionValue(event) {
     //this.loading = true;
     this.params.name = event.query;
     this.optionValuesService.getListOfOptionValues(this.params)
-    .subscribe(res => {
-      if(res.recordsTotal === 0 ) {
-        //invalid selection, empty list
-        //this.optionValues = new Array();
-        this.form.controls['optionValue'].markAsTouched();
-        this.form.controls['optionValue'].setErrors({invalid: true});
-        //this.loading = false;
-        //this.optionValues.push({ value: '', label: '' });
+      .subscribe(res => {
+        if (res.recordsTotal === 0) {
+          //invalid selection, empty list
+          //this.optionValues = new Array();
+          this.form.controls['optionValue'].markAsTouched();
+          this.form.controls['optionValue'].setErrors({ invalid: true });
+          //this.loading = false;
+          //this.optionValues.push({ value: '', label: '' });
 
-      } else {
-        //this.optionValues = new Array();
-        //this.loading = false;
-        res.optionValues.forEach((optionValue) => {
-          this.optionValues.push({ value: optionValue.code, label: optionValue.code });
-        });
+        } else {
+          //this.optionValues = new Array();
+          //this.loading = false;
+          res.optionValues.forEach((optionValue) => {
+            this.optionValues.push({ value: optionValue.code, label: optionValue.code });
+          });
 
-      }
+        }
 
-    });
+      });
 
   }
 

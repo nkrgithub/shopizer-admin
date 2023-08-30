@@ -16,7 +16,7 @@ export class OrdersGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
-      console.log('3');
+    console.log('3');
     if (this.userService.roles.canAccessToOrder) {
       return true;
     }

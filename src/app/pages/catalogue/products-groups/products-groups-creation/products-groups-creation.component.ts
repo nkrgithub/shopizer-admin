@@ -20,7 +20,7 @@ export class ProductsGroupsCreationComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private optionService: OptionService,
     private optionValuesService: OptionValuesService,
-    ) {
+  ) {
     this.optionService.getListOfOptions({}).subscribe(res => {
       res.options.forEach((option) => {
         this.options.push({ value: option.code, label: option.code });

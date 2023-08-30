@@ -22,11 +22,11 @@ export class ProductDiscountComponent implements OnInit {
     private location: Location,
     private productService: ProductService,
     private router: Router,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
-    this.id = this.productService.getProductIdRoute(this.router,this.location);
+    this.id = this.productService.getProductIdRoute(this.router, this.location);
 
     //scroll down to discount tab
     const el = document.getElementById('tabs');

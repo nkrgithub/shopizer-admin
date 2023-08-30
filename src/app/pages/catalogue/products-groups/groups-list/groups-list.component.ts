@@ -26,7 +26,7 @@ export class GroupsListComponent implements OnInit {
     private productGroupsService: ProductGroupsService,
     private storageService: StorageService,
     private router: Router
-  ) {}
+  ) { }
   loadParams() {
     return {
       store: this.storageService.getMerchant(),
@@ -117,7 +117,7 @@ export class GroupsListComponent implements OnInit {
       localStorage.setItem('groupData', JSON.stringify(event.data));
       this.router.navigate([
         '/pages/catalogue/products-groups/create-products-group/' +
-          event.data.code,
+        event.data.code,
       ]);
     }
   }

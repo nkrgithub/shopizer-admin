@@ -22,11 +22,11 @@ export class SuperadminStoreRetailCatalogueGuard implements CanActivate {
       roles.isSuperadmin ||
       roles.isAdminCatalogue ||
       roles.isAdminRetail ||
-      roles.isAdminStore){
+      roles.isAdminStore) {
       return true;
     } else {
-    this.router.navigate(['home']);
-    return false;
+      this.router.navigate(['home']);
+      return false;
+    }
   }
-}
 }

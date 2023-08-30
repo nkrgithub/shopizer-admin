@@ -43,7 +43,7 @@ export class CataloguesListComponent implements OnInit {
     private catalogService: CatalogService,
     private storeService: StoreService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getStoreList();

@@ -17,7 +17,7 @@ export class SuperuserAdminGuard implements CanActivate {
     Observable<boolean> | Promise<boolean> | boolean {
     const roles = JSON.parse(localStorage.getItem('roles'));
 
-    if (roles.isSuperadmin || roles.isAdminRetail ||  roles.isAdmin) {
+    if (roles.isSuperadmin || roles.isAdminRetail || roles.isAdmin) {
       return true;
     }
 

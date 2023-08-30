@@ -48,7 +48,7 @@ export class CustomersService {
   updateCustomers(param, customerID): Observable<any> {
     return this.crudService.put('/v1/private/customer/' + customerID, param);
   }
-  setPassword(obj): Observable<any>  {
+  setPassword(obj): Observable<any> {
     const params = {
       store: this.storageService.getMerchant(),
     };

@@ -77,7 +77,7 @@ export class HomeComponent implements OnInit {
   }
 
   setLanguage() {
-    if(this.user.defaultLanguage != null) {
+    if (this.user.defaultLanguage != null) {
       localStorage.setItem('lang', this.user.defaultLanguage);
       this.translate.setDefaultLang(localStorage.getItem('lang'));
       this.translate.use(localStorage.getItem('lang'));

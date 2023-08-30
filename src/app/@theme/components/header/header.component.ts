@@ -31,12 +31,12 @@ export class HeaderComponent implements OnInit {
   langMap = {};
 
   constructor(private sidebarService: NbSidebarService,
-              private menuService: NbMenuService,
-              private userService: UserService,
-              private layoutService: LayoutService,
-              private authService: AuthService,
-              private router: Router,
-              private translate: TranslateService) {
+    private menuService: NbMenuService,
+    private userService: UserService,
+    private layoutService: LayoutService,
+    private authService: AuthService,
+    private router: Router,
+    private translate: TranslateService) {
 
     this.getLanguageArray();
     menuService.onItemClick().subscribe((el) => {
@@ -77,14 +77,14 @@ export class HeaderComponent implements OnInit {
   }
 
   translateLang(key) {
-    const translated =  this.translate.instant('LANG.' + key);
+    const translated = this.translate.instant('LANG.' + key);
     return translated;
   }
 
   getLanguageArray() {
     environment.client.language.array.forEach(lg => {
       this.langMap[this.translateLang(lg)] = lg;
-      this.languages = [...this.languages, {title: this.translateLang(lg)}];
+      this.languages = [...this.languages, { title: this.translateLang(lg) }];
     });
   }
 

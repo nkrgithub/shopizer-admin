@@ -25,7 +25,7 @@ export class CategoriesHierarchyComponent implements OnInit {
     private toastr: ToastrService,
     private translate: TranslateService,
     private storageService: StorageService
-  ) {}
+  ) { }
 
   loadParams() {
     return {

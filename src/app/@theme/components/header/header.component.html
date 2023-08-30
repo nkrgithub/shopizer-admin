@@ -8,9 +8,10 @@
 </div>
 
 <div class="header-container">
-  <nb-actions class="header-action" size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
+  <nb-actions class="header-action" size="medium" [class.right]="position === 'normal'"
+    [class.left]="position === 'inverse'">
     <nb-action size="large" [nbContextMenu]="languages" nbContextMenuTag="language">
-      {{ 'COMMON.LANGUAGES' | translate}}  - ({{'LANG.' + language | translate}})
+      {{ 'COMMON.LANGUAGES' | translate}} - ({{'LANG.' + language | translate}})
     </nb-action>
     <nb-action *nbIsGranted="['view', 'user']">
       <nb-user [nbContextMenu]="localedMenu" [name]="user"></nb-user>

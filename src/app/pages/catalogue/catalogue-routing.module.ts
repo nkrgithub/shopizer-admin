@@ -11,31 +11,31 @@ const routes: Routes = [{
     {
       path: 'categories',
       canActivate: [MarketplaceGuard],
-      loadChildren: () => import('app/pages/catalogue/categories/categories.module').then(m => m.CategoriesModule),
+      loadChildren: () => import('../catalogue/categories/categories.module').then(m => m.CategoriesModule),
     },
     {
       path: 'products',
-      loadChildren: () => import('app/pages/catalogue/products/products.module').then(m => m.ProductsModule),
+      loadChildren: () => import('../catalogue/products/products.module').then(m => m.ProductsModule),
     },
     {
       path: 'brands',
-      loadChildren: () => import('app/pages/catalogue/brands/brands.module').then(m => m.BrandsModule),
+      loadChildren: () => import('../catalogue/brands/brands.module').then(m => m.BrandsModule),
     },
     {
       path: 'catalogues',
-      loadChildren: () => import('app/pages/catalogue/catalogues/catalogues.module').then(m => m.CataloguesModule),
+      loadChildren: () => import('../catalogue/catalogues/catalogues.module').then(m => m.CataloguesModule),
     },
     {
       path: 'products-groups',
-      loadChildren: () => import('app/pages/catalogue/products-groups/products-groups.module').then(m => m.ProductsGroupsModule),
+      loadChildren: () => import('../catalogue/products-groups/products-groups.module').then(m => m.ProductsGroupsModule),
     },
     {
       path: 'options',
-      loadChildren: () => import('app/pages/catalogue/options/options.module').then(m => m.OptionsModule),
+      loadChildren: () => import('../catalogue/options/options.module').then(m => m.OptionsModule),
     },
     {
       path: 'types',
-      loadChildren: () => import('app/pages/catalogue/types/types.module').then(m => m.TypesModule),
+      loadChildren: () => import('../catalogue/types/types.module').then(m => m.TypesModule),
     },
   ],
 }];

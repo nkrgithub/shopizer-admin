@@ -149,11 +149,11 @@ export class OptionValuesComponent implements OnInit {
       });
     } else {
       this.optionValuesService.createOptionValue(this.form.value).subscribe(res => {
-        if(this.uploadImage.has('file')) {
+        if (this.uploadImage.has('file')) {
           this.optionValueImageService.createImage(res.id, this.uploadImage).subscribe(r => {
             this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_UPDATED'));
             this.router.navigate(['pages/catalogue/options/options-values-list']);
-        });
+          });
         } else {
           this.toastr.success(this.translate.instant('OPTION_VALUE.OPTION_VALUE_CREATED'));
           this.router.navigate(['pages/catalogue/options/options-values-list']);

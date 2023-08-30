@@ -61,7 +61,7 @@ export class RulesListComponent implements OnInit {
         this.loadingList = false;
         this.source.load(data.rules);
       },
-      (error) => {}
+      (error) => { }
     );
 
     this.loadingList = false;

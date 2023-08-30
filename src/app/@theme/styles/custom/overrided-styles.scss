@@ -14,7 +14,8 @@
 }
 
 // cursor for logo, username
-.logo, .header-action {
+.logo,
+.header-action {
   cursor: pointer;
 }
 
@@ -37,7 +38,8 @@ nb-card {
   margin-right: 40px;
 }
 
-nb-card.small-card, nb-card.large-card  {
+nb-card.small-card,
+nb-card.large-card {
   height: auto !important;
 }
 

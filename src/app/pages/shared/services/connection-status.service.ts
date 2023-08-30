@@ -12,7 +12,6 @@ import { environment } from '../../../../environments/environment';
 export class ConnectionStatusService {
     url = environment.apiUrl;
     constructor(private http: HttpClient) {
-
     }
 
     getStatusConnection(): Observable<Health> {

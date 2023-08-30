@@ -62,7 +62,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ContentRoutingModule {}
+export class ContentRoutingModule { }
 
 export const routedComponents = [
   ContentComponent,

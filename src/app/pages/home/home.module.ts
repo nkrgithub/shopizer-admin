@@ -87,4 +87,4 @@ import {
     NbListModule,
   ],
 })
-export class HomeModule {}
+export class HomeModule { }

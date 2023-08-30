@@ -46,7 +46,7 @@ export class PackagesListComponent implements OnInit {
         this.loadingList = false;
         this.source.load(data);
       },
-      (error) => {}
+      (error) => { }
     );
     this.setSettings();
   }

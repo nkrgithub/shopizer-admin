@@ -10,10 +10,12 @@
           </span>
 
         </span>
-        <div class="form-group row alert-error" *ngIf="successMessage !== ''" style="width:100%;line-height: 2.5;color:green;font-size: 12px;margin-bottom:10px;">
+        <div class="form-group row alert-error" *ngIf="successMessage !== ''"
+          style="width:100%;line-height: 2.5;color:green;font-size: 12px;margin-bottom:10px;">
           {{successMessage}}
         </div>
-        <div class="form-group row alert-error" *ngIf="errorMessage !== ''" style="width:100%;line-height: 2.5;color:#ff3d71;font-size: 12px;margin-bottom:10px;">
+        <div class="form-group row alert-error" *ngIf="errorMessage !== ''"
+          style="width:100%;line-height: 2.5;color:#ff3d71;font-size: 12px;margin-bottom:10px;">
           {{errorMessage}}
         </div>
 
@@ -25,13 +27,14 @@
             <span class="btn-show-pass">
               <i [class]="passwordType == 0  ? 'fa fa-eye' : 'fa fa-eye-slash'" (click)="showPassword()"></i>
             </span>
-            <input class="inputLogin" [type]="passwordType == 0 ? 'password' : 'text'" [(ngModel)]="user.password" name="password"
-              placeholder="{{ 'USER_CHANGE_PASSWORD.NEW_PASSWORD' | translate}}" required pattern="^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$"
-              #password="ngModel">
+            <input class="inputLogin" [type]="passwordType == 0 ? 'password' : 'text'" [(ngModel)]="user.password"
+              name="password" placeholder="{{ 'USER_CHANGE_PASSWORD.NEW_PASSWORD' | translate}}" required
+              pattern="^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=[^0-9]*[0-9]).{6,12}$" #password="ngModel">
           </div>
 
         </div>
-        <div [hidden]="password.valid || password.pristine" class="help-block" style="margin-top:-32px; color:#ff3d71;font-size: 12px;">
+        <div [hidden]="password.valid || password.pristine" class="help-block"
+          style="margin-top:-32px; color:#ff3d71;font-size: 12px;">
           <span *ngIf="!password.value">{{ 'USER_CHANGE_PASSWORD.PASSWORD_ERROR_REQUIRED' |
             translate}}</span>
           <span *ngIf="password.value">{{ 'USER_CHANGE_PASSWORD.PASSWORD_ERROR_RULES' |
@@ -50,7 +53,8 @@
               #newpassword="ngModel" validateEqual="password">
           </div>
         </div>
-        <div [hidden]="newpassword.valid || newpassword.pristine" class="help-block" style="margin-top:-32px; color:#ff3d71;font-size: 12px;">
+        <div [hidden]="newpassword.valid || newpassword.pristine" class="help-block"
+          style="margin-top:-32px; color:#ff3d71;font-size: 12px;">
           <span>{{ 'USER_CHANGE_PASSWORD.PASSWORDS_NOT_MATCH' | translate }}</span>
         </div>
         <div style="width:100%;">
@@ -60,7 +64,8 @@
           </div>
         </div>
         <div class="container-login100-form-btn">
-          <button type="button" [disabled]="!forgotPasswordForm.form.valid" (click)="onClickSubmit()" nbButton class="login100-form-btn">
+          <button type="button" [disabled]="!forgotPasswordForm.form.valid" (click)="onClickSubmit()" nbButton
+            class="login100-form-btn">
             {{ 'COMMON.SUBMIT' | translate}}
           </button>
         </div>

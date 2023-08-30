@@ -114,6 +114,7 @@
             },
             "development": {
               "browserTarget": "shopizer-admin:build:development"
+            }
           }
         },
         "extract-i18n": {

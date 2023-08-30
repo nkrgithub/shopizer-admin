@@ -25,4 +25,4 @@ import { TransferBoxModule } from './transferlistbox/transferlistbox.module';
   ],
   exports: [],
 })
-export class ShippingModule {}
+export class ShippingModule { }

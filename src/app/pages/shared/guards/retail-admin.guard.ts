@@ -16,7 +16,7 @@ export class RetailAdminGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
-      console.log('4');
+    console.log('4');
     if (this.userService.roles.isAdminRetail) {
       return true;
     }

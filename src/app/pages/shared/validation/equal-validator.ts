@@ -15,8 +15,8 @@ export class EqualValidator implements Validator {
 
     private get isReverse() {
         if (!this.reverse) {
-return false;
-}
+            return false;
+        }
         return this.reverse === 'true' ? true : false;
     }
 
@@ -38,8 +38,8 @@ return false;
         if (e && v === e.value && this.isReverse) {
             delete e.errors['validateEqual'];
             if (!Object.keys(e.errors).length) {
-e.setErrors(null);
-}
+                e.setErrors(null);
+            }
         }
 
         // value not equal and reverse

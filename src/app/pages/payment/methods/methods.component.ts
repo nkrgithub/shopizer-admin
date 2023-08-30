@@ -22,7 +22,7 @@ export class PaymentMethodsComponent implements OnInit {
     this.getPaymentMethodsList();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
   getPaymentMethodsList() {
     this.loadingList = true;
     this.paymentService.getPaymentModules().subscribe(

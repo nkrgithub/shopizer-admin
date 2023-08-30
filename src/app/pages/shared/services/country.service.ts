@@ -11,7 +11,7 @@ import { CrudService } from './crud.service';
 export class CountryService {
   url = environment.apiUrl;
 
-  constructor(private crudService: CrudService, private http: HttpClient) {}
+  constructor(private crudService: CrudService, private http: HttpClient) { }
 
   // getListOfCountriesByLanguage(lang: string): Observable<Country[]> {
   getListOfCountriesByLanguage(lang: string) {

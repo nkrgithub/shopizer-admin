@@ -59,41 +59,41 @@ export class TypeDetailsComponent implements OnInit {
     };
     const typeId = this.activatedRoute.snapshot.paramMap.get('id');
     if (typeId) {
-    const types$ = this.typesService.getType(typeId, param);
-    const config$ = this.configService.getListOfSupportedLanguages(localStorage.getItem('merchant'));
-    forkJoin([types$, config$])
-      .subscribe(([productType, languages]) => {
+      const types$ = this.typesService.getType(typeId, param);
+      const config$ = this.configService.getListOfSupportedLanguages(localStorage.getItem('merchant'));
+      forkJoin([types$, config$])
+        .subscribe(([productType, languages]) => {
 
-        this.type.id = productType.id;
-        this.type.code = productType.code;
-        this.type.allowAddToCart = productType.allowAddToCart;
-        this.type.visible = productType.visible;
-        this.type.description = productType.description;
-        this.type.descriptions = productType.descriptions;
+          this.type.id = productType.id;
+          this.type.code = productType.code;
+          this.type.allowAddToCart = productType.allowAddToCart;
+          this.type.visible = productType.visible;
+          this.type.description = productType.description;
+          this.type.descriptions = productType.descriptions;
 
-        this.isReadonlyCode = true;
-        this.languages = [...languages];
-        this.createForm();
-        this.addFormArray();
-        if(this.type) {
-          this.fillForm();
-        }
+          this.isReadonlyCode = true;
+          this.languages = [...languages];
+          this.createForm();
+          this.addFormArray();
+          if (this.type) {
+            this.fillForm();
+          }
 
-        this.loading = false;
-        this.loaded = true;
+          this.loading = false;
+          this.loaded = true;
 
 
-    });
-  } else {
-    const config$ = this.configService.getListOfSupportedLanguages(localStorage.getItem('merchant'))
-      .subscribe((languages) => {
-        this.languages = [...languages];
-        this.createForm();
-        this.addFormArray();
-        this.loading = false;
-        this.loaded = true;
-    });
-  }
+        });
+    } else {
+      const config$ = this.configService.getListOfSupportedLanguages(localStorage.getItem('merchant'))
+        .subscribe((languages) => {
+          this.languages = [...languages];
+          this.createForm();
+          this.addFormArray();
+          this.loading = false;
+          this.loaded = true;
+        });
+    }
 
 
   }
@@ -138,7 +138,7 @@ export class TypeDetailsComponent implements OnInit {
     this.form.value.descriptions.forEach((desc, index) => {
       if (desc.language === this.selectedLanguage.value) {
         this.type.descriptions.forEach((d, i) => {
-          if(d.language === this.selectedLanguage.value) {
+          if (d.language === this.selectedLanguage.value) {
             (<UntypedFormArray>this.form.get('descriptions')).at(index).patchValue({
               language: d.language,
               name: d.name,

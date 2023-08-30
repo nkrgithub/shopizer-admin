@@ -1,10 +1,5 @@
 <nb-card class="page-card inner_pages">
-  <nb-card-body
-    [nbSpinner]="loadingList"
-    nbSpinnerSize="large"
-    nbSpinnerStatus="primary"
-    class="orderList"
-  >
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary" class="orderList">
     <div class="inner_pages_legacy">
       <nb-card-header class="main_header">
         <h1 class="page_title">{{ "COMPONENTS.ORDERS" | translate }}</h1>
@@ -14,9 +9,7 @@
       <form class="form-inline filter_section">
         <div class="filter_left_section"></div>
         <div class="filter_right_section" *ngIf="isSuperAdmin">
-          <ngx-store-autocomplete
-            (onStore)="onSelectStore($event)"
-          ></ngx-store-autocomplete>
+          <ngx-store-autocomplete (onStore)="onSelectStore($event)"></ngx-store-autocomplete>
           <!-- <p-dropdown *ngIf="stores.length> 0" [options]="stores" name="country" filter="true" (onChange)="onSelectStore($event)">
             <ng-template let-item pTemplate="selectedItem">{{item.label}}</ng-template>
             <ng-template let-car pTemplate="item">{{car.label}}</ng-template>
@@ -24,21 +17,11 @@
         </div>
       </form>
 
-      <angular2-smart-table
-        [settings]="settings"
-        [source]="source"
-        (custom)="route($event)"
-        class="home-table"
-      >
+      <angular2-smart-table [settings]="settings" [source]="source" (custom)="route($event)" class="home-table">
       </angular2-smart-table>
 
-      <ngx-paginator
-        (changePage)="changePage($event)"
-        [pagesToShow]="5"
-        [currentPage]="currentPage"
-        [perPage]="perPage"
-        [count]="totalCount"
-      >
+      <ngx-paginator (changePage)="changePage($event)" [pagesToShow]="5" [currentPage]="currentPage" [perPage]="perPage"
+        [count]="totalCount">
       </ngx-paginator>
     </div>
   </nb-card-body>

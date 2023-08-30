@@ -9,22 +9,22 @@ export class ListingService {
   private state: ListState;
 
   constructor() {
-      this.state = new ListState(false, false, '');
+    this.state = new ListState(false, false, '');
   }
 
   filterDetect(originparams: any, source: any, loadList, resetList: () => void) {
-    if(source==null) {
-        return;
+    if (source == null) {
+      return;
     }
 
-    if(source.filter==null) {
-        return;
+    if (source.filter == null) {
+      return;
     }
 
     const params = this.filter(source);
 
-    if(params === null) {
-        return;
+    if (params === null) {
+      return;
     }
 
     let filterValues = '';
@@ -33,7 +33,7 @@ export class ListingService {
     if (params.length != 0) {
 
       console.log('Parameters are ' + JSON.stringify(params));
-      params.forEach(function(entry) {
+      params.forEach(function (entry) {
         //console.log('Field ' + entry.field);
         //console.log('Value ' + entry.value);
         originparams[entry.field] = entry.value;
@@ -42,14 +42,14 @@ export class ListingService {
       });
 
       //preFilter
-      if(this.state.filterString != filterValues) {
+      if (this.state.filterString != filterValues) {
         this.state.filterChange = true; //block reload
         this.state.filterString = filterValues;
       }
 
       //console.log('Filter change A ? ' + this.state.filterChange);
       //filter
-      if(this.state.filterChange) {
+      if (this.state.filterChange) {
         //console.log('Filter search ' + JSON.stringify(params));
         //callback
         loadList(originparams);
@@ -67,7 +67,7 @@ export class ListingService {
       this.state.filterString = '';
       //console.log('Parameters reset ' + JSON.stringify(this.params));
       //console.log('Filter change B ? ' + this.state.filterResetable);
-      if(this.state.filterResetable) {
+      if (this.state.filterResetable) {
         //reset filters
         this.state.filterResetable = false;
         this.state.filterChange = false;
@@ -77,38 +77,38 @@ export class ListingService {
     }
   }
 
-    /**
-     *
-     * @param change returns parameters and values
-     */
+  /**
+   *
+   * @param change returns parameters and values
+   */
   private filter(change) {
     const filters = change.filter;
 
-    if(filters != null) {
+    if (filters != null) {
       const requestParam = null;
       const params = [];
 
       const self = this;
 
-      if(filters.filters == null) {
-          //console.log('Everything is null');
-          return null;
+      if (filters.filters == null) {
+        //console.log('Everything is null');
+        return null;
       }
       //console.log(JSON.stringify(filters));
 
-      filters.filters.forEach(function(filter) {
+      filters.filters.forEach(function (filter) {
 
-        if(!self.isNullOrWhiteSpace(filter.search)) {
+        if (!self.isNullOrWhiteSpace(filter.search)) {
           //console.log('---> name ' + filter.field);
           //console.log('---> value ' + filter.search);
           params.push({
             field: filter.field,
-            value:  filter.search,
+            value: filter.search,
           });
         }
       });
 
-     return params;
+      return params;
     }
   }
 

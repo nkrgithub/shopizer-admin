@@ -93,7 +93,7 @@ export class AddBoxComponent implements OnInit {
     private dialogService: NbDialogService,
     private activatedRoute: ActivatedRoute,
     private translate: TranslateService
-  ) {}
+  ) { }
 
   param() {
     return {
@@ -361,5 +361,5 @@ export class AddBoxComponent implements OnInit {
     return button.render();
   }
 
-  changeFn(event: Event) {}
+  changeFn(event: Event) { }
 }

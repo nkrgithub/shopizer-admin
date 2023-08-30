@@ -50,7 +50,9 @@
 
   @if $hasAnimations {
     $transition-duration: 500ms;
-  } @else {
+  }
+
+  @else {
     $transition-duration: 0ms;
   }
 
@@ -502,7 +504,7 @@
     font-size: 13px;
 
     &:focus,
-    &:focus + .navigation-search-icon {
+    &:focus+.navigation-search-icon {
       outline: none;
       border-color: $main-color;
     }

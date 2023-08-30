@@ -26,7 +26,7 @@ export class FilesComponent {
   }
   files: File[] = [];
   _albums: any[] = [];
-  onSelect(event) {}
+  onSelect(event) { }
   // onRemove(event) {
   //   this.files.splice(this.files.indexOf(event), 1);
   // }

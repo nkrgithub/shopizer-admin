@@ -79,9 +79,9 @@ export class AddComponent implements OnInit {
     private errorService: ErrorService,
   ) {
 
-      this.getCountry();
-      this.getLanguages();
-      this.getGroups();
+    this.getCountry();
+    this.getLanguages();
+    this.getGroups();
 
   }
 
@@ -132,39 +132,39 @@ export class AddComponent implements OnInit {
   }
 
   getCountry() {
-    this.loading=true;
+    this.loading = true;
     this.customersService.getCountry()
       .subscribe(data => {
         this.shippingCountry = data;
         this.billingCountry = data;
-        this.loading=false;
+        this.loading = false;
       }, error => {
-        this.loading=false;
+        this.loading = false;
       });
   }
 
   getLanguages() {
-    this.loading=true;
+    this.loading = true;
     this.configService.getListOfSupportedLanguages(localStorage.getItem('merchant'))
-    .subscribe(langs => {
-      this.languages = [...langs];
-      this.loading=false;
-    });
+      .subscribe(langs => {
+        this.languages = [...langs];
+        this.loading = false;
+      });
 
   }
 
   getGroups() {
-    this.loading=true;
+    this.loading = true;
     this.customersService.getGroup()
       .subscribe(data => {
         console.log('GROUPS ' + JSON.stringify(data));
         this.groups = data.filter(t => t.type === 'CUSTOMER');
         //this.groups = data;
 
-        this.loading=false;
+        this.loading = false;
       }, error => {
-        this.loading=false;
-        this.errorService.error('COMMON.SYSTEM_ERROR',error);
+        this.loading = false;
+        this.errorService.error('COMMON.SYSTEM_ERROR', error);
       });
   }
 
@@ -182,7 +182,7 @@ export class AddComponent implements OnInit {
           this.billing.zone = '';
         }
       }, error => {
-        this.errorService.error('COMMON.SYSTEM_ERROR',error);
+        this.errorService.error('COMMON.SYSTEM_ERROR', error);
       });
   }
   onShippingChange(value, flag) {
@@ -198,7 +198,7 @@ export class AddComponent implements OnInit {
           this.shipping.zone = '';
         }
       }, error => {
-        this.errorService.error('COMMON.SYSTEM_ERROR',error);
+        this.errorService.error('COMMON.SYSTEM_ERROR', error);
       });
   }
   addRole(group) {
@@ -251,7 +251,7 @@ export class AddComponent implements OnInit {
           this.goToback();
         }, error => {
           this.loading = false;
-          this.errorService.error('COMMON.SYSTEM_ERROR',error);
+          this.errorService.error('COMMON.SYSTEM_ERROR', error);
         });
     } else {
       this.loading = true;
@@ -294,7 +294,7 @@ export class AddComponent implements OnInit {
           this.goToback();
         }, error => {
           this.loading = false;
-          this.errorService.error('COMMON.SYSTEM_ERROR',error);
+          this.errorService.error('COMMON.SYSTEM_ERROR', error);
         });
     }
   }

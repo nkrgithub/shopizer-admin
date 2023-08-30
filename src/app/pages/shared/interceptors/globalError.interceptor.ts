@@ -47,8 +47,8 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
           if (error.status !== 404) {
             // this.toastr.error(errorMessage, this.translate.instant('COMMON.ERROR'));
             if (error.status === 500) {
-this.router.navigate(['/pages/error-500']);
-}
+              this.router.navigate(['/pages/error-500']);
+            }
           }
         } else if (error.status === 401) {
           this.authService.logout();

@@ -60,7 +60,7 @@ export class ProductToCategoryComponent implements OnInit {
         };
     }
     ngOnInit() {
-        this.id = this.productService.getProductIdRoute(this.router,this.location);
+        this.id = this.productService.getProductIdRoute(this.router, this.location);
 
         this.load();
 
@@ -85,7 +85,7 @@ export class ProductToCategoryComponent implements OnInit {
 
                 });
                 this.loading = false;
-        });
+            });
 
     }
 
@@ -111,7 +111,7 @@ export class ProductToCategoryComponent implements OnInit {
             }, error => {
 
             },
-        );
+            );
             // this.getList();
         }
     }
@@ -126,14 +126,14 @@ export class ProductToCategoryComponent implements OnInit {
         this.productService.addProductToCategory(productId, groupCode)
             .subscribe(res => {
                 this.load();
-        });
+            });
     }
 
     removeProductFromCategory(productId, groupCode) {
         this.productService.removeProductFromCategory(productId, groupCode)
             .subscribe(res => {
                 this.load();
-        });
+            });
     }
 
 

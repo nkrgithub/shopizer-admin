@@ -59,13 +59,13 @@ export class ConfigurationComponent {
 
 
         this.loading = false;
-    });
+      });
   }
 
   getCountry(values) {
-      values.forEach((item) => {
-        this.leftAreaItems.push({ code: item.id, label: item.name, countryCode: item.code });
-      });
+    values.forEach((item) => {
+      this.leftAreaItems.push({ code: item.id, label: item.name, countryCode: item.code });
+    });
   }
 
 

@@ -51,7 +51,7 @@ export class OptionService {
       store: this.storageService.getMerchant(),
       lang: this.storageService.getLanguage(),
     };
-    return this.crudService.get('/v1/private/product/property/set',params);
+    return this.crudService.get('/v1/private/product/property/set', params);
   }
 
   deleteOptionSet(id): Observable<any> {

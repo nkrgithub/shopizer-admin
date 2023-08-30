@@ -87,7 +87,7 @@ export class RulesComponent implements OnInit {
             });
             this.selectedActionsData = array3;
           },
-          (error) => {}
+          (error) => { }
         );
 
       // }, 3000);

@@ -13,33 +13,33 @@ export class SecurityService {
 
   isRetailAdmin(): boolean {
     //console.log(JSON.stringify(localStorage.getItem('roles')));
-    if(
+    if (
       (JSON.parse(localStorage.getItem('roles'))).isSuperadmin || (JSON.parse(localStorage.getItem('roles'))).isAdminRetail
     ) {
       return true;
-    } else  {
+    } else {
       return false;
     }
   }
 
   hasRetailAdminRole(): boolean {
     //console.log(JSON.stringify(localStorage.getItem('roles')));
-    if(
+    if (
       (JSON.parse(localStorage.getItem('roles'))).isAdminRetail
     ) {
       return true;
-    } else  {
+    } else {
       return false;
     }
   }
 
   hasAdminRole(): boolean {
     //console.log(JSON.stringify(localStorage.getItem('roles')));
-    if(
+    if (
       (JSON.parse(localStorage.getItem('roles'))).isAdmin
     ) {
       return true;
-    } else  {
+    } else {
       return false;
     }
   }
@@ -55,13 +55,13 @@ export class SecurityService {
    */
   isAnAdmin(): boolean {
     //console.log(JSON.parse(localStorage.getItem('roles')));
-    if(
+    if (
       (JSON.parse(localStorage.getItem('roles'))).isSuperadmin ||
       (JSON.parse(localStorage.getItem('roles'))).isAdmin ||
       (JSON.parse(localStorage.getItem('roles'))).isAdminRetail
     ) {
       return true;
-    } else  {
+    } else {
       return false;
     }
   }

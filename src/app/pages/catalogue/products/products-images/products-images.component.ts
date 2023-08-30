@@ -44,12 +44,12 @@ export class ProductsImagesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = this.productService.getProductIdRoute(this.router,this.location);
+    this.id = this.productService.getProductIdRoute(this.router, this.location);
     this.load();
     //specify add image url to image component
     this.addImageUrlComponent = this.productImageService.addImageUrl(this.id);
     //this only happens when /images, not when default
-    if(this.location.path().includes('images')) {
+    if (this.location.path().includes('images')) {
       const el = document.getElementById('tabs');
       el.scrollIntoView();
     }
@@ -58,11 +58,11 @@ export class ProductsImagesComponent implements OnInit {
   load() {
     this.loading = true;
     this.productImageService.getImages(this.id)
-    .subscribe(res => {
-      this.images = res;
-      this.loading = false;
-      this.loaded = true;
-    });
+      .subscribe(res => {
+        this.images = res;
+        this.loading = false;
+        this.loaded = true;
+      });
   }
 
   /** image component */

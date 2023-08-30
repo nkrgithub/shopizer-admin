@@ -23,7 +23,7 @@ export class OptionsSetListComponent implements OnInit {
     private router: Router,
     private dialogService: NbDialogService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getList();

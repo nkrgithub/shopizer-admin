@@ -21,7 +21,7 @@ export class ErrorService {
 
   error(errorCode, code) {
     this.toastrService.error(this.translateService.instant(errorCode));
-    console.log('Application error [' + errorCode + ']' + code != null ? code:'');
+    console.log('Application error [' + errorCode + ']' + code != null ? code : '');
   }
 
 

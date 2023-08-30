@@ -64,7 +64,7 @@ export class CatalogueFormComponent implements OnInit {
     const productsArray = [];
     const categoryArray = [];
     if (this.nodes.length > 0) {
-      this.nodes.forEach(function(entry) {
+      this.nodes.forEach(function (entry) {
         console.log(JSON.stringify(entry));
         //if(entry.category != null) {
         //  categoryArray.push(entry.category)

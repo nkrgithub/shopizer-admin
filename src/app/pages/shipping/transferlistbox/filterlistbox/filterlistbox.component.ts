@@ -33,7 +33,7 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
   search: string;
   activedescendentItem: string = null;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
     this.itemStateChanged.subscribe((response: any, data) => {
@@ -43,7 +43,7 @@ export class FilterlistboxComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
   /**
    * Event to capture when an item is selected
    *

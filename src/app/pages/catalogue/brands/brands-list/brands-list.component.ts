@@ -41,7 +41,7 @@ export class BrandsListComponent implements OnInit {
     private translate: TranslateService,
     private storageService: StorageService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getList();

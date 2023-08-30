@@ -128,7 +128,7 @@ export class OrderDetailsComponent implements OnInit {
         // console.log(data);
         this.transactionType = data.transactionType;
       },
-      (error) => {}
+      (error) => { }
     );
   }
   getHistory() {
@@ -137,7 +137,7 @@ export class OrderDetailsComponent implements OnInit {
         // console.log(data);
         this.historyListData = data;
       },
-      (error) => {}
+      (error) => { }
     );
     this.geTransactions();
   }
@@ -147,7 +147,7 @@ export class OrderDetailsComponent implements OnInit {
         // console.log(data);
         this.transactionListData = data;
       },
-      (error) => {}
+      (error) => { }
     );
   }
   getCountry() {
@@ -156,7 +156,7 @@ export class OrderDetailsComponent implements OnInit {
         this.shippingCountry = data;
         this.billingCountry = data;
       },
-      (error) => {}
+      (error) => { }
     );
   }
   onBillingChange(value, flag) {
@@ -172,10 +172,10 @@ export class OrderDetailsComponent implements OnInit {
           this.billing.zone = '';
         }
       },
-      (error) => {}
+      (error) => { }
     );
   }
-  onChangeStateBilling(value) {}
+  onChangeStateBilling(value) { }
   onShippingChange(value, flag) {
     this.ordersService.getShippingZone(value).subscribe(
       (data) => {
@@ -189,10 +189,10 @@ export class OrderDetailsComponent implements OnInit {
           this.shipping.zone = '';
         }
       },
-      (error) => {}
+      (error) => { }
     );
   }
-  onChangeStateShipping(value) {}
+  onChangeStateShipping(value) { }
   updateHistory() {
     this.loadingList = true;
     const param = {

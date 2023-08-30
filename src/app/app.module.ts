@@ -89,7 +89,7 @@ import { EqualValidator } from './pages/shared/validation/equal-validator';
     TranslateService,
   ],
 })
-export class AppModule {}
+export class AppModule { }
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

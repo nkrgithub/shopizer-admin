@@ -193,7 +193,7 @@ export class ImageUploadingComponent implements OnInit {
   //   this.imageList = this.images;
   // }
 
-  onUploadError(ev: HttpErrorResponse) {}
+  onUploadError(ev: HttpErrorResponse) { }
 
   errorImage(code) {
     console.log('Error image ' + code);

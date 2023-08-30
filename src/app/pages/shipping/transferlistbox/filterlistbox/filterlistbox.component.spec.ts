@@ -8,9 +8,9 @@ describe('FilterlistboxComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FilterlistboxComponent ],
+      declarations: [FilterlistboxComponent],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

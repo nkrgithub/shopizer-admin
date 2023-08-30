@@ -43,8 +43,8 @@ export class SetCredentialsComponent implements OnInit {
     private customersService: CustomersService,
     private translate: TranslateService,
     public router: Router) {
-      this.createForm();
-   }
+    this.createForm();
+  }
 
   ngOnInit(): void {
 

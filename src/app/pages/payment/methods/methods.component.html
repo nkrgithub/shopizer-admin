@@ -20,12 +20,15 @@
           <div class="grid-product">
             <div class="image bg-lightblue">
               <span class="logo-wrapper">
-              <a>
-                <img *ngIf="result.image" src="../../../../assets/img/{{result.image}}" alt="{{ result.code | translate}} " >
-                <img *ngIf="result.image == null && result.binaryImage == null" src="../../../../assets/img/noimg.png" alt="{{ result.code | translate}} " >
-                <img *ngIf="result.binaryImage" [src]="transformImage(result.binaryImage)" alt="{{ result.code | translate}} " >
-              </a>
-             </span>
+                <a>
+                  <img *ngIf="result.image" src="../../../../assets/img/{{result.image}}"
+                    alt="{{ result.code | translate}} ">
+                  <img *ngIf="result.image == null && result.binaryImage == null" src="../../../../assets/img/noimg.png"
+                    alt="{{ result.code | translate}} ">
+                  <img *ngIf="result.binaryImage" [src]="transformImage(result.binaryImage)"
+                    alt="{{ result.code | translate}} ">
+                </a>
+              </span>
             </div>
             <a class="name">{{ result.code | translate}}</a>
             <div class="name-subtext">({{result.code}})</div>
@@ -35,7 +38,7 @@
                 (click)="onClickConfigure(result.code)">
                 <label>Configure</label>
               </a>
-              
+
             </div>
           </div>
         </div>

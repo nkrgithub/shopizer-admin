@@ -17,8 +17,8 @@ export class ChangePasswordComponent implements OnInit {
   private _user: User;
 
   get user(): User {
- return this._user;
-}
+    return this._user;
+  }
   form: UntypedFormGroup;
   loader = false;
   //user: User;

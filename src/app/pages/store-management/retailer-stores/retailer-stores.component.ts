@@ -32,7 +32,7 @@ export class RetailerStoresComponent implements OnInit {
     private storeService: StoreService,
     private router: Router,
     private translate: TranslateService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getList();

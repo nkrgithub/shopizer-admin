@@ -71,7 +71,7 @@ export class BoxesComponent {
         this.source = data.items;
         this.totalCount = data.recordsTotal * data.totalPages;
       },
-      (error) => {}
+      (error) => { }
     );
     this.setSettings();
   }

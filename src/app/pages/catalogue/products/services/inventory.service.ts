@@ -28,7 +28,7 @@ export class InventoryService {
   }
 
   deleteProduct(id): Observable<any> {
-    return this.crudService.delete(`/v1/private/product/inventory/${ id }`);
+    return this.crudService.delete(`/v1/private/product/inventory/${id}`);
   }
 
   updateInventory(idProduct, idInventory, inventory): Observable<any> {

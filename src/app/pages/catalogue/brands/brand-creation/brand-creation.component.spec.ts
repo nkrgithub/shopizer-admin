@@ -8,9 +8,9 @@ describe('BrandCreationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ BrandCreationComponent ],
+      declarations: [BrandCreationComponent],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

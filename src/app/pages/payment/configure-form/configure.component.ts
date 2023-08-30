@@ -57,7 +57,7 @@ export class ConfigureComponent implements OnInit {
   ngOnInit() {
     this.error = null;
     const paymenttype = this.activatedRoute.snapshot.paramMap.get('id');
-     this.paymentType=paymenttype;
+    this.paymentType = paymenttype;
 
     this.formData = [];
 
@@ -76,7 +76,7 @@ export class ConfigureComponent implements OnInit {
     } else if (paymenttype == 'paytm') {
       this.formData = paytmData;
       this.paymentType = 'Paytm';
-    }else if (paymenttype == 'braintree') {
+    } else if (paymenttype == 'braintree') {
       this.formData = braintreeData;
       this.paymentType = 'Braintree';
     }
@@ -89,12 +89,12 @@ export class ConfigureComponent implements OnInit {
       .subscribe(data => {
         this.loadingList = false;
         this.paymentData = data;
-        if(data!=null && this.paymentData.length==0) {
+        if (data != null && this.paymentData.length == 0) {
 
         }
         this.setConfigureData();
       }, error => {
-        if(error.status === 404) {// payment not found
+        if (error.status === 404) {// payment not found
           this.error = error;
           this.errorService.error('ERROR.SYSTEM_ERROR_TEXT', 404);
         } else {

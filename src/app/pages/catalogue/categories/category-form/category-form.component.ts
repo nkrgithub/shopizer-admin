@@ -111,11 +111,11 @@ export class CategoryFormComponent implements OnInit {
         });
         this.roots.sort((a, b) => {
           if (a.code < b.code) {
-return -1;
-}
+            return -1;
+          }
           if (a.code > b.code) {
-return 1;
-}
+            return 1;
+          }
           return 0;
         });
         //this.roots = [...res.categories];
@@ -138,9 +138,9 @@ return 1;
   }
 
   getChildren(node) {
-    if(node.id === this.category.id) {
-return;
-}
+    if (node.id === this.category.id) {
+      return;
+    }
     if (node.children && node.children.length !== 0) {
       this.roots.push(node);
       node.children.forEach((el) => {
@@ -209,7 +209,7 @@ return;
   fillFormArray() {
     //each supported language
     this.form.value.descriptions.forEach((desc, index) => {
-      if(this.category != null && this.category.descriptions) {
+      if (this.category != null && this.category.descriptions) {
         this.category.descriptions.forEach((description) => {
           if (desc.language === description.language) {
             //6 fields + language
@@ -375,8 +375,8 @@ return;
       Object.keys(form.controls).forEach(field => {
         const control = form.get(field);
         if (control.invalid) {
-invalidControls.push(field);
-}
+          invalidControls.push(field);
+        }
         if (control instanceof UntypedFormGroup) {
           recursiveFunc(control);
         } else if (control instanceof UntypedFormArray) {

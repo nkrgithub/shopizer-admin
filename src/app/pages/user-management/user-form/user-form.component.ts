@@ -28,8 +28,8 @@ export class UserFormComponent implements OnInit {
   }
 
   get user(): User {
- return this._user;
-}
+    return this._user;
+  }
 
   languages = [];
   groups = [];

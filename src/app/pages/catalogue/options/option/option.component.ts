@@ -46,20 +46,20 @@ export class OptionComponent implements OnInit {
     this.createForm();
 
     this.configService.getListOfSupportedLanguages(localStorage.getItem('merchant'))
-       .subscribe(res => {
+      .subscribe(res => {
         this.languages = [...res];
         this.addFormArray();
         if (optionId) {
           this.optionService.getOptionById(optionId).subscribe(res => {
             this.option = res;
             this.fillForm();//bind content to the form
-            this.loader=false;
-         });
+            this.loader = false;
+          });
         } else {
-          this.loader=false;
+          this.loader = false;
         }
 
-    });
+      });
   }
 
   get selectedLanguage() {
@@ -90,7 +90,7 @@ export class OptionComponent implements OnInit {
       control.push(
         this.fb.group({
           language: [lang.code, []],
-           name: ['', []],
+          name: ['', []],
         }),
       );
     });

@@ -29,4 +29,4 @@ import {
     ngfModule,
   ],
 })
-export class ContentModule {}
+export class ContentModule { }

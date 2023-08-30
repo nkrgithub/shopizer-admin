@@ -1,10 +1,5 @@
 <nb-card class="page-card inner_pages">
-  <nb-card-body
-    [nbSpinner]="loadingList"
-    nbSpinnerSize="large"
-    nbSpinnerStatus="primary"
-    class="optionValueList"
-  >
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary" class="optionValueList">
     <div class="inner_pages_legacy">
       <nb-card-header class="main_header">
         <h1 class="page_title">
@@ -20,39 +15,20 @@
           </p-dropdown> -->
         </div>
         <div class="filter_right_section">
-          <ngx-store-autocomplete
-            (onStore)="onSelectStore($event)"
-          ></ngx-store-autocomplete>
-          <a
-            class="createBtn"
-            [routerLink]="['/pages/catalogue/options/create-option-value']"
-          >
-            <img
-              class="pointer sda"
-              src="../../../../assets/img/plus.png"
-              title="{{ 'COMPONENTS.CREATE_OPTION_VALUE' | translate }}"
-              alt=""
-            />
+          <ngx-store-autocomplete (onStore)="onSelectStore($event)"></ngx-store-autocomplete>
+          <a class="createBtn" [routerLink]="['/pages/catalogue/options/create-option-value']">
+            <img class="pointer sda" src="../../../../assets/img/plus.png"
+              title="{{ 'COMPONENTS.CREATE_OPTION_VALUE' | translate }}" alt="" />
             <label>{{ "COMPONENTS.CREATE_OPTION_VALUE" | translate }}</label>
           </a>
         </div>
       </form>
 
-      <angular2-smart-table
-        [settings]="settings"
-        [source]="source"
-        (custom)="onClickAction($event)"
-        class="home-table"
-      >
+      <angular2-smart-table [settings]="settings" [source]="source" (custom)="onClickAction($event)" class="home-table">
       </angular2-smart-table>
 
-      <ngx-paginator
-        (changePage)="changePage($event)"
-        [pagesToShow]="5"
-        [currentPage]="currentPage"
-        [perPage]="perPage"
-        [count]="totalCount"
-      >
+      <ngx-paginator (changePage)="changePage($event)" [pagesToShow]="5" [currentPage]="currentPage" [perPage]="perPage"
+        [count]="totalCount">
       </ngx-paginator>
     </div>
   </nb-card-body>

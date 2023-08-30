@@ -8,9 +8,9 @@ describe('OptionValuesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ OptionValuesComponent ],
+      declarations: [OptionValuesComponent],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

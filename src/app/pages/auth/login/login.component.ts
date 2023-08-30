@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService,
     private translate: TranslateService
-  ) {}
+  ) { }
 
   ngOnInit() {
     document.getElementsByTagName('body')[0].className += ' nb-theme-corporate';

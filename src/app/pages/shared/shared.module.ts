@@ -75,4 +75,4 @@ import { ValidateNumberDirective } from './validation/validate-number.directive'
   ],
   providers: [CurrencyPipe],
 })
-export class SharedModule {}
+export class SharedModule { }

@@ -3,11 +3,7 @@
   <nb-card-header>
     {{ "COMPONENTS.RETAILER_STORE_LIST" | translate }}
   </nb-card-header>
-  <nb-card-body
-    [nbSpinner]="loadingList"
-    nbSpinnerSize="large"
-    nbSpinnerStatus="primary"
-  >
+  <nb-card-body [nbSpinner]="loadingList" nbSpinnerSize="large" nbSpinnerStatus="primary">
     <!--    <nb-actions size="medium" class="back-button">-->
     <!--      <nb-action>-->
     <!--        <i class="fas fa-plus"></i>&nbsp;-->
@@ -20,14 +16,8 @@
     <angular2-smart-table [settings]="settings" [source]="source">
     </angular2-smart-table>
 
-    <ngx-paginator
-      (changePage)="changePage($event)"
-      [pagesToShow]="5"
-      [currentPage]="currentPage"
-      [perPage]="perPage"
-      [count]="totalCount"
-      (custom)="route($event)"
-    >
+    <ngx-paginator (changePage)="changePage($event)" [pagesToShow]="5" [currentPage]="currentPage" [perPage]="perPage"
+      [count]="totalCount" (custom)="route($event)">
     </ngx-paginator>
   </nb-card-body>
 </nb-card>

@@ -10,7 +10,7 @@ export class UploadComponent {
   validDrag = false;
   @Input() multi: string;
 
-  @Input() onUpload = (files: File[]) => {};
+  @Input() onUpload = (files: File[]) => { };
 
   onFilesChange() {
     this.onUpload([...this.files]);

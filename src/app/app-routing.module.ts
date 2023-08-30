@@ -5,12 +5,12 @@ import { ErrorComponent } from '../app/@theme/components/error/error.component';
 import { ImageBrowserComponent } from './@theme/components/image-browser/image-browser.component';
 import { ResetPasswordComponent } from './pages/auth/resetpassword/reset.component';
 const routes: Routes = [
-  { path: 'auth', loadChildren: () => import('app/pages/auth/auth.module').then(m => m.AuthModule) },
+  { path: 'auth', loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule) },
   { path: 'errorPage', component: ErrorComponent },
   { path: 'user/:id/reset/:id', component: ResetPasswordComponent },
   {
     path: 'pages',
-    loadChildren: () => import('app/pages/pages.module').then(m => m.PagesModule),
+    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
     canActivate: [AuthGuard],
   },
   { path: 'gallery', component: ImageBrowserComponent },
@@ -28,4 +28,4 @@ const config: ExtraOptions = {
   imports: [RouterModule.forRoot(routes, config)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -5,7 +5,7 @@ import { CrudService } from '../../shared/services/crud.service';
   providedIn: 'root',
 })
 export class SharedService {
-  constructor(private crudService: CrudService) {}
+  constructor(private crudService: CrudService) { }
 
   private subject = new Subject<any>();
   private subject1 = new Subject<any>();

@@ -11,7 +11,7 @@ export class StoreService {
   constructor(
     private crudService: CrudService,
     private storageService: StorageService
-  ) {}
+  ) { }
 
   getStore(code): Observable<any> {
     return this.crudService.get(`/v1/store/${code}`);

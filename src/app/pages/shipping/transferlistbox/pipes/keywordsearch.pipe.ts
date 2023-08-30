@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class KeywordsearchPipe implements PipeTransform {
 
   public transform(value: any, key: string, term: string) {
-    if(value==null){
+    if (value == null) {
       return;
     }
     return value.filter((item) => {

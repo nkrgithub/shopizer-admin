@@ -23,16 +23,16 @@ export class MarketplaceGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean {
 
-      // do not show environment (mode) is marketplace and user not superamdin
-      if('MARKETPLACE' === this.mode) {
-        if(this.securityService.isSuperAdmin()) {
-          return true;
-        }
-      } else {//B2C
-        if(this.securityService.isAnAdmin()) {
-          return true;
-        }
-     }
+    // do not show environment (mode) is marketplace and user not superamdin
+    if ('MARKETPLACE' === this.mode) {
+      if (this.securityService.isSuperAdmin()) {
+        return true;
+      }
+    } else {//B2C
+      if (this.securityService.isAnAdmin()) {
+        return true;
+      }
+    }
 
     this.router.navigate(['home']);
 

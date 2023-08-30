@@ -4,7 +4,7 @@ import { CrudService } from '../../../shared/services/crud.service';
 import { Observable } from 'rxjs';
 import { StorageService } from '../../../shared/services/storage.service';
 import { UrlTree, UrlSegment, UrlSegmentGroup, ActivatedRoute, Router, PRIMARY_OUTLET } from '@angular/router';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',

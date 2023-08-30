@@ -27,14 +27,14 @@ export class ButtonRenderUserComponent {
 
   clicked() {
     this.rowData.active = !this.value;
-    if(this.rowData.id ===  parseInt(this.storageService.getUserId())) {
+    if (this.rowData.id === parseInt(this.storageService.getUserId())) {
       this.dialogService.open(ShowcaseDialogComponent, {
         context: {
           title: '',
           text: '',
-          actionText : this.translate.instant('USER_FORM.CANT_UPDATE_YOUR_PROFILE'),
-          },
-        });
+          actionText: this.translate.instant('USER_FORM.CANT_UPDATE_YOUR_PROFILE'),
+        },
+      });
     } else {
       this.userService.updateUserEnabled(this.rowData)
         .subscribe(res => {

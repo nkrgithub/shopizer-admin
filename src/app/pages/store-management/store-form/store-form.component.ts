@@ -456,8 +456,8 @@ export class StoreFormComponent implements OnInit {
 
   userHasSupportedLanguage(language) {
     if (!this.store || !this.store.supportedLanguages) {
-return false;
-}
+      return false;
+    }
     return this.store.supportedLanguages.find((l: any) => l.code === language.code);
   }
 
