@@ -40,12 +40,22 @@ import 'core-js/es6/date';
 import 'core-js/es6/array';
 import 'core-js/es6/regexp';
 import 'core-js/es6/map';
-import 'core-js/es6/set';  // Run `npm install --save classlist.js`.  // Run `npm install --save web-animations-js`.
+import 'core-js/es6/set';
+
+/**  IE10andIE11requiresthefollowingforNgClasssupportonSVGelements*/
+//import'classlist.js';// Run `npm install --save classlist.js`.
+
+/**  IE10andIE11requiresthefollowingtosupport`@angular/animation`.*/
+//import 'web-animations-js';//Run `npm install --save web-animations-js`.
 
 
 /** Evergreen browsers require these. **/
 import 'core-js/es6/reflect';
 import 'core-js/es7/reflect';
+
+
+/**ALLFirefoxbrowsersrequirethefollowingtosupport`@angular/animation`.**/
+//import'web-animations-js';//Run`npminstall--saveweb-animations-js`.
 
 
 /***************************************************************************************************
